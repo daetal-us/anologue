@@ -1,0 +1,65 @@
+<?php
+
+namespace app\controllers;
+
+use \app\models\Anologue;
+
+class AnologueController extends \lithium\action\Controller {
+	
+	public function index() {
+		$this->render();
+	}
+	
+	public function say() {
+		$status = 'error';
+		if (!empty($this->request->params['id'])) {
+			$data = $this->request->data;
+			if (!empty($data)) {
+				$result = Anologue::addMessage($this->request->params['id'], $data);
+				if ($result->ok) {
+					$status = 'success';
+				} else {
+					$status = 'fail';
+				}
+			}
+		}
+		$this->render(array('json' => $this->_jsend($status)));
+	}
+	
+	public function view() {
+		if (!empty($this->request->params['id'])) {
+			$anologue = Anologue::findById($this->request->params['id']);
+			$this->set(compact('anologue'));
+			$this->render();
+		}
+	}
+	
+	public function add() {
+		$anologue = Anologue::create();
+		$this->redirect(array('controller' => 'anologue', 'action' => 'view', 'id' => $anologue->_id));
+	}
+	
+	public function json() {
+		$status = 'error';
+		$anologue = false;
+		if (!empty($this->request->params['id'])) {
+			$status = 'fail';
+			$anologue = Anologue::findById($this->request->params['id']);
+			if ($anologue) {
+				$status = "success";
+			}
+		}
+		$data = new \stdClass();
+		$data->anologue = $anologue;
+		$this->render(array('json' => $this->_jsend($status, $data)));
+	}
+	
+	protected function _jsend($status = "fail", $data = null) {
+		$jsend = new \stdClass();
+		$jsend->status = $status;
+		$jsend->data = $data;
+		return $jsend;
+	}
+}
+
+?>
