@@ -61,7 +61,7 @@ var anologue = {
 		var timeroo = new Date();
 		var timestamp = timeroo.getHours() + ':' + timeroo.getMinutes() + ':' + timeroo.getSeconds();
 		var id = 'message-' + $.md5(message.timestamp + message.author);
-		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + $.md5(message.email) + '?s=16&d=http://li3.rad-dev.org/img/icons/silk/shading.png" border="0" /> &laquo; ' + message.author + ' &raquo; </li><li class="text"><div class="markdown">' + message.text + '</div></li></ul></li>';
+		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + $.md5(message.email) + '?s=16&d=http://li3.rad-dev.org/img/icons/silk/shading.png" border="0" /> &laquo; ' + message.author + ' &raquo; </li><li class="text"><div class="markdown">' + message.text + '</div></li></ul></li>';
 		$("#anologue").append(html)
 		$('#'+id).animate({
 			opacity: 'show',

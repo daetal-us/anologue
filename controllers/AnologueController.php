@@ -14,6 +14,7 @@ class AnologueController extends \lithium\action\Controller {
 		$status = 'error';
 		if (!empty($this->request->params['id'])) {
 			$data = $this->request->data;
+			$data['ip'] = $this->request->get('env:REMOTE_ADDR');
 			if (!empty($data)) {
 				$result = Anologue::addMessage($this->request->params['id'], $data);
 				if ($result->ok) {

@@ -25,7 +25,8 @@ p { padding:.5em 0; }
 			.anologue .data { position:relative; }
 			.anologue .data li { display:block; padding:.5em; position:absolute; left:0; top:0; }
 		.anologue li.time { opacity:.05; white-space:nowrap; text-align:center; width:4em; }
-		.anologue .message:hover li.time { opacity:.25; }
+		.anologue li.ip { opacity:.05; whitespace:nowrap; text-align:left; width:4em; left:.25em; top:1.6em; font-size:.85em; }
+		.anologue .message:hover li.time, .anologue .message:hover li.ip { opacity:.25; }
 		.anologue li.author { font-weight:bold; white-space:nowrap; text-align:right; width:14em; left:5em; padding:1em .5em; }
 			.anologue li.author img { opacity:.5; float:right; margin:0 0 0 .5em; }
 			.anologue .message:hover li.author img { opacity:1; }

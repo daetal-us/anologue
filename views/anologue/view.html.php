@@ -23,6 +23,7 @@
 		<li class="message" id="message-<?=md5($message->timestamp . $message->author);?>">
 			<ul class="data">
 				<li class="time"><?=@date('G:i:s', $message->timestamp);?></li>
+				<li class="ip"><?=$message->ip;?></li>
 				<li class="author">
 					<img class="gravatar" src="http://gravatar.com/avatar/<?=@md5($message->email);?>?s=16&d=http://li3.rad-dev.org/img/icons/silk/shading.png" border="0" /> 
 					&laquo; <?=$message->author;?> &raquo;

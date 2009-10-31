@@ -17,6 +17,7 @@ class Anologue extends \lithium\core\StaticObject {
 		),
 		'message' => array(
 			'author' => 'anonymous',
+			'ip' => null,
 			'email' => null,
 			'timestamp' => null,
 			'text' => null
@@ -67,7 +68,11 @@ class Anologue extends \lithium\core\StaticObject {
 	public static function encodeMessages($messages = array()) {
 		if (!empty($messages)) {
 			foreach ($messages as $key => $message) {
-				$message->text = rawurlencode($message->text);
+				if (is_object($message)) {
+					$message->text = rawurlencode($message->text);
+				} else {
+					$message['text'] = rawurlencode($message['text']);
+				}
 				$messages[$key] = $message;
 			}
 		}
