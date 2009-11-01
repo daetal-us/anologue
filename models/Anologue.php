@@ -56,6 +56,7 @@ class Anologue extends \lithium\core\StaticObject {
 			$id = null;
 			$anologue = static::create();
 		}
+		$message['email'] = md5($message['email']);
 		$message = $message + array('timestamp' => time()) + static::$_schema['message'];
 		$anologue->messages[] = $message;
 		$anologue->messages = static::encodeMessages($anologue->messages);

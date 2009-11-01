@@ -1,20 +1,30 @@
+<h1 class="smaller-title"><a href="/">anologue</a></h1>
+
 <form id="anologue-form">
 
 <div class="anologue-settings">
 	<div>
 		<label for="anologue-author">Name</label>
-		<input type="text" name="anologue-author" id="anologue-author" value="anonymous" />
+		<input type="text" name="anologue-author" id="anologue-author" />
 	</div>
 	<div>
 		<label for="anologue-email">Email</label>
-		<input type="text" name="anologue-email" id="anologue-email" value="" />
+		<input type="text" name="anologue-email" id="anologue-email" />
 	</div>
 	<div>
 		<label for="anologue-scroll">disable auto-scroll </label><input name="anologue-scroll" id="anologue-scroll" type="checkbox" value="disable" />
 	</div>
+	<div class="sound">
+		<label for="anologue-sound">disable sounds </label><input name="anologue-sound" id="anologue-sound" type="checkbox" value="disable" />
+	</div>
 </div>
 
-<h1 class="smaller-title"><a href="/">anologue</a></h1>
+<div class="anologue-help">
+	<p><strong>welcome to anologue.</strong></p>
+	<p>to get started, type your text in the grey box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
+	<p><strong>for your privacy,</strong> your email is only used to generate your gravatar and is stored in an unreadable, encoded format.</p>
+</div>
+
 <h3 class="hash"><?php echo $this->html->link($anologue->_id, array('action' => 'view', 'id' => $anologue->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
 
 <ul id="anologue" class="anologue">
@@ -25,7 +35,7 @@
 				<li class="time"><?=date('G:i:s', $message->timestamp);?></li>
 				<li class="ip"><?=$message->ip;?></li>
 				<li class="author">
-					<img class="gravatar" src="http://gravatar.com/avatar/<?=@md5($message->email);?>?s=16&d=http://anologue.li3/img/anonymous.png" border="0" /> 
+					<img class="gravatar" src="http://gravatar.com/avatar/<?=$message->email;?>?s=16&d=http://anologue.li3/img/anonymous.png" border="0" /> 
 					&laquo; <?=$message->author;?> &raquo;
 				</li>
 				<li class="text"><div class="markdown"><?=$message->text;?></div></li>
