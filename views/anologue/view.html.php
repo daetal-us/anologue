@@ -46,6 +46,8 @@
 
 </form>
 
+<audio id="anologue-speaker"></audio>
+
 <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="/js/md5.jquery.js"></script>
 <script type="text/javascript" src="/js/showdown.js"></script>

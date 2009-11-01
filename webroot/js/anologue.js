@@ -21,6 +21,7 @@ var anologue = {
 		});
 		this.markdown();
 		this.listener();
+		this.setupSpeaker();
 		$('html, body').animate({
 			scrollTop: $('.message:last-child').offset().top
 		}, 'slow', 'swing');
@@ -75,6 +76,23 @@ var anologue = {
 				scrollTop: $('#'+id).offset().top
 			}, 'normal');
 		}
+		this.hey();
+	},
+	
+	setupSpeaker: function() {
+		var speaker = $("#anologue-speaker");
+		speaker.attr('controls', false);
+		speaker.attr('autobuffer', true);
+		speaker.attr('autoplay', false);
+		var tape = '/media/hey.mp3';
+		if ($.browser.mozilla) {
+			tape = '/media/hey.ogg';
+		}
+		speaker.attr('src', tape);
+	},
+	
+	hey: function() {
+		$('#anologue-speaker').get(0).play();
 	},
 	
 	alert: function(message) {
