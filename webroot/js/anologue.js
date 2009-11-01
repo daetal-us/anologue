@@ -1,8 +1,9 @@
 var anologue = {
 	_config: {
+		timeout: null,
 		line: 0,
 		anologue: {},
-		converter: {}
+		converter: {},
 	},
 	
 	setup: function(config) {
@@ -41,7 +42,7 @@ var anologue = {
 					anologue.markdown();
 				}
 			}
-			setTimeout(function() { anologue.listener(); }, 1000);
+			anologue._config.timeout = setTimeout(function() { anologue.listener(); }, 1000);
 		});
 	},
 	
@@ -52,8 +53,9 @@ var anologue = {
 			text: $('#anologue-text').val()
 		}
 		$("#anologue-text").val("");
+		clearTimeout(this._config.timeout);
 		$.post("/say/" + this._config.anologue._id, data, function(response) {
-			// nada
+			anologue.listener();
 		});
 	},
 	
@@ -61,7 +63,7 @@ var anologue = {
 		var timeroo = new Date();
 		var timestamp = timeroo.getHours() + ':' + timeroo.getMinutes() + ':' + timeroo.getSeconds();
 		var id = 'message-' + $.md5(message.timestamp + message.author);
-		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + $.md5(message.email) + '?s=16&d=http://li3.rad-dev.org/img/icons/silk/shading.png" border="0" /> &laquo; ' + message.author + ' &raquo; </li><li class="text"><div class="markdown">' + message.text + '</div></li></ul></li>';
+		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + $.md5(message.email) + '?s=16&d=http://anologue.li3/img/anonymous.png" border="0" /> &laquo; ' + $('<div/>').text(message.author).html() + ' &raquo; </li><li class="text"><div class="markdown">' + $('<div/>').text(message.text).html() + '</div></li></ul></li>';
 		$("#anologue").append(html)
 		$('#'+id).animate({
 			opacity: 'show',
@@ -83,8 +85,8 @@ var anologue = {
 	markdown: function() {
 		$('.markdown').each(function() {
 			if (!$(this).hasClass('marked')) {
-				var text = anologue._config.converter.makeHtml($(this).text());
-				$(this).replaceWith(text).addClass('marked');
+				var text = anologue._config.converter.makeHtml($(this).html());
+				$(this).html(text).addClass('marked');
 			}
 		});
 	}
