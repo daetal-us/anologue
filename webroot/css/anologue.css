@@ -36,7 +36,7 @@ p.last { padding:.5em 0 4em 0; }
 			.anologue .text .markdown {  }
 		
 	.anologue-speak { position:fixed; z-index:50; bottom:0; left:0; display:block; padding:.5em 2%; width:96%; clear:both; background-color:rgba(0,0,0,.75); color:white; }
-		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.65em; padding:.5em; width:20.5em; color:rgba(255,255,255,.75); }
+		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.65em; padding:.5em; width:20.5em; color:rgba(255,255,255,.75); text-align:center; }
 			.anologue-speak .label img { padding:.25em 0 0 0; opacity:.5; }
 			.anologue-speak .label img:hover { opacity:1; }
 		.anologue-speak .text { padding:0 0 0 19.5em; font-size:.65em; }

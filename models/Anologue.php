@@ -44,10 +44,8 @@ class Anologue extends \lithium\core\StaticObject {
 			unset($result->ok);
 			unset($result->id);
 			unset($result->rev);
-			$result->messages = static::decodeMessages($result->messages);
-			return $result;
 		}
-		return null;
+		return $result;
 	}
 	
 	public static function addMessage($id = null, $message = array()) {

@@ -36,7 +36,8 @@
 </ul>
 
 <div class="anologue-speak">
-		<span class="label">Enter your message to the right and press [enter]. <a href="http://daringfireball.net/projects/markdown/basics" target="_markdown">MarkDown</a> supported.<br />
+		<span class="label">
+			<a href="http://spacialeffect.com" target="_spacial"><img src="http://spacialeffect.com/spacial-effect-w.png" alt="a spacial effect collaborative" border="0" /></a><br />
 			<a href="http://li3.rad-dev.org" target="_li3"><img src="http://imgur.com/6eddU.gif" alt="powered by lithium" border="0" /></a>
 		</span>
 		<div class="text">

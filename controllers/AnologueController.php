@@ -37,6 +37,9 @@ class AnologueController extends \lithium\action\Controller {
 	
 	public function add() {
 		$anologue = Anologue::create();
+		if (!empty($anologue->error)) {
+			throw new \Exception('CouchDB Error: ' . $anologue->error . ' | Reason: ' . $anologue->reason);
+		}
 		$this->redirect(array('controller' => 'anologue', 'action' => 'view', 'id' => $anologue->_id));
 	}
 	
