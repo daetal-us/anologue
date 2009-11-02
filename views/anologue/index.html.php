@@ -1,9 +1,9 @@
-<div id="anologue-new"><a href="/new">start an anologue &raquo;</a></div>
+<div id="anologue-new"><?php echo $this->html->link('start an anologue &raquo;', array('controller' => 'anologue', 'action' => 'add'), array('escape' => false)); ?></div>
 
 <div class="header">
 	<header>
 		<div class="width-constraint">
-			<img id="anologue-logo" src="/img/anologue.png" alt="a" />
+			<?php echo $this->html->image('/img/anologue.png', array('id' => 'anologue-logo')); ?>
 			<h1 class="title">anologue</h1>
 		</div>
 	</header>
@@ -24,26 +24,27 @@
 
 	<div class="aside excellence">
 		<aside>
-		<img id="anologue-excellent" src="/img/excellent.jpg" alt="sixty-nine, dudes!" />
+			<?php echo $this->html->image('/img/excellent.jpg', array('alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent')); ?>
 		<span>your future us's use anologue!</span>
 		</aside>
 	</div>
 
-	<p><strong>anologue</strong> is like comments, meets im, meets irc, meets <a href="http://pastium.org">your favorite paste app</a>, meets instant coffee.</p>
+	<p><strong>anologue</strong> is like comments, meets im, meets irc, meets <?php echo $this->html->link('your favorite paste app', 'http://pastium.org'); ?>, meets instant coffee.</p>
 	<p>actually, instant coffee sucks.</p>
 	<p>with anologue you can quickly and easily engage in an anonymous (or not) linear dialogue with any number of people (within reason).</p>
 	<p><strong>no accounts. no installations. no way?! <em>yes, way!</em></strong></p>
-	<p><a href="/new">your "chat room" is created by the time this link loads</a>. invite whoever you want by giving them your unique link, and chat away.</p>
+	<p><?php echo $this->html->link('your "chat room" is created by the time this link loads', array('controller' => 'anologue', 'action' => 'add')); ?>. invite whoever you want by giving them your unique link, and chat away.</p>
 
 	<h2 class="sub">let's make this better, together</h2>
 
-	<p>perhaps best of all: <a href="http://rad-dev.org/projects/lithium_anologue">this is open source</a>. built with <a href="http://php.net" target="_php">php 5.3</a>, using the most non-heinous, totally rad <a href="http://li3.rad-dev.org" target="_li3">lithium framework</a>, <a href="http://couchdb.apache.org" target="_couch">couchdb</a>, <a href="http://jquery.com" target="_jquery">jquery</a> and a few other scripts; all coming together for the creamy goodness you're about to experience.</p>
+	<p>perhaps best of all: <?php echo $this->html->link('this is open source', 'http://rad-dev.org/lithium_anologue'); ?>. built with <?php echo $this->html->link('php 5.3', 'http://php.net'); ?>, using the most non-heinous, totally rad <?php echo $this->html->link('lithium framework', 'http://li3.rad-dev.org'); ?>, <?php echo $this->html->link('couchdb', 'http://couchdb.apache.org'); ?>, <?php echo $this->html->link('jquery', 'http://jquery.com'); ?> and a few other scripts; all coming together for the creamy goodness you're about to experience.</p>
 	<p class="last">contribute to the core or download the source and setup your own. this one's for you, internets.</p>
 	</article>
 </div>
 
 <div class="footer">
 	<footer>
-		<a href="http://li3.rad-dev.org" target="_li3"><img src="http://imgur.com/6eddU.gif" alt="powered by lithium" border="0" /></a>
+		<?php echo $this->html->link($this->html->image('http://imgur.com/6eddU.gif', array('border' => 0, 'alt' => 'powered by lithium')), 'http://li3.rad-dev.org', array('escape' => false)); ?>
+		<?php echo $this->html->script('http://www.ohloh.net/p/471008/widgets/project_users_logo.js'); ?>
 	</footer>
 </div>

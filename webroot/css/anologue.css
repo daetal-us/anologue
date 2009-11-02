@@ -24,7 +24,7 @@ p.last { padding:.5em 0 4em 0; }
 .header { background:#4c2c59 url(/img/bg.png); padding:2em 1em; margin:0 0 1em 0; }
 	.header .aside { text-align:right; vertical-align:bottom; }
 .footer { text-align:center; padding:0 0 2em 0; }
-	.footer a { border:none; }
+	.footer a { border:none; margin:0 auto; }
 
 #anologue-new a { display:block; font-weight:bold; padding:1em; font-size:2em; float:right; background:black; background:rgba(0,0,0,.35); color:white; border:none; }
 #anologue-logo { padding:0 2.75em; display:block; }

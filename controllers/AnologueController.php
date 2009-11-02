@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use \app\models\Anologue;
+use \lithium\http\Media;
 
 class AnologueController extends \lithium\action\Controller {
 	
@@ -29,6 +30,7 @@ class AnologueController extends \lithium\action\Controller {
 	}
 	
 	public function view() {
+		$anonymousAvatar = Media::asset('anonymous.png', 'image');
 		if (!empty($this->request->params['id'])) {
 			$anologue = Anologue::findById($this->request->params['id']);
 			$this->set(compact('anologue'));

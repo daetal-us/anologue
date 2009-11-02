@@ -1,4 +1,4 @@
-<h1 class="smaller-title"><a href="/">anologue</a></h1>
+<h1 class="smaller-title"><?php echo $this->html->link('anologue', array('controller' => 'anologue', 'action' => 'index')); ?></h1>
 
 <form id="anologue-form">
 
@@ -22,7 +22,7 @@
 <div class="anologue-help">
 	<p><strong>hello.</strong></p>
 	<p>to get started, type your text in the grey box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
-	<p><strong>for your privacy,</strong> your email is only used to generate your <a href="http://gravatar.com" target="_gravatar">gravatar</a> and is stored in an unreadable, encoded format.</p>
+	<p><strong>for your privacy,</strong> your email is only used to generate your <?php echo $this->html->link('gravatar', 'http://gravatar.com'); ?> and is stored in an unreadable, encoded format.</p>
 </div>
 
 <h3 class="hash"><?php echo $this->html->link($anologue->_id, array('action' => 'view', 'id' => $anologue->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
@@ -30,16 +30,15 @@
 <ul id="anologue" class="anologue">
 <?php if (!empty($anologue->messages)) { ?>
 	<?php foreach ($anologue->messages as $key => $message) { ?>
-		<li class="message" id="message-<?=md5($message->timestamp . $message->author);?>">
+		<li class="message" id="message-<?php echo md5($message->timestamp . $message->author);?>">
 			<ul class="data">
-				<li class="time"><?=date('G:i:s', $message->timestamp);?></li>
-				<li class="ip"><?=$message->ip;?></li>
+				<li class="time"><?php echo date('G:i:s', $message->timestamp);?></li>
+				<li class="ip"><?php echo $message->ip;?></li>
 				<li class="author">
-
-					<img class="gravatar" src="http://gravatar.com/avatar/<?=$message->email;?>?s=16&d=http://<?php echo $_SERVER['HTTP_HOST']; ?>/img/anonymous.png" border="0" /> 
-					&laquo; <?=$message->author;?> &raquo;
+					<?php echo $this->html->image('http://gravatar.com/avatar/<?php echo $message->email;?>?s=16&d=http://'.$_SERVER['HTTP_HOST'].'/img/anonymous.png'); ?>
+					&laquo; <?php echo $message->author;?> &raquo;
 				</li>
-				<li class="text"><div class="markdown"><?=$message->text;?></div></li>
+				<li class="text"><div class="markdown"><?php echo $message->text; ?></div></li>
 			</ul>
 		</li>
 	<?php } ?>
@@ -51,7 +50,7 @@
 			<label for="anologue-text">you say: </label>
 		</span>
 		<span class="label about">
-			<a href="/">what is anologue?</a>
+			<?php echo $this->html->link('what is anologue?', array('controller' => 'anologue', 'action' => 'index')); ?>
 		</span>
 		<div class="text">
 			<textarea name="anologue-text" id="anologue-text"></textarea>
