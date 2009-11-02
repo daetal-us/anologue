@@ -37,7 +37,7 @@
 
 	<h2 class="sub">let's make this better, together</h2>
 
-	<p>perhaps best of all: <a href="http://rad-dev.org/projects/lithium_anologue">this is open source</a>. built with <a href="http://php.net" target="_php">php 5.3</a>, using the most non-heinous, totally rad <A href="http://li3.rad-dev.org" target="_li3">lithium framework</a>, <a href="http://couchdb.apache.org" target="_couch">couchdb</a>, <a href="http://jquery.com" target="_jquery">jquery</a> and a few other scripts; all coming together for the creamy goodness you're about to experience.</p>
+	<p>perhaps best of all: <a href="http://rad-dev.org/projects/lithium_anologue">this is open source</a>. built with <a href="http://php.net" target="_php">php 5.3</a>, using the most non-heinous, totally rad <a href="http://li3.rad-dev.org" target="_li3">lithium framework</a>, <a href="http://couchdb.apache.org" target="_couch">couchdb</a>, <a href="http://jquery.com" target="_jquery">jquery</a> and a few other scripts; all coming together for the creamy goodness you're about to experience.</p>
 	<p class="last">contribute to the core or download the source and setup your own. this one's for you, internets.</p>
 	</article>
 </div>

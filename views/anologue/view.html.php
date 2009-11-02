@@ -35,7 +35,8 @@
 				<li class="time"><?=date('G:i:s', $message->timestamp);?></li>
 				<li class="ip"><?=$message->ip;?></li>
 				<li class="author">
-					<img class="gravatar" src="http://gravatar.com/avatar/<?=$message->email;?>?s=16&d=http://anologue.li3/img/anonymous.png" border="0" /> 
+
+					<img class="gravatar" src="http://gravatar.com/avatar/<?=$message->email;?>?s=16&d=http://<?php echo $_SERVER['HTTP_HOST']; ?>/img/anonymous.png" border="0" /> 
 					&laquo; <?=$message->author;?> &raquo;
 				</li>
 				<li class="text"><div class="markdown"><?=$message->text;?></div></li>
@@ -61,13 +62,15 @@
 
 <audio id="anologue-speaker"></audio>
 
-<script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="/js/md5.jquery.js"></script>
-<script type="text/javascript" src="/js/showdown.js"></script>
-<script type="text/javascript" src="/js/anologue.js"></script>
+<?php echo $this->html->script(array(
+	'http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js',
+	'/js/md5.jquery.js',
+	'/js/showdown.js',
+	'/js/anologue.js',
+)); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		anologue.setup({line: <?php echo count($anologue->messages); ?>, anologue: <?php echo json_encode($anologue); ?>});
+		anologue.setup({line: <?php echo count($anologue->messages); ?>, anologue: <?php echo json_encode($anologue); ?>, icon: 'http://<?php echo $_SERVER['HTTP_HOST']; ?>/img/anonymous.png' });
 	});
 </script>
 
