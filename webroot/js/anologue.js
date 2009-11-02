@@ -77,7 +77,7 @@ var anologue = {
 		if (!soundDisabled) {
 			// lazy check to not trigger sound on your message
 			var user = $('#anologue-author').val();
-			if (message.author != user) {
+			if (message.author != user && user != '') {
 				var userRegex = new RegExp(user.toLowerCase(), 'i');
 				if (userRegex.test(message.text)) {
 					this.hey();
