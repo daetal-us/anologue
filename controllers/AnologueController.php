@@ -7,6 +7,7 @@ use \app\models\Anologue;
 class AnologueController extends \lithium\action\Controller {
 	
 	public function index() {
+		$this->set(array('index' => true));
 		$this->render();
 	}
 	
@@ -17,7 +18,7 @@ class AnologueController extends \lithium\action\Controller {
 			$data['ip'] = $this->request->get('env:REMOTE_ADDR');
 			if (!empty($data)) {
 				$result = Anologue::addMessage($this->request->params['id'], $data);
-				if ($result->ok) {
+				if (!empty($result->ok)) {
 					$status = 'success';
 				} else {
 					$status = 'fail';

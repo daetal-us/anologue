@@ -1,19 +1,13 @@
 <!doctype html>
 <html>
-<head>
-	<?=@$this->html->charset(); ?>
-	<title>anologue</title>
-	<?=@$this->html->style('anologue'); ?>
-	<?=@$this->scripts(); ?>
-	<?=@$this->html->link('Icon', null, array('type' => 'icon')); ?>
-</head>
-<body>
-	<div id="container">
-		<div id="header"></div>
-		<div id="content">
-			<?=@$this->content; ?>
-		</div>
-		<div id="footer"></div>
-	</div>
-</body>
+	<head>
+		<?php echo $this->html->charset(); ?>
+		<title>anologue</title>
+		<?php echo $this->html->style('anologue'); ?>
+		<?php echo $this->scripts(); ?>
+		<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
+	</head>
+	<body<?php echo (!empty($index)) ? ' class="index"' : null; ?>>
+		<?php echo $this->content; ?>
+	</body>
 </html>

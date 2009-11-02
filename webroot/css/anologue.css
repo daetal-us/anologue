@@ -1,21 +1,36 @@
 * { margin:0; padding:0; }
+
 h1.title { font-size:4em; opacity:.5; }
 h1.smaller-title { float:left; }
-	h1 a { color:black; opacity:.05; }
+	h1 a { color:black; opacity:.05; border:none; }
 	h1 a:hover { color:black; opacity:.15; }
-h2.sub { font-size:3em; font-weight:normal; opacity:.5; margin:1em 0 .25em 0; }
+h2.sub { font-size:3em; font-weight:normal; opacity:.5; margin:.5em 0 0 0;  }
 h3.hash { opacity:.5; clear:left; float:left; }
-	h3.hash a:hover { color:#00737F; }
-a { color:#00737F; text-decoration:none; }
-a:hover { color:#00E5FF; }
+	h3.hash a { border:none; }
+	h3.hash a:hover { }
+	
+a { color:#4c2c59; text-decoration:none; border-bottom:1px dotted #77458c; }
+a:hover { color:#77458c; }
+
 html, body, input, password, textarea { background:white; color:black; font-family:Helvetica, Arial, sans-serif; }
 body { padding:1em; }
+body.index { padding:0; }
+
 p { padding:.5em 0; }
 p.last { padding:.5em 0 4em 0; }
 
-#anologue-new a { display:block; font-weight:bold; padding:1em; font-size:2em; float:right; }
-#anologue-logo { padding:0 2em; display:block; }
-#anologue-excellent { float:right; padding:0 0 1em 1em; }
+.width-constraint { display:block; width:1002px; margin:0 auto; }
+
+.header { background:#4c2c59 url(/img/bg.png); padding:2em 1em; margin:0 0 1em 0; }
+	.header .aside { text-align:right; vertical-align:bottom; }
+.footer { text-align:center; padding:0 0 2em 0; }
+	.footer a { border:none; }
+
+#anologue-new a { display:block; font-weight:bold; padding:1em; font-size:2em; float:right; background:black; background:rgba(0,0,0,.35); color:white; border:none; }
+#anologue-logo { padding:0 2.75em; display:block; }
+.excellence { float:right; padding:1em; background:#fafafa; margin:0 0 1em 1em; }
+	.excellence img { margin:0 0 .5em 0; border:1em solid #f0f0f0; }
+	.excellence span { display:block; font-style:italic; font-size:.65em; text-align:center; }
 
 	.anologue-settings { display:block; float:right; text-align:right; padding:.5em .75em 1em 1em; background:#e7e7e7; background-color:rgba(0,0,0,.15); font-size:.65em; }
 		.anologue-settings label { opacity:.35; }
@@ -32,14 +47,15 @@ p.last { padding:.5em 0 4em 0; }
 		.anologue li.author { font-weight:bold; white-space:nowrap; text-align:right; width:14em; left:5em; padding:1em .5em; }
 			.anologue li.author img { float:right; margin:0 0 0 .5em; }
 		.anologue li.text { position:relative; padding:.5em .5em .5em 20.5em; min-height:1em; }
+			.anologue .text a { border-bottom:1px dotted #77458c; }
 			.anologue .text .markdown {  }
 		
-	.anologue-speak { position:fixed; z-index:50; bottom:0; left:0; display:block; padding:.5em 2%; width:96%; clear:both; background:#333; background-color:rgba(0,0,0,.75); color:white; }
-		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.65em; padding:.5em; width:20.5em; color:rgba(255,255,255,.75); text-align:center; }
-			.anologue-speak .label img { padding:.25em 0 0 0; opacity:.5; }
-			.anologue-speak .label img:hover { opacity:1; }
+	.anologue-speak { position:fixed; z-index:50; bottom:0; left:0; display:block; padding:.5em 2%; width:96%; clear:both; background:#4c2c59 url(/img/bg.png); color:white; }
+		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.65em; padding:.5em 1em; width:19.5em; color:white; text-align:right; }
+		.anologue-speak .label.about { top:3.5em; text-align:left; }
+			.anologue-speak .label.about a { color:white; color:#77458c; border:none; }
 		.anologue-speak .text { padding:0 0 0 19.5em; font-size:.65em; }
-			.anologue-speak textarea { display:block; width:96%; border:0; padding:.5em 1em; height:4em; font-size:1em; color:white; background:#666; background:rgba(255,255,255,.25); overflow:hidden; }
-			.anologue-speak textarea:focus { outline:0; background:#999; background:rgba(255,255,255,.5); }
+			.anologue-speak textarea { display:block; width:96%; border:0; padding:.5em 1em; height:4em; font-size:1em; color:white; background:#666; background:rgba(0,0,0,.35); overflow:hidden; }
+			.anologue-speak textarea:focus { outline:0; background:#999; background:rgba(0,0,0,.5); }
 
 	

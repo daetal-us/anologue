@@ -20,9 +20,9 @@
 </div>
 
 <div class="anologue-help">
-	<p><strong>welcome to anologue.</strong></p>
+	<p><strong>hello.</strong></p>
 	<p>to get started, type your text in the grey box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
-	<p><strong>for your privacy,</strong> your email is only used to generate your gravatar and is stored in an unreadable, encoded format.</p>
+	<p><strong>for your privacy,</strong> your email is only used to generate your <a href="http://gravatar.com" target="_gravatar">gravatar</a> and is stored in an unreadable, encoded format.</p>
 </div>
 
 <h3 class="hash"><?php echo $this->html->link($anologue->_id, array('action' => 'view', 'id' => $anologue->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
@@ -47,8 +47,10 @@
 
 <div class="anologue-speak">
 		<span class="label">
-			<a href="http://spacialeffect.com" target="_spacial"><img src="http://spacialeffect.com/spacial-effect-w.png" alt="a spacial effect collaborative" border="0" /></a><br />
-			<a href="http://li3.rad-dev.org" target="_li3"><img src="http://imgur.com/6eddU.gif" alt="powered by lithium" border="0" /></a>
+			<label for="anologue-text">you say: </label>
+		</span>
+		<span class="label about">
+			<a href="/">what is anologue?</a>
 		</span>
 		<div class="text">
 			<textarea name="anologue-text" id="anologue-text"></textarea>
