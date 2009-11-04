@@ -40,7 +40,7 @@ p.last { padding:.5em 0 4em 0; }
 		.anologue .message { display:block; background:#fafafa; border-bottom:1px solid #f0f0f0; vertical-align:top; font-size:.65em; min-height:3em; }
 		.anologue .message:hover { background:white; }
 			.anologue .data { position:relative; }
-			.anologue .data li { display:block; padding:.5em; position:absolute; left:0; top:0; }
+			.anologue .data > li { display:block; padding:.5em; position:absolute; left:0; top:0; }
 		.anologue li.time { opacity:.05; white-space:nowrap; text-align:center; width:4em; }
 		.anologue li.ip { opacity:.05; whitespace:nowrap; text-align:left; width:4em; left:.25em; top:1.6em; font-size:.85em; }
 		.anologue .message:hover li.time, .anologue .message:hover li.ip { opacity:.25; }
@@ -50,6 +50,7 @@ p.last { padding:.5em 0 4em 0; }
 		.anologue li.text { position:relative; padding:.5em .5em .5em 20.5em; min-height:1em; }
 			.anologue .text a { border-bottom:1px dotted #77458c; }
 			.anologue .text .markdown {  }
+			.anologue .text .markdown ul { padding:.25em 1em; }
 		
 	.anologue-speak { position:fixed; z-index:50; bottom:0; left:0; display:block; padding:.5em 2%; width:96%; clear:both; background:#4c2c59 url(/img/bg.png); color:white; }
 		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.65em; padding:.5em 1em; width:19.5em; color:white; text-align:right; }
