@@ -36,9 +36,9 @@
 				<li class="ip"><?php echo $message->ip;?></li>
 				<li class="author">
 					<?php echo $this->html->image('http://gravatar.com/avatar/<?php echo $message->email;?>?s=16&d=http://'.$_SERVER['HTTP_HOST'].'/img/anonymous.png'); ?>
-					&laquo; <?php echo $message->author;?> &raquo;
+					<span title="<?php echo $this->html->escape($message->author);?>">&laquo; <?php echo $this->html->escape($message->author);?> &raquo;</span>
 				</li>
-				<li class="text"><div class="markdown"><?php echo $message->text; ?></div></li>
+				<li class="text"><div class="markdown"><?php echo $this->html->escape($message->text); ?></div></li>
 			</ul>
 		</li>
 	<?php } ?>
