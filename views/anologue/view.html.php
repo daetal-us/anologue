@@ -21,7 +21,7 @@
 
 <div class="anologue-help">
 	<p><strong>hello.</strong></p>
-	<p>to get started, type your text in the grey box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
+	<p>to get started, type your text in the box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
 	<p><strong>for your privacy,</strong> your email is only used to generate your <?php echo $this->html->link('gravatar', 'http://gravatar.com'); ?> and is stored in an unreadable, encoded format.</p>
 </div>
 
@@ -35,7 +35,7 @@
 				<li class="time"><?php echo date('G:i:s', $message->timestamp);?></li>
 				<li class="ip"><?php echo $message->ip;?></li>
 				<li class="author">
-					<?php echo $this->html->image('http://gravatar.com/avatar/<?php echo $message->email;?>?s=16&d=http://'.$_SERVER['HTTP_HOST'].'/img/anonymous.png'); ?>
+					<?php echo $this->html->image('http://gravatar.com/avatar/'.$message->email.'?s=16&d=http://'.$_SERVER['HTTP_HOST'].'/img/anonymous.png'); ?>
 					<span title="<?php echo $this->html->escape($message->author);?>">&laquo; <?php echo $this->html->escape($message->author);?> &raquo;</span>
 				</li>
 				<li class="text"><div class="markdown"><?php echo $this->html->escape($message->text); ?></div></li>
