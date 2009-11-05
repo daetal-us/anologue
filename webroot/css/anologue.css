@@ -1,7 +1,7 @@
 * { margin:0; padding:0; }
 
 h1.title { font-size:4em; opacity:.5; }
-h1.smaller-title { float:left; }
+h1.smaller-title { float:;left; }
 	h1 a { color:black; opacity:.05; border:none; }
 	h1 a:hover { color:black; opacity:.15; }
 h2.sub { font-size:3em; font-weight:normal; opacity:.5; margin:.5em 0 0 0;  }
@@ -31,13 +31,13 @@ p.last { padding:.5em 0 4em 0; }
 .excellence { float:right; padding:1em; background:#fafafa; margin:0 0 1em 1em; }
 	.excellence img { margin:0 0 .5em 0; border:1em solid #f0f0f0; }
 	.excellence span { display:block; font-style:italic; font-size:.65em; text-align:center; }
-
-	.anologue-settings { display:block; float:right; text-align:right; padding:.5em .75em 1em 1em; background:#e7e7e7; background-color:rgba(0,0,0,.15); font-size:.65em; }
-		.anologue-settings label { opacity:.35; }
-		.anologue-settings input { font-size:.85em; padding:.5em; margin:.25em 0 0 0; border:0; }
-	.anologue-help { display:block; float:right; padding: .5em 2em; text-align:left; font-size:.65em; }
-	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:1em 0 4em 0; }
-		.anologue .message { display:block; background:#fafafa; border-bottom:1px solid #f0f0f0; vertical-align:top; font-size:.65em; min-height:3em; }
+	.anologue-settings { display:block; float:right; text-align:right; padding:.5em .75em 1em 1em; background:#e7e7e7; background-color:rgba(0,0,0,.15); font-size:.85em; z-index:50; }
+		.anologue-settings label { font-weight:bold; opacity:.35; }
+		.anologue-settings input { border:1px solid #666; font-size:.85em; padding:.5em; margin:.25em 0 0 0; border:0; }
+	.anologue-help { clear:left; float:left; opacity:.5; display:block; padding: .5em 2em; text-align:left; font-size:.85em; }
+	.anologue-help:hover { opacity:.75; }
+	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:0 0 4em 0; padding:2em 0 0; }
+		.anologue .message { display:block; background:#fafafa; border-bottom:1px solid #f0f0f0; vertical-align:top; font-size:.85em; min-height:3em; }
 		.anologue .message:hover { background:white; }
 			.anologue .data { position:relative; }
 			.anologue .data > li { display:block; padding:.5em; position:absolute; left:0; top:0; }
@@ -53,10 +53,10 @@ p.last { padding:.5em 0 4em 0; }
 			.anologue .text .markdown ul { padding:.25em 1em; }
 		
 	.anologue-speak { position:fixed; z-index:50; bottom:0; left:0; display:block; padding:.5em 2%; width:96%; clear:both; background:#4c2c59 url(/img/bg.png); color:white; }
-		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.65em; padding:.5em 1em; width:19.5em; color:white; text-align:right; }
-		.anologue-speak .label.about { top:3.5em; text-align:left; }
+		.anologue-speak span.label { display:block; position:absolute; z-index:100; top:.5em; left:.5em; font-size:.85em; padding:.5em 1em; width:19.5em; color:white; text-align:right; }
+		.anologue-speak .label.about { top:3em; text-align:left; }
 			.anologue-speak .label.about a { color:white; color:#77458c; border:none; }
-		.anologue-speak .text { padding:0 0 0 19.5em; font-size:.65em; }
+		.anologue-speak .text { padding:0 0 0 19.5em; font-size:.85em; }
 			.anologue-speak textarea { display:block; width:96%; border:0; padding:.5em 1em; height:4em; font-size:1em; color:white; background:#666; background:rgba(0,0,0,.35); overflow:hidden; }
 			.anologue-speak textarea:focus { outline:0; background:#999; background:rgba(0,0,0,.5); }
 

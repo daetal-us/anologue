@@ -1,5 +1,3 @@
-<h1 class="smaller-title"><?php echo $this->html->link('anologue', array('controller' => 'anologue', 'action' => 'index')); ?></h1>
-
 <form id="anologue-form">
 
 <div class="anologue-settings">
@@ -19,13 +17,15 @@
 	</div>
 </div>
 
+<h1 class="smaller-title"><?php echo $this->html->link('anologue', array('controller' => 'anologue', 'action' => 'index')); ?></h1>
+<h3 class="hash"><?php echo $this->html->link($anologue->_id, array('action' => 'view', 'id' => $anologue->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
+
+
 <div class="anologue-help">
 	<p><strong>hello.</strong></p>
 	<p>to get started, type your text in the box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
 	<p><strong>for your privacy,</strong> your email is only used to generate your <?php echo $this->html->link('gravatar', 'http://gravatar.com'); ?> and is stored in an unreadable, encoded format.</p>
 </div>
-
-<h3 class="hash"><?php echo $this->html->link($anologue->_id, array('action' => 'view', 'id' => $anologue->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
 
 <ul id="anologue" class="anologue">
 <?php if (!empty($anologue->messages)) { ?>
