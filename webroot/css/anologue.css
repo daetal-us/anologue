@@ -31,23 +31,22 @@ p.last { padding:.5em 0 4em 0; }
 .excellence { float:right; padding:1em; background:#fafafa; margin:0 0 1em 1em; }
 	.excellence img { margin:0 0 .5em 0; border:1em solid #f0f0f0; }
 	.excellence span { display:block; font-style:italic; font-size:.65em; text-align:center; }
-	.anologue-settings { display:block; float:right; text-align:right; padding:.5em .75em 1em 1em; background:#e7e7e7; background-color:rgba(0,0,0,.15); font-size:.85em; z-index:50; }
+	.anologue-settings { display:block; float:right; text-align:right; padding:.5em .75em 1em 1em; background:#ededed;  font-size:.85em; z-index:50; }
 		.anologue-settings label { font-weight:bold; opacity:.35; }
 		.anologue-settings input { border:1px solid #666; font-size:.85em; padding:.5em; margin:.25em 0 0 0; border:0; }
 	.anologue-help { clear:left; float:left; opacity:.5; display:block; padding: .5em 2em; text-align:left; font-size:.85em; }
-	.anologue-help:hover { opacity:.75; }
 	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:0 0 4em 0; padding:2em 0 0; }
-		.anologue .message { display:block; background:#fafafa; border-bottom:1px solid #f0f0f0; vertical-align:top; font-size:.85em; min-height:3em; }
+		.anologue .message { position:relative; display:block; background:#fafafa; border-bottom:3px solid white; vertical-align:top; font-size:.85em; min-height:3em; }
 		.anologue .message:hover { background:white; }
 			.anologue .data { position:relative; }
 			.anologue .data > li { display:block; padding:.5em; position:absolute; left:0; top:0; }
-		.anologue li.time { opacity:.05; white-space:nowrap; text-align:center; width:4em; }
-		.anologue li.ip { opacity:.05; whitespace:nowrap; text-align:left; width:4em; left:.25em; top:1.6em; font-size:.85em; }
+		.anologue li.time { position:absolute; z-index:50; opacity:.05; white-space:nowrap; text-align:center; width:4em; top:0; left:0; }
+		.anologue li.ip { position:absolute; z-index:50; opacity:.05; whitespace:nowrap; text-align:left; width:4em; left:.25em; top:1.6em; font-size:.85em; }
 		.anologue .message:hover li.time, .anologue .message:hover li.ip { opacity:.25; }
-		.anologue li.author { font-weight:bold; white-space:nowrap; text-align:right; width:14em; left:5em; padding:1em .5em; }
+		.anologue li.author { font-weight:bold; white-space:nowrap; text-align:right; width:14em; padding:1em .5em 1em 5.5em; background:#ededed; }
 			.anologue li.author img { float:right; margin:0 0 0 .5em; }
-			.anologue li.author span { max-width:11em; overflow:hidden; display:block; }
-		.anologue li.text { position:relative; padding:.5em .5em .5em 20.5em; min-height:1em; }
+			.anologue li.author span { max-width:12em; overflow:hidden; display:block; }
+		.anologue li.text { position:relative; padding:.5em .5em .5em 2em; margin:0 0 0 19.90em; background:url(../img/pointer.png) no-repeat top left; in-height:1em; }
 			.anologue .text a { border-bottom:1px dotted #77458c; }
 			.anologue .text .markdown {  }
 			.anologue .text .markdown ul { padding:.25em 1em; }

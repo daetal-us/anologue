@@ -1,5 +1,9 @@
 <?php
-	$avatar = 'http://'.$_SERVER['HTTP_HOST'].'/'.$this->_request->env('base').'/img/anonymous.png';
+	$base = $this->_request->env('base');
+	if ((!empty($base)) && !preg_match('/^\//', $base)) {
+		$base = '/' . $base;
+	}
+	$avatar = 'http://'.$_SERVER['HTTP_HOST'].$base.'/img/anonymous.png';
 ?>
 <form id="anologue-form">
 
