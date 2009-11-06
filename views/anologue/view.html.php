@@ -1,3 +1,6 @@
+<?php
+	$avatar = 'http://'.$_SERVER['HTTP_HOST'].'/'.$this->_request->env('base').'/img/anonymous.png';
+?>
 <form id="anologue-form">
 
 <div class="anologue-settings">
@@ -18,7 +21,7 @@
 </div>
 
 <h1 class="smaller-title"><?php echo $this->html->link('anologue', array('controller' => 'anologue', 'action' => 'index')); ?></h1>
-<h3 class="hash"><?php echo $this->html->link($anologue->_id, array('action' => 'view', 'id' => $anologue->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
+<h3 class="hash"><?php echo $this->html->link($data->_id, array('action' => 'view', 'id' => $data->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
 
 
 <div class="anologue-help">
@@ -28,14 +31,15 @@
 </div>
 
 <ul id="anologue" class="anologue">
-<?php if (!empty($anologue->messages)) { ?>
-	<?php foreach ($anologue->messages as $key => $message) { ?>
+<?php if (!empty($data->messages)) { ?>
+	<?php foreach ($data->messages as $key => $message) { ?>
 		<li class="message" id="message-<?php echo md5($message->timestamp . $message->author);?>">
 			<ul class="data">
 				<li class="time"><?php echo date('G:i:s', $message->timestamp);?></li>
 				<li class="ip"><?php echo $message->ip;?></li>
 				<li class="author">
-					<?php echo $this->html->image('http://gravatar.com/avatar/'.$message->email.'?s=16&d=http://'.$_SERVER['HTTP_HOST'].'/img/anonymous.png'); ?>
+					<?php echo $this->html->image(
+						"http://gravatar.com/avatar/{$message->email}?s=16&d={$avatar}"); ?>
 					<span title="<?php echo $this->html->escape($message->author);?>">&laquo; <?php echo $this->html->escape($message->author);?> &raquo;</span>
 				</li>
 				<li class="text"><div class="markdown"><?php echo $this->html->escape($message->text); ?></div></li>
@@ -63,13 +67,15 @@
 
 <?php echo $this->html->script(array(
 	'http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js',
-	'/js/md5.jquery.js',
-	'/js/showdown.js',
-	'/js/anologue.js',
+	'md5.jquery.js', 'showdown.js', 'anologue.js',
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		anologue.setup({line: <?php echo count($anologue->messages); ?>, anologue: <?php echo json_encode($anologue); ?>, icon: 'http://<?php echo $_SERVER['HTTP_HOST']; ?>/img/anonymous.png' });
+		anologue.setup({
+			id: '<?=$data->_id?>',
+			base: '<?php echo $this->_request->env('base') ?>',
+			line: <?php echo count($data->messages); ?>,
+			icon: '<?php echo $avatar; ?>'
+		});
 	});
 </script>
-

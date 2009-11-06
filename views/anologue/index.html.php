@@ -3,7 +3,7 @@
 <div class="header">
 	<header>
 		<div class="width-constraint">
-			<?php echo $this->html->image('/img/anologue.png', array('id' => 'anologue-logo')); ?>
+			<?php echo $this->html->image('anologue.png', array('id' => 'anologue-logo')); ?>
 			<h1 class="title">anologue</h1>
 		</div>
 	</header>
@@ -24,7 +24,7 @@
 
 	<div class="aside excellence">
 		<aside>
-			<?php echo $this->html->image('/img/excellent.jpg', array('alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent')); ?>
+			<?php echo $this->html->image('excellent.jpg', array('alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent')); ?>
 		<span>your future us's use anologue!</span>
 		</aside>
 	</div>

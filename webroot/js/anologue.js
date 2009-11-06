@@ -1,16 +1,13 @@
 var anologue = {
 	_config: {
-		timeout: null,
+		id: 0,
+		base : null,
 		line: 0,
-		anologue: {},
-		converter: {},
-		lastInput: null,
 		icon: null
 	},
-	
+
 	setup: function(config) {
 		this._config = config;
-		this._config.converter = new Showdown.converter();
 		$("#anologue-form").submit(function() {
 			anologue.say();
 			return false;
@@ -23,28 +20,41 @@ var anologue = {
 		});
 		this.markdown();
 		this.listener();
-		this.setupSpeaker();
 		$("#anologue-author").focus();
 	},
-	
+
+	//the set time out method
+	timeout: null,
+
+	//setup the listener on a timeout
+	run: function () {
+		clearTimeout(this.timeout);
+		this.timeout = setTimeout(function() {
+			anologue.listener();
+		}, 2000);
+	},
+
+	//get messages
 	listener: function() {
-		$.getJSON('/json/' + this._config.anologue._id + '?_='+(new Date().getTime()), null, function(response) {
+		var url = this._config.base + '/' + this._config.id + '.json?_=' + (new Date().getTime());
+		$.getJSON(url, function(response) {
 			if (response.status != "success") {
 				return anologue.alert(response.status);
 			}
-			anologue._config.anologue  = response.data.anologue;
-			if (response.data.anologue.messages != null) {
-				for (var i = anologue._config.line; i < response.data.anologue.messages.length; i++) {
-					anologue.push(response.data.anologue.messages[i]);
+			if (response.data.messages != null) {
+				for (var i = anologue._config.line; i < response.data.messages.length; i++) {
+					anologue.render(response.data.messages[i]);
 					anologue._config.line++;
 				}
 				anologue.markdown();
+				anologue.run();
 			}
-			anologue._config.timeout = setTimeout(function() { anologue.listener(); }, 2000);
 		});
 	},
-	
+
+	//add message
 	say: function() {
+		clearTimeout(this.timeout);
 		var data = {
 			author: $('#anologue-author').val(),
 			email: $('#anologue-email').val(),
@@ -53,21 +63,21 @@ var anologue = {
 		if (data.author == '') {
 			data.author = 'anonymous';
 		}
-		this._config.lastInput = $("#anologue-text").val();
+		var input = $("#anologue-text").val();
 		$("#anologue-text").val("");
-		clearTimeout(this._config.timeout);
-		$.post("/say/" + this._config.anologue._id, data, function(response) {
-			
+		$.post(this._config.base + "/say/" + this._config.id, data, function(response) {
 			if (response.status != 'success') {
-				$("#anologue-text").val(anologue._config.lastInput);
+				$("#anologue-text").val(input);
 				// this might occur if someone sends an update at the same time...
 				anologue.alert('Hold your horses, Spammy McSpamsky. Wait until your last message goes through and try sending your message again.');
 			}
 			anologue.listener();
 		}, "json");
+
 	},
-	
-	push: function(message) {
+
+	//output messages
+	render: function(message) {
 		var timeroo = new Date();
 		var timestamp = timeroo.getHours() + ':' + timeroo.getMinutes() + ':' + timeroo.getSeconds();
 		var id = 'message-' + $.md5(message.timestamp + message.author);
@@ -95,15 +105,15 @@ var anologue = {
 			}, 'normal');
 		}
 	},
-	
+
 	setupSpeaker: function() {
 		if (!$.browser.msie) {
 			var speaker = $("#anologue-speaker");
 			speaker.attr('controls', false);
 			speaker.attr('autobuffer', true);
-			var tape = '/media/hey.mp3';
+			var tape = this._config.base + '/media/hey.mp3';
 			if ($.browser.mozilla) {
-				tape = '/media/hey.ogg';
+				tape = this._config.base + '/media/hey.ogg';
 			}
 			speaker.attr('src', tape);
 			this.hey();
@@ -111,22 +121,23 @@ var anologue = {
 			$('.sound').hide();
 		}
 	},
-	
+
 	hey: function() {
 		if (!$.browser.msie) {
 			$('#anologue-speaker').get(0).play();
 		}
 	},
-	
+
 	alert: function(message) {
 		alert(message);
 		return null;
 	},
-	
+
 	markdown: function() {
 		$('.markdown').each(function() {
 			if (!$(this).hasClass('marked')) {
-				var text = anologue._config.converter.makeHtml($(this).html());
+				var showdown = new Showdown.converter();
+				var text = showdown.makeHtml($(this).html());
 				$(this).html(text).addClass('marked');
 			}
 		});
