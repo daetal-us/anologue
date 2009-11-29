@@ -25,12 +25,12 @@
 </div>
 
 <h1 class="smaller-title"><?php echo $this->html->link('anologue', array('controller' => 'anologue', 'action' => 'index')); ?></h1>
-<h3 class="hash"><?php echo $this->html->link($data->_id, array('action' => 'view', 'id' => $data->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
+<h3 class="hash"><?php echo $this->html->link($data->id, array('action' => 'view', 'id' => $data->_id), array('title' => 'Copy this url and give it to others')); ?></h3>
 
 
 <div class="anologue-help">
 	<p><strong>hello.</strong></p>
-	<p>to get started, type your text in the box at the very bottom and press &lt;enter&gt;. <br />markdown is supported, to an extent.</p>
+	<p>to get started, type your text in the box at the very bottom and click 'send'. <br />markdown is supported, to an extent.</p>
 	<p><strong>for your privacy,</strong> your email is only used to generate your <?php echo $this->html->link('gravatar', 'http://gravatar.com'); ?> and is stored in an unreadable, encoded format.</p>
 </div>
 
@@ -63,6 +63,9 @@
 		<div class="text">
 			<textarea name="anologue-text" id="anologue-text"></textarea>
 		</div>
+		<div class="submit">
+			<button id="anologue-submit"><span>send</span></button>
+		</div>
 </div>
 
 </form>
@@ -76,7 +79,7 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		anologue.setup({
-			id: '<?=$data->_id?>',
+			id: '<?=$data->id?>',
 			base: '<?php echo $this->_request->env('base') ?>',
 			line: <?php echo count($data->messages); ?>,
 			icon: '<?php echo $avatar; ?>'

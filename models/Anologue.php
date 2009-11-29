@@ -2,90 +2,69 @@
 
 namespace app\models;
 
-use \lithium\data\Connections;
+use \lithium\data\model\Document;
 
 /**
- * Data model for anologue store in couchdb.
+ * The core model and messages container for Anologue.
+ *
+ * @see lithium\data\Model
  */
-class Anologue extends \lithium\core\StaticObject {
+class Anologue extends \lithium\data\Model {
 
-	public static $alias = 'anologue';
+	public static $alias = 'Anologue';
 	
-	protected static $_schema = array(
-		'anologue' => array(
-			'messages' => null
-		),
-		'message' => array(
-			'author' => 'anonymous',
-			'ip' => null,
-			'email' => null,
-			'timestamp' => null,
-			'text' => null
-		)
-	);
-	
-	protected static $_meta = array(
+	/**
+	 * Anologue meta
+	 *
+	 * @var array
+	 * @see lithium\data\Model::$_meta
+	 */
+	protected $_meta = array(
 		'source' => 'anologue'
 	);
 	
-	public static function findById($id) {
-		$uri = static::$_meta['source'] . '/' . $id;
-		$result = Connections::get('couch')->get($uri);
-		$result->messages = static::decodeMessages($result->messages);
-		return $result;
+	/**
+	 * Default key/values for messages.
+	 * 
+	 * @var array
+	 * @see app\models\Anologue::addMessage()
+	 */
+	protected static $_defaultMessage = array(
+		'author' => 'anonymous',
+		'ip' => null,
+		'email' => null,
+		'timestamp' => null,
+		'text' => null
+	);
+	
+	/**
+	 * Create a new analogue using schema.
+	 *
+	 * @param array $data
+	 * @return void
+	 * @see lithium\data\Model::create()
+	 */
+	public static function create($data = array()) {
+		$default = array(
+			'messages' => null
+		);
+		$data = $data + $default;
+		return parent::create($data);
 	}
 	
-	public static function create() {
-		$data = static::$_schema['anologue'];
-		$result = Connections::get('couch')->post(static::$_meta['source'], $data);
-		if (!empty($result->ok)) {
-			$result->_id = $result->id;
-			$result->_rev = $result->rev;
-			unset($result->ok);
-			unset($result->id);
-			unset($result->rev);
-		}
-		return $result;
-	}
-	
-	public static function addMessage($id = null, $message = array()) {
-		if (!empty($id) && is_string($id)) {
-			$anologue = static::findById($id);
-		} else {
-			$message = $id;
-			$id = null;
-			$anologue = static::create();
-		}
+	/**
+	 * Append a message to an existing anologue. For user privacy, hashes the email before saving.
+	 *
+	 * @param integer $id
+	 * @param array $message
+	 * @see lithium\data\Model::save()
+	 */
+	public static function addMessage($id, $message = array()) {
+		$anologue = static::find($id);
 		$message['email'] = md5($message['email']);
-		$message = $message + array('timestamp' => time()) + static::$_schema['message'];
-		$anologue->messages[] = $message;
-		$anologue->messages = static::encodeMessages($anologue->messages);
-		$result = Connections::get('couch')->post(static::$_meta['source'], $anologue);
-		return $result;
-	}
-	
-	public static function encodeMessages($messages = array()) {
-		if (!empty($messages)) {
-			foreach ($messages as $key => $message) {
-				if (is_object($message)) {
-					$message->text = rawurlencode($message->text);
-				} else {
-					$message['text'] = rawurlencode($message['text']);
-				}
-				$messages[$key] = $message;
-			}
-		}
-		return $messages;
-	}
-	
-	public static function decodeMessages($messages = array()) {
-		if (!empty($messages)) {
-			foreach ($messages as $key => $message) {
-				$message->text = rawurldecode($message->text);
-				$messages[$key] = $message;
-			}
-		}
-		return $messages;
+		$message = $message + array('timestamp' => time()) + static::$_defaultMessage;
+		$anologue->messages->append($message);		
+		return $anologue->save();
 	}
 }
 

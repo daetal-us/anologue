@@ -12,15 +12,13 @@ var anologue = {
 			anologue.say();
 			return false;
 		});
-		$("#anologue-text").keypress(function(e) {
-			if (e.which == 13) {
-				anologue.say();
-				return false;
-			}
+		$("#anologue-submit").click(function(e) {
+			anologue.say();
+			return false;
 		});
 		this.markdown();
 		this.listener();
-		$(".anologue-speak").css("bottom", '-200px').animate({ bottom: 0}, 3000);
+		$(".anologue-speak").css("bottom", '-200px').animate({ bottom: 0, opacity: 100}, 3000);
 		$("#anologue-author").focus();
 	},
 
