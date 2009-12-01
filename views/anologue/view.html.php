@@ -46,7 +46,7 @@
 						"http://gravatar.com/avatar/{$message->email}?s=16&d={$avatar}"); ?>
 					<span title="<?php echo $this->html->escape($message->author);?>">&laquo; <?php echo $this->html->escape($message->author);?> &raquo;</span>
 				</li>
-				<li class="text"><div class="markdown"><?php echo $this->html->escape($message->text); ?></div></li>
+				<li class="text"><div class="markdown"><pre><?php echo $this->html->escape($message->text); ?></pre></div></li>
 			</ul>
 		</li>
 	<?php } ?>

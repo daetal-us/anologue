@@ -18,7 +18,7 @@ var anologue = {
 		});
 		this.markdown();
 		this.listener();
-		$(".anologue-speak").css("bottom", '-200px').animate({ bottom: 0, opacity: 100}, 3000);
+		$(".anologue-speak").css("bottom", '-200px').animate({bottom: 0}, 3000);
 		$("#anologue-author").focus();
 	},
 
@@ -80,7 +80,7 @@ var anologue = {
 		var timeroo = new Date();
 		var timestamp = timeroo.getHours() + ':' + timeroo.getMinutes() + ':' + timeroo.getSeconds();
 		var id = 'message-' + $.md5(message.timestamp + message.author);
-		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + message.email + '?s=16&d=' + this._config.icon + '" border="0" /> <span title="' + $('<div/>').text(message.author).html() + '">&laquo; ' + $('<div/>').text(message.author).html() + ' &raquo;</span> </li><li class="text"><div class="markdown">' + $('<div/>').text(message.text).html() + '</div></li></ul></li>';
+		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + message.email + '?s=16&d=' + this._config.icon + '" border="0" /> <span title="' + $('<div/>').text(message.author).html() + '">&laquo; ' + $('<div/>').text(message.author).html() + ' &raquo;</span> </li><li class="text"><div class="markdown"><pre>' + $('<div/>').text(message.text).html() + '</pre></div></li></ul></li>';
 		$("#anologue").append(html);
 		var soundDisabled = $('#anologue-sound:checked').val();
 		if (!soundDisabled) {
@@ -136,7 +136,7 @@ var anologue = {
 		$('.markdown').each(function() {
 			if (!$(this).hasClass('marked')) {
 				var showdown = new Showdown.converter();
-				var text = showdown.makeHtml($(this).html());
+				var text = showdown.makeHtml($(this).children('pre').html());
 				$(this).html(text).addClass('marked');
 			}
 		});
