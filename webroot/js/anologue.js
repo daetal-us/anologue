@@ -18,6 +18,7 @@ var anologue = {
 		});
 		this.markdown();
 		this.listener();
+		this.setupSpeaker();
 		$(".anologue-speak").css("bottom", '-200px').animate({bottom: 0}, 3000);
 		$("#anologue-author").focus();
 	},
