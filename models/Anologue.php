@@ -12,7 +12,7 @@ use \lithium\data\model\Document;
 class Anologue extends \lithium\data\Model {
 
 	public static $alias = 'Anologue';
-	
+
 	/**
 	 * Anologue meta
 	 *
@@ -22,10 +22,10 @@ class Anologue extends \lithium\data\Model {
 	protected $_meta = array(
 		'source' => 'anologue'
 	);
-	
+
 	/**
 	 * Default key/values for messages.
-	 * 
+	 *
 	 * @var array
 	 * @see app\models\Anologue::addMessage()
 	 */
@@ -36,7 +36,7 @@ class Anologue extends \lithium\data\Model {
 		'timestamp' => null,
 		'text' => null
 	);
-	
+
 	/**
 	 * Create a new analogue using schema.
 	 *
@@ -51,7 +51,7 @@ class Anologue extends \lithium\data\Model {
 		$data = $data + $default;
 		return parent::create($data);
 	}
-	
+
 	/**
 	 * Append a message to an existing anologue. For user privacy, hashes the email before saving.
 	 *
@@ -66,7 +66,7 @@ class Anologue extends \lithium\data\Model {
 		if (!$anologue->messages) {
 			$anologue->messages = array($message);
 		} else {
-			$anologue->messages->append($message);	
+			$anologue->messages->append($message);
 		}
 		return $anologue->save();
 	}
