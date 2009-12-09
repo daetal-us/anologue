@@ -61,8 +61,13 @@ class Anologue extends \lithium\data\Model {
 	 */
 	public static function addMessage($id, $message = array()) {
 		$anologue = static::find($id);
-		$message['email'] = md5($message['email']);
+		
+		if (!empty($message['email'])) {
+			$message['email'] = md5($message['email']);
+		}
+		
 		$message = $message + array('timestamp' => time()) + static::$_defaultMessage;
+		
 		if (!$anologue->messages) {
 			$anologue->messages = array($message);
 		} else {

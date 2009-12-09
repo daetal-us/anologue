@@ -2,7 +2,7 @@
 /**
  * Lithium: the most rad php framework
  *
- * @copyright     Copyright 2009, Union of Rad, Inc. (http://union-of-rad.org)
+ * @copyright     Copyright 2009, Union of RAD (http://union-of-rad.org)
  * @license       http://opensource.org/licenses/bsd-license.php The BSD License
  */
 
@@ -38,12 +38,6 @@ if (!include LITHIUM_LIBRARY_PATH . '/lithium/core/Libraries.php') {
 }
 
 /**
- * Add the Lithium core library.  This sets default paths and initializes the autoloader.  You
- * generally should not need to override any settings.
- */
-Libraries::add('lithium');
-
-/**
  * Optimize default request cycle by loading common classes.  If you're implementing custom
  * request/response or dispatch classes, you can safely remove these.  Actually, you can safely
  * remove them anyway, they're just there to give slightly you better out-of-the-box performance.
@@ -67,6 +61,12 @@ require LITHIUM_LIBRARY_PATH . '/lithium/action/Request.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/action/Response.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/template/View.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/template/view/Renderer.php';
+
+/**
+ * Add the Lithium core library.  This sets default paths and initializes the autoloader.  You
+ * generally should not need to override any settings.
+ */
+Libraries::add('lithium');
 
 /**
  * Add the application.  You can pass a `'path'` key here if this bootstrap file is outside of

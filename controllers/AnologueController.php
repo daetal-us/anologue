@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use \app\models\Anologue;
-use \lithium\http\Media;
 
 /**
  * The core controller for Anologue.
@@ -35,8 +34,8 @@ class AnologueController extends \lithium\action\Controller {
 			$status = (!empty($data)) ? 'success' : 'fail';
 		}
 		
-		if (!empty($data->error)) {
-			$this->redirect(array('controller' => 'anologue', 'action' => 'index'));
+		if (!empty($data->error) || empty($this->request->params['id'])) {
+			$this->redirect('/');
 		}
 		
 		if (!empty($this->request->params['type'])) {
