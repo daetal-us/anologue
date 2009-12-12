@@ -5,22 +5,47 @@ var anologue = {
 		line: 0,
 		icon: null
 	},
+	shiftDown: false,
 
 	setup: function(config) {
 		this._config = config;
+		$(".sound label").click(function() {
+			anologue.toggleIcon('.sound');
+		});
+		$(".auto-scroll label").click(function() {
+			anologue.toggleIcon('.auto-scroll');
+		});
+		this.setupSubmit();
+		this.markdown();
+		$("#anologue-speech-bar").css("bottom", '-200px').animate({bottom: 0}, 2000);
+		$("#anologue-author").focus();
+		this.setupSpeaker();
+		this.listener();
+	},
+	
+	setupSubmit: function() {
 		$("#anologue-form").submit(function() {
 			anologue.say();
 			return false;
 		});
-		$("#anologue-submit").click(function(e) {
-			anologue.say();
-			return false;
+		$(document).keyup(function(key) {
+			if (key.which == 16) {
+				anologue.shiftDown = false;
+			}
 		});
-		this.markdown();
-		this.listener();
-		this.setupSpeaker();
-		$(".anologue-speak").css("bottom", '-200px').animate({bottom: 0}, 3000);
-		$("#anologue-author").focus();
+		$(document).keydown(function(key) {
+			if (key.which == 16) {
+				anologue.shiftDown = true;
+			}
+		});
+		$("#anologue-text").keypress(function(key) {
+			if (key.which == 13) {
+				if (!anologue.shiftDown) {
+					anologue.say();
+					return false;
+				}
+			}
+		});
 	},
 
 	//the set time out method
@@ -60,6 +85,10 @@ var anologue = {
 			email: $('#anologue-email').val(),
 			text: $('#anologue-text').val()
 		}
+		if (data.text == '') {
+			anologue.listener();
+			return false;
+		}
 		if (data.author == '') {
 			data.author = 'anonymous';
 		}
@@ -83,7 +112,7 @@ var anologue = {
 		var id = 'message-' + $.md5(message.timestamp + message.author);
 		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + message.email + '?s=16&d=' + this._config.icon + '" border="0" /> <span title="' + $('<div/>').text(message.author).html() + '">&laquo; ' + $('<div/>').text(message.author).html() + ' &raquo;</span> </li><li class="text"><div class="markdown"><pre>' + $('<div/>').text(message.text).html() + '</pre></div></li></ul></li>';
 		$("#anologue").append(html);
-		var soundDisabled = $('#anologue-sound:checked').val();
+		var soundDisabled = $('.anologue-settings .sound .icon').hasClass('disabled');
 		if (!soundDisabled) {
 			// lazy check to not trigger sound on your message
 			var user = $('#anologue-author').val();
@@ -95,10 +124,9 @@ var anologue = {
 			}
 		}
 		$('#'+id).animate({
-			opacity: 'show',
-			height: 'show',
-		}, 3000);
-		var scrollDisabled = $('#anologue-scroll:checked').val();
+			opacity: 'show'
+		}, 1000);
+		var scrollDisabled = $('.anologue-settings .auto-scroll .icon').hasClass('disabled');
 		if (!scrollDisabled) {
 			$('html, body').animate({
 				scrollTop: $('#'+id).offset().top
@@ -141,5 +169,15 @@ var anologue = {
 				$(this).html(text).addClass('marked');
 			}
 		});
-	}
+	},
+	
+	toggleIcon: function(parentClass) {
+		var disabled = $('.anologue-settings '+parentClass+' .icon').hasClass('disabled');
+		if (!disabled) {
+			$(parentClass+' .icon').addClass('disabled');
+		} else {
+			$(parentClass+' .icon').removeClass('disabled');
+		}
+	},
+	
 }
