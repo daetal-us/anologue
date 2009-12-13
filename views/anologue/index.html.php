@@ -37,7 +37,7 @@
 
 	<h2 class="sub">let's make this better, together</h2>
 
-	<p>perhaps best of all: <?php echo $this->html->link('this is open source', 'http://rad-dev.org/lithium_anologue'); ?>. built with <?php echo $this->html->link('php 5.3', 'http://php.net'); ?>, using the most non-heinous, totally rad <?php echo $this->html->link('lithium framework', 'http://li3.rad-dev.org'); ?>, <?php echo $this->html->link('couchdb', 'http://couchdb.apache.org'); ?>, <?php echo $this->html->link('jquery', 'http://jquery.com'); ?> and a few other scripts; all coming together for the creamy goodness you're about to experience.</p>
+	<p>perhaps best of all: <?php echo $this->html->link('this is open source', 'http://rad-dev.org/lithium_anologue'); ?>. built with <?php echo $this->html->link('php 5.3.1', 'http://php.net'); ?>, using the most non-heinous, totally rad <?php echo $this->html->link('lithium framework', 'http://li3.rad-dev.org'); ?>, <?php echo $this->html->link('couchdb', 'http://couchdb.apache.org'); ?>, <?php echo $this->html->link('jquery', 'http://jquery.com'); ?>, a few other scripts as well as some classy, original and <?php echo $this->html->link('established', 'http://www.pinvoke.com/'); ?> iconography for ui; all coming together for the conversational goodness you're about to experience.</p>
 	<p class="last">contribute to the core or download the source and setup your own. this one's for you, internets.</p>
 	</article>
 </div>

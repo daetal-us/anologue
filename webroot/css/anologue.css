@@ -31,8 +31,16 @@ p.last { padding:.5em 0 4em 0; }
 	.excellence img { margin:0 0 .5em 0; border:1em solid #f0f0f0; }
 	.excellence span { display:block; font-style:italic; font-size:.65em; text-align:center; }
 	.anologue-titling { float:left; }
-	.anologue-help { float:right; opacity:.5; display:block; padding: .5em 2em; text-align:left; font-size:.85em; }
-		.anologue-help p { opacity:.5; }
+	
+	#anologue-help { position:fixed; z-index:50; bottom:0; left:0; display:block; width:100%; background:black; background:rgba(0,0,0,.95); color:white;  text-align:left; font-size:.85em; }
+		#anologue-help .padding { padding: 2em 2em 13em 2em; }
+		#anologue-help h2 { font-size:3em; }
+		#anologue-help p { opacity:.75; }
+		#anologue-help a { color:#77458c; }
+		#anologue-close-help { position:absolute; top:.25em; right:.5em; }
+		button.close { border:none; background:none; display:block; width:28px; height:28px; }
+			button.close span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; background:url(../img/icons/cross.png) no-repeat center center; }
+		
 	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:0 0 8.75em 0; padding:2em 0 0; }
 		.anologue .message { position:relative; display:block; background:#fafafa; border-bottom:3px solid white; vertical-align:top; font-size:.85em; min-height:3em; }
 		.anologue .message:hover { background:white; }
@@ -49,7 +57,8 @@ p.last { padding:.5em 0 4em 0; }
 			.anologue .text .markdown {  }
 			.anologue .text .markdown ul { padding:.25em 1em; }
 		
-	#anologue-speech-bar { position:fixed; z-index:50; bottom:0; left:0; display:block; width:100%; min-width:1006px; clear:both; background:#4c2c59 url(../img/bg.png); color:white; }
+	#anologue-speech-bar { position:fixed; z-index:50; bottom:0; left:0; display:block; width:100%; min-width:1006px; clear:both; background:black; background-color:rgba(0,0,0,.85); color:white; }
+		.purple-background { background:#4c2c59 url(../img/bg.png); background-color:rgba(76,44,89,.75); height:150px; }
 		.twenty-percent { float:left; min-width:275px; }
 		.eighty-percent { float:left; width:70%; min-width:725px; }
 		

@@ -15,8 +15,13 @@ var anologue = {
 		$(".auto-scroll label").click(function() {
 			anologue.toggleIcon('.auto-scroll');
 		});
+		$("#anologue-close-help").click(function() {
+			anologue.closeHelp();
+			return false;
+		});
 		this.setupSubmit();
 		this.markdown();
+		$("#anologue-help").css("bottom", '-400px').animate({bottom: 0}, 2000);
 		$("#anologue-speech-bar").css("bottom", '-200px').animate({bottom: 0}, 2000);
 		$("#anologue-author").focus();
 		this.setupSpeaker();
@@ -80,6 +85,7 @@ var anologue = {
 	//add message
 	say: function() {
 		clearTimeout(this.timeout);
+		this.closeHelp();
 		var data = {
 			author: $('#anologue-author').val(),
 			email: $('#anologue-email').val(),
@@ -179,5 +185,13 @@ var anologue = {
 			$(parentClass+' .icon').removeClass('disabled');
 		}
 	},
+	
+	closeHelp: function() {
+		if (!$("#anologue-help").hasClass('closed')) {
+			$("#anologue-help").animate({bottom: '-400px'}, 1000);
+			$("#anologue-help").addClass('closed');
+		}
+		return false;
+	}
 	
 }

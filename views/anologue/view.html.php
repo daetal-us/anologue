@@ -26,10 +26,13 @@
 		?>
 	</h3>
 </div>
-<div class="anologue-help">
+<div id="anologue-help">
+	<div class="padding">
 	<h2>hello.</h2>
-	<p>to get started type your name, then your message, in the boxes at the very bottom. <br />markdown is supported, to an extent.</p>
+	<p>to get started type your name, then your message in the appropriate boxes below. <br /><?php echo $this->html->link('markdown', 'http://daringfireball.net/projects/markdown/syntax'); ?> is supported, to an extent.</p>
 	<p><strong>for your privacy,</strong> your email is only used to generate your <?php echo $this->html->link('gravatar', 'http://gravatar.com'); ?> and is stored in an unreadable, encoded format.</p>
+	</div>
+	<button id="anologue-close-help" class="close" title="Close this help window"><span>close</span></button>
 </div>
 
 
@@ -59,43 +62,45 @@
 </ul>
 
 <div id="anologue-speech-bar">
-	<div class="twenty-percent">
-		<div class="anologue-settings">
-			<div class="input name">
-				<label class="icon" for="anologue-author" title="Your name"><span>Your name</span></label>
-				<input type="text" name="anologue-author" id="anologue-author" />
-			</div>
-			<div class="input email">
-				<label class="icon" for="anologue-email" title="Your e-mail address"><span>Your e-mail</span></label>
-				<input type="text" name="anologue-email" id="anologue-email" />
-			</div>
-			<div class="checkbox first sound">
-				<label class="icon" title="Toggle sounds"><span>Toggle sounds</span></label>
-			</div>
-			<div class="checkbox auto-scroll">
-				<label class="icon" title="Toggle auto-scrolling"><span>Toggle auto-scrolling</span></label>
-			</div>
-			<div class="checkbox cookie">
-				<label class="icon disabled" title="Toggle cookies"><span>Toggle cookies</span></label>
-			</div>
-			<div class="about">
-				<?php
-					echo $this->html->link(
-						'what is anologue?', 
-						array('controller' => 'anologue', 'action' => 'index')
-					);
-				?>
+	<div class="purple-background">
+		<div class="twenty-percent">
+			<div class="anologue-settings">
+				<div class="input name">
+					<label class="icon" for="anologue-author" title="Your name"><span>Your name</span></label>
+					<input type="text" name="anologue-author" id="anologue-author" />
+				</div>
+				<div class="input email">
+					<label class="icon" for="anologue-email" title="Your e-mail address"><span>Your e-mail</span></label>
+					<input type="text" name="anologue-email" id="anologue-email" />
+				</div>
+				<div class="checkbox first sound">
+					<label class="icon" title="Toggle sounds"><span>Toggle sounds</span></label>
+				</div>
+				<div class="checkbox auto-scroll">
+					<label class="icon" title="Toggle auto-scrolling"><span>Toggle auto-scrolling</span></label>
+				</div>
+				<div class="checkbox cookie">
+					<label class="icon disabled" title="Toggle cookies"><span>Toggle cookies</span></label>
+				</div>
+				<div class="about">
+					<?php
+						echo $this->html->link(
+							'what is anologue?', 
+							array('controller' => 'anologue', 'action' => 'index')
+						);
+					?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="eighty-percent">
-		<div class="anologue-speak">
-			<div class="input textarea">
-				<label class="icon" for="anologue-text" title="Type what you want to say and press enter"><span>you say:</span></label>
-				<textarea name="anologue-text" id="anologue-text"></textarea>
-			</div>
-			<div class="submit">
-				<button id="anologue-submit"><span>send</span></button>
+		<div class="eighty-percent">
+			<div class="anologue-speak">
+				<div class="input textarea">
+					<label class="icon" for="anologue-text" title="Type what you want to say and press enter"><span>you say:</span></label>
+					<textarea name="anologue-text" id="anologue-text"></textarea>
+				</div>
+				<div class="submit">
+					<button id="anologue-submit"><span>send</span></button>
+				</div>
 			</div>
 		</div>
 	</div>
