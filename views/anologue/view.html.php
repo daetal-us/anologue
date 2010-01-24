@@ -67,20 +67,20 @@
 			<div class="anologue-settings">
 				<div class="input name">
 					<label class="icon" for="anologue-author" title="Your name"><span>Your name</span></label>
-					<input type="text" name="anologue-author" id="anologue-author" />
+					<input type="text" name="anologue-author" id="anologue-author" value="<?php echo ($user['author']) ?: ''; ?>" />
 				</div>
 				<div class="input email">
 					<label class="icon" for="anologue-email" title="Your e-mail address"><span>Your e-mail</span></label>
-					<input type="text" name="anologue-email" id="anologue-email" />
+					<input type="text" name="anologue-email" id="anologue-email" value="<?php echo ($user['email']) ?: ''; ?>" />
 				</div>
 				<div class="checkbox first sound">
-					<label class="icon" title="Toggle sounds"><span>Toggle sounds</span></label>
+					<label class="icon <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sounds"><span>Toggle sounds</span></label>
 				</div>
 				<div class="checkbox auto-scroll">
-					<label class="icon" title="Toggle auto-scrolling"><span>Toggle auto-scrolling</span></label>
+					<label class="icon <?php echo ($user['scrolling'] == 'false') ? 'disabled' : ''; ?>" title="Toggle auto-scrolling"><span>Toggle auto-scrolling</span></label>
 				</div>
 				<div class="checkbox cookie">
-					<label class="icon disabled" title="Toggle cookies"><span>Toggle cookies</span></label>
+					<label class="icon" title="Toggle cookies"><span>Toggle cookies</span></label>
 				</div>
 				<div class="about">
 					<?php

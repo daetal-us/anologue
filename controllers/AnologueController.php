@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use \app\models\Anologue;
+use \lithium\storage\Session;
+use \lithium\storage\session\adapter\Cookie;
 
 /**
  * The core controller for Anologue.
@@ -10,7 +12,17 @@ use \app\models\Anologue;
  * @see lithium\action\controller 
  */
 class AnologueController extends \lithium\action\Controller {
-
+	
+	/**
+	 * Constructor
+	 */
+	public function __construct($config = null) {
+		Session::config(array(
+			'default' => array('adapter' => new Cookie())
+		));
+		parent::__construct($config);
+	}
+	
 	/**
 	 * This action is used to render the index view, which is essentially a static page.
 	 */
@@ -27,7 +39,7 @@ class AnologueController extends \lithium\action\Controller {
 	public function view() {
 		$status = 'error';
 		$data = null;
-		$result = array();
+		$result = $user = array();
 		
 		if (!empty($this->request->params['id'])) {
 			$data = Anologue::find($this->request->params['id']);
@@ -45,7 +57,12 @@ class AnologueController extends \lithium\action\Controller {
 			);
 		}
 		
-		$this->set(compact('data'));
+		$user = Session::read('user');
+		if (!empty($user)) {
+			$user = unserialize($user);
+		}
+		
+		$this->set(compact('data', 'user'));
 		$this->render($result);
 	}
 
@@ -67,6 +84,9 @@ class AnologueController extends \lithium\action\Controller {
 		$status = 'error';
 		if (!empty($this->request->params['id'])) {
 			$data = $this->request->data;
+			
+			$this->_manageCookie($data);
+			
 			$data['ip'] = $this->request->env('REMOTE_ADDR');
 			if (!empty($data)) {
 				$status = 'fail';
@@ -76,6 +96,36 @@ class AnologueController extends \lithium\action\Controller {
 		}
 		$this->render(array('json' => (object) compact('status', 'data')));
 	}
+	
+	/**
+	 * Internal method to create or delete data in cookie.
+	 *
+	 * This method is currently intended to be called from within `AnologueController::say()`.
+	 *
+	 * @param array $data associative array of user data and options to be saved
+	 * @see app\controllers\AnologueController::say()
+	 */ 
+	private function _manageCookie($data = array()) {
+		$cookieKeys = array('author','email','scrolling','sounds', 'cookies');
+		
+		if ($data['cookies'] == 'true') {
+			$user = array();
+		
+			array_walk($cookieKeys, function($key) use (&$data, &$user) {
+				if (!empty($data[$key])) {
+					$user[$key] = $data[$key];
+					if ($key == 'author' && $data[$key] == 'anonymous') {
+						unset($user[$key]);
+					}
+				}
+			});
+		
+			Session::write('user', serialize($user));
+		} else {
+			Session::delete('user');
+		}
+	}
+	
 }
 
 ?>

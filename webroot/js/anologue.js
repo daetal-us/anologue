@@ -15,6 +15,9 @@ var anologue = {
 		$(".auto-scroll label").click(function() {
 			anologue.toggleIcon('.auto-scroll');
 		});
+		$(".cookie label").click(function() {
+			anologue.toggleIcon('.cookie');
+		});
 		$("#anologue-close-help").click(function() {
 			anologue.closeHelp();
 			return false;
@@ -89,7 +92,10 @@ var anologue = {
 		var data = {
 			author: $('#anologue-author').val(),
 			email: $('#anologue-email').val(),
-			text: $('#anologue-text').val()
+			text: $('#anologue-text').val(),
+			scrolling: this.getOption('.auto-scroll'),
+			sounds: this.getOption('.sound'),
+			cookies: this.getOption('.cookie')
 		}
 		if (data.text == '') {
 			anologue.listener();
@@ -132,8 +138,8 @@ var anologue = {
 		$('#'+id).animate({
 			opacity: 'show'
 		}, 1000);
-		var scrollDisabled = $('.anologue-settings .auto-scroll .icon').hasClass('disabled');
-		if (!scrollDisabled) {
+		var scrollEnabled = this.getOption('.auto-scroll');
+		if (scrollEnabled) {
 			$('html, body').animate({
 				scrollTop: $('#'+id).offset().top
 			}, 'normal');
@@ -192,6 +198,11 @@ var anologue = {
 			$("#anologue-help").addClass('closed');
 		}
 		return false;
+	},
+	
+	getOption: function(parentClass) {
+		var disabled = $('.anologue-settings '+parentClass+' .icon').hasClass('disabled');
+		return !disabled;
 	}
 	
 }
