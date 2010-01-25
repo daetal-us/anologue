@@ -22,13 +22,31 @@ var anologue = {
 			anologue.closeHelp();
 			return false;
 		});
+		$("#markdown-help").click(function() {
+			anologue.markdownHelp();
+			return false;
+		});
+		
 		this.setupSubmit();
 		this.markdown();
-		$("#anologue-help").css("bottom", '-400px').animate({bottom: 0}, 2000);
-		$("#anologue-speech-bar").css("bottom", '-200px').animate({bottom: 0}, 2000);
-		$("#anologue-author").focus();
+		this.fireworks();
 		this.setupSpeaker();
 		this.listener();
+		this.humanizeTimes();
+		this.humanizeTimesTimer();
+		
+		$('body').focusin(function() {
+			anologue.resetTitle();
+		});
+		$('body').click(function() {
+			anologue.resetTitle();
+		});
+	},
+	
+	fireworks: function() {
+		$("#anologue-help").animate({bottom: 0}, 2500);
+		$("#anologue-speech-bar").animate({bottom: 0}, 1500);
+		$("#anologue-author").focus();
 	},
 	
 	setupSubmit: function() {
@@ -63,6 +81,7 @@ var anologue = {
 	run: function () {
 		clearTimeout(this.timeout);
 		this.timeout = setTimeout(function() {
+			$("a").attr({"target":"_blank"});
 			anologue.listener();
 		}, 2000);
 	},
@@ -119,22 +138,31 @@ var anologue = {
 
 	//output messages
 	render: function(message) {
-		var timeroo = new Date();
-		var timestamp = timeroo.getHours() + ':' + timeroo.getMinutes() + ':' + timeroo.getSeconds();
 		var id = 'message-' + $.md5(message.timestamp + message.author);
-		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time">' + timestamp + '</li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + message.email + '?s=16&d=' + this._config.icon + '" border="0" /> <span title="' + $('<div/>').text(message.author).html() + '">&laquo; ' + $('<div/>').text(message.author).html() + ' &raquo;</span> </li><li class="text"><div class="markdown"><pre>' + $('<div/>').text(message.text).html() + '</pre></div></li></ul></li>';
+		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time"><span class="timestamp">' + message.timestamp + '</span><span class="human-time">' + this.humanizeTime(message.timestamp) + '</span></li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + message.email + '?s=16&d=' + this._config.icon + '" border="0" /> <span title="' + $('<div/>').text(message.author).html() + '">' + $('<div/>').text(message.author).html() + '</span> </li><li class="text"><div class="markdown"><pre>' + $('<div/>').text(message.text).html() + '</pre></div></li></ul></li>';
 		$("#anologue").append(html);
+		
+		var docTitle = message.author+' posted a new message';
+		
 		var soundDisabled = $('.anologue-settings .sound .icon').hasClass('disabled');
+		
+		var user = $('#anologue-author').val();
+		
 		if (!soundDisabled) {
 			// lazy check to not trigger sound on your message
-			var user = $('#anologue-author').val();
 			if (message.author != user && user != '') {
 				var userRegex = new RegExp(user.toLowerCase(), 'i');
 				if (userRegex.test(message.text)) {
 					this.hey();
+					var docTitle = message.author+' mentioned you in a new message';
 				}
 			}
 		}
+		
+		if (message.author != user) {
+			this.updateTitle(docTitle);
+		}
+		
 		$('#'+id).animate({
 			opacity: 'show'
 		}, 1000);
@@ -194,7 +222,7 @@ var anologue = {
 	
 	closeHelp: function() {
 		if (!$("#anologue-help").hasClass('closed')) {
-			$("#anologue-help").animate({bottom: '-400px'}, 1000);
+			$("#anologue-help").animate({bottom: '-500px'}, 1000);
 			$("#anologue-help").addClass('closed');
 		}
 		return false;
@@ -203,6 +231,60 @@ var anologue = {
 	getOption: function(parentClass) {
 		var disabled = $('.anologue-settings '+parentClass+' .icon').hasClass('disabled');
 		return !disabled;
+	},
+	
+	humanizeTimesTimeout: null,
+	
+	humanizeTimesTimer: function() {
+		clearTimeout(this.humanizeTimesTimeout);
+		anologue.humanizeTimes();
+		this.humanizeTimesTimeout = setTimeout(function() {
+			anologue.humanizeTimesTimer();
+		}, 15000);
+	},
+	
+	humanizeTimes: function() {
+		$('li.time').each(function() {
+			var time = $(this).children('.timestamp').first().text();
+			var prettyTime = anologue.humanizeTime(time);
+			$(this).children('.human-time').first().text(prettyTime);
+		});
+	},
+	
+	humanizeTime: function(timestamp) {
+		return PrettyDate.convert(timestamp);
+	},
+	
+	resetTitle: function() {
+		document.title = 'anologue';
+	},
+	
+	updateTitle: function(msg) {
+		document.title = msg + ' - anologue';
+	},
+	
+	markdownHelp: function() {
+		if (!$('#anologue-help .padding').hasClass("markdown-help")) {
+			var html = '<h2>Markdown &nbsp;Syntax</h2><p># header 1 &nbsp;  &nbsp; ## header 2 &nbsp;  &nbsp; <em>*italic*</em> &nbsp;  &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; 	- unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg)</p>';
+			if (!$("#anologue-help").hasClass("closed")) {
+				$("#anologue-help").animate({bottom: '-500px'}, 1000, function() {
+					$("#anologue-help").addClass('closed');
+					$("#anologue-help .padding").html(html).addClass("markdown-help");
+					anologue.showMarkdownHelp();
+				});
+			} else {
+				$("#anologue-help .padding").html(html).addClass("markdown-help");
+				this.showMarkdownHelp();
+			}
+		} else {
+			this.showMarkdownHelp();
+		}
+	},
+	
+	showMarkdownHelp: function() {
+		$("#anologue-help").animate({bottom: 0}, 1000, function() {
+			$("#anologue-help").removeClass('closed');
+		});
 	}
 	
 }

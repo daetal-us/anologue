@@ -1,4 +1,4 @@
-<div id="anologue-new"><?php echo $this->html->link('start an anologue &raquo;', array('controller' => 'anologue', 'action' => 'add'), array('escape' => false)); ?></div>
+<div id="anologue-new"><?php echo $this->html->link('new &nbsp;anologue &raquo;', array('controller' => 'anologue', 'action' => 'add'), array('escape' => false)); ?></div>
 
 <div class="header">
 	<header>
@@ -20,7 +20,7 @@
 	<p><strong>google wave</strong> may be an option... someday. even so, in my experience with the beta so far i'd have to argue that multi-threaded chats are actually less productive.</p> 
 	<p>so, i needed something different.</p>
 	
-	<h2 class="sub">a slightly different approach to an old problem</h2>
+	<h2 class="sub">a &nbsp;slightly &nbsp;different &nbsp;approach</h2>
 
 	<div class="aside excellence">
 		<aside>
@@ -35,7 +35,7 @@
 	<p><strong>no accounts. no installations. no way?! <em>yes, way!</em></strong></p>
 	<p><?php echo $this->html->link('your "chat room" is created by the time this link loads', array('controller' => 'anologue', 'action' => 'add')); ?>. invite whoever you want by giving them your unique link, and chat away.</p>
 
-	<h2 class="sub">let's make this better, together</h2>
+	<h2 class="sub">let's &nbsp;make &nbsp;this &nbsp;better, &nbsp;together</h2>
 
 	<p>perhaps best of all: <?php echo $this->html->link('this is open source', 'http://rad-dev.org/lithium_anologue'); ?>. built with <?php echo $this->html->link('php 5.3.1', 'http://php.net'); ?>, using the most non-heinous, totally rad <?php echo $this->html->link('lithium framework', 'http://li3.rad-dev.org'); ?>, <?php echo $this->html->link('couchdb', 'http://couchdb.apache.org'); ?>, <?php echo $this->html->link('jquery', 'http://jquery.com'); ?>, a few other scripts as well as some classy, original and <?php echo $this->html->link('established', 'http://www.pinvoke.com/'); ?> iconography for ui; all coming together for the conversational goodness you're about to experience.</p>
 	<p class="last">contribute to the core or download the source and setup your own. this one's for you, internets.</p>

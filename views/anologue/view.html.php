@@ -20,7 +20,7 @@
 		<?php
 			echo $this->html->link(
 				$data->id, 
-				array('action' => 'view', 'id' => $data->_id), 
+				array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id), 
 				array('title' => 'Copy this url and give it to others')
 			);
 		?>
@@ -41,13 +41,13 @@
 	<?php foreach ($data->messages as $key => $message) { ?>
 		<li class="message" id="message-<?php echo md5($message->timestamp . $message->author);?>">
 			<ul class="data">
-				<li class="time"><?php echo date('G:i:s', $message->timestamp);?></li>
+				<li class="time"><span class="timestamp"><?php echo $message->timestamp;?></span><span class="human-time"></span></li>
 				<li class="ip"><?php echo $message->ip;?></li>
 				<li class="author">
 					<?php echo $this->html->image(
 						"http://gravatar.com/avatar/{$message->email}?s=16&d={$avatar}"); ?>
 					<span title="<?php echo $this->html->escape($message->author);?>">
-						&laquo; <?php echo $this->html->escape($message->author);?> &raquo;
+						<?php echo $this->html->escape($message->author);?>
 					</span>
 				</li>
 				<li class="text">
@@ -67,11 +67,11 @@
 			<div class="anologue-settings">
 				<div class="input name">
 					<label class="icon" for="anologue-author" title="Your name"><span>Your name</span></label>
-					<input type="text" name="anologue-author" id="anologue-author" value="<?php echo ($user['author']) ?: ''; ?>" />
+					<input type="text" name="anologue-author" id="anologue-author" value="<?php echo ($user['author']) ?: ''; ?>" tabindex="1" />
 				</div>
 				<div class="input email">
 					<label class="icon" for="anologue-email" title="Your e-mail address"><span>Your e-mail</span></label>
-					<input type="text" name="anologue-email" id="anologue-email" value="<?php echo ($user['email']) ?: ''; ?>" />
+					<input type="text" name="anologue-email" id="anologue-email" value="<?php echo ($user['email']) ?: ''; ?>" tabindex="2" />
 				</div>
 				<div class="checkbox first sound">
 					<label class="icon <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sounds"><span>Toggle sounds</span></label>
@@ -96,7 +96,8 @@
 			<div class="anologue-speak">
 				<div class="input textarea">
 					<label class="icon" for="anologue-text" title="Type what you want to say and press enter"><span>you say:</span></label>
-					<textarea name="anologue-text" id="anologue-text"></textarea>
+					<textarea name="anologue-text" id="anologue-text" tabindex="3"></textarea>
+					<label id="markdown-help">markdown &nbsp; syntax</label>
 				</div>
 				<div class="submit">
 					<button id="anologue-submit"><span>send</span></button>
@@ -111,8 +112,8 @@
 <audio id="anologue-speaker"></audio>
 
 <?php echo $this->html->script(array(
-	'http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js',
-	'md5.jquery.js', 'showdown.js', 'anologue.js',
+	'http://code.jquery.com/jquery-1.4.min.js',
+	'md5.jquery.js', 'showdown.js', 'pretty.js', 'anologue.js',
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
@@ -120,7 +121,7 @@
 			id: '<?=$data->id?>',
 			base: '<?php echo $this->_request->env('base') ?>',
 			line: <?php echo count($data->messages); ?>,
-			icon: '<?php echo $avatar; ?>'
+			icon: '<?php echo $avatar; ?>'			
 		});
 	});
 </script>

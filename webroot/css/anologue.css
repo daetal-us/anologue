@@ -1,21 +1,28 @@
+@font-face { font-family: "Anologue Standard"; src: url(../media/font/PT_Sans.ttf); }
+@font-face { font-family: "Anologue Bold"; src: url(../media/font/PT_Sans_Bold.ttf); }
+@font-face { font-family: "Anologue Titling"; src: url(../media/font/Bebas.ttf); }
+
 * { margin:0; padding:0; }
 
-h1.title { font-size:4em; opacity:.5; }
-	h1 a { color:black; opacity:.05; border:none; }
-	h1 a:hover { color:black; opacity:.15; }
-h2.sub { font-size:3em; font-weight:normal; opacity:.5; margin:.5em 0 0 0;  }
-h3.hash { opacity:.5; }
-	h3.hash a { border:none; }
-	h3.hash a:hover { }
+h1, h2, h3, #markdown-help { font-family:"Anologue Titling", Helvetica, Arial, sans-serif; font-weight:normal; text-transform:uppercase; }
+strong { font-family:"Anologue Bold", Helvetica, Arial, sans-serif; font-weight:normal; }
+
+h1.title { font-size:9em; text-shadow: 1px 1px 4px rgba(0,0,0,.75); color:white; text-transform:uppercase; }
+	h1 a { color:black; border:none; opacity:.05; }
+	h1 a:hover { color:black; }
+h2.sub { font-size:2.75em; font-weight:normal !important; opacity:.5; margin:.75em 0 .25em 0; text-shadow: 2px 2px 4px rgba(0,0,0,.25); }
+h3.hash {  }
+	h3.hash a { border:none; color:#77458c; text-shadow: 1px 1px 1px rgba(0,0,0,.15); }
+	h3.hash a:hover {  }
 	
 a { color:#4c2c59; text-decoration:none; border-bottom:1px dotted #77458c; }
 a:hover { color:#77458c; }
 
-html, body, input, password, textarea { background:white; color:black; font-family:Helvetica, Arial, sans-serif; }
+html, body, input, password, textarea { background:white; color:black; font-family: "Anologue Standard", Helvetica, Arial, sans-serif; }
 body { padding:1em; }
 body.index { padding:0; }
 
-p { padding:.5em 0; }
+p { padding:.5em 0; line-height:140%; }
 p.last { padding:.5em 0 4em 0; }
 
 .width-constraint { display:block; width:1002px; margin:0 auto; }
@@ -25,50 +32,64 @@ p.last { padding:.5em 0 4em 0; }
 .footer { text-align:center; padding:0 0 2em 0; }
 	.footer a { border:none; margin:0 auto; }
 
-#anologue-new a { display:block; font-weight:bold; padding:1em; font-size:2em; float:right; background:black; background:rgba(0,0,0,.35); color:white; border:none; }
-#anologue-logo { padding:0 2.75em; display:block; }
+#anologue-new a { display:block; padding:1em; font-size:2em; float:right; background:black; background:rgba(0,0,0,.35); color:white; border:none; -moz-box-shadow: inset 1px 1px 36px rgba(0,0,0,.5); -webkit-box-shadow: inset 1px 1px 36px rgba(0,0,0,.5); box-shadow: inset 1px 1px 36px rgba(0,0,0,.5); text-shadow: 1px 1px 4px rgba(0,0,0,.75); font-family:"Anologue Titling", Helvetica, Arial, sans-serif; }
+#anologue-logo { padding:0; display:block; }
 .excellence { float:right; padding:1em; background:#fafafa; margin:0 0 1em 1em; }
 	.excellence img { margin:0 0 .5em 0; border:1em solid #f0f0f0; }
 	.excellence span { display:block; font-style:italic; font-size:.65em; text-align:center; }
 	.anologue-titling { float:left; }
 	
-	#anologue-help { position:fixed; z-index:50; bottom:0; left:0; display:block; width:100%; background:black; background:rgba(0,0,0,.95); color:white;  text-align:left; font-size:.85em; }
+	#anologue-help { position:fixed; z-index:50; bottom:-800px; left:0; display:block; width:100%; background:black; background:rgba(0,0,0,.95); color:white;  text-align:left; font-size:.85em; }
 		#anologue-help .padding { padding: 2em 2em 13em 2em; }
-		#anologue-help h2 { font-size:3em; }
-		#anologue-help p { opacity:.75; }
+		#anologue-help h2 { font-size:9em; margin:0; padding:0; }
+			#anologue-help .markdown-help h2 { font-size:6em; }
+			#anologue-help h2 span { display:inline; }
+		#anologue-help p {  }
+		#anologue-help .markdown-help p {  }
 		#anologue-help a { color:#77458c; }
 		#anologue-close-help { position:absolute; top:.25em; right:.5em; }
 		button.close { border:none; background:none; display:block; width:28px; height:28px; }
 			button.close span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; background:url(../img/icons/cross.png) no-repeat center center; }
 		
 	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:0 0 8.75em 0; padding:2em 0 0; }
+	
+/** Anologue Messages **/
+
 		.anologue .message { position:relative; display:block; background:#fafafa; border-bottom:3px solid white; vertical-align:top; font-size:.85em; min-height:3em; }
 		.anologue .message:hover { background:white; }
 			.anologue .data { position:relative; }
 			.anologue .data > li { display:block; padding:.5em; position:absolute; left:0; top:0; }
-		.anologue li.time { position:absolute; z-index:50; opacity:0; white-space:nowrap; text-align:center; width:4em; top:0; left:0; }
-		.anologue li.ip { position:absolute; z-index:50; opacity:0; whitespace:nowrap; text-align:left; width:4em; left:.25em; top:1.6em; font-size:.85em; }
-		.anologue .message:hover li.time, .anologue .message:hover li.ip { opacity:.25; }
-		.anologue li.author { font-weight:bold; white-space:nowrap; text-align:right; width:14em; padding:.75em .5em .25em 5.5em; min-height:2em; background:#ededed; }
+		.anologue li.time { position:absolute; z-index:50; white-space:nowrap; text-align:center; width:4em; top:0; left:0; padding:.75em .5em .5em .75em; }
+			.anologue li.time .timestamp { display:none; }
+			.anologue li.time .human-time { opacity:.15; font-size:.85em; }
+			.anologue .message:hover .human-time { opacity:.25; }
+		.anologue li.ip { position:absolute; z-index:50; opacity:0; whitespace:nowrap; text-align:left; width:4em; left:.5em; top:2em; font-size:.75em; }
+		.anologue .message:hover li.ip { opacity:.15; }
+		.anologue li.author { white-space:nowrap; text-align:right; width:14em; padding:.75em .5em .25em 5.5em; min-height:2em; background:#ededed; }
 			.anologue li.author img { float:right; margin:0 0 0 .5em; }
-			.anologue li.author span { max-width:12em; overflow:hidden; display:block; }
+			.anologue li.author span { max-width:12em; overflow:hidden; display:block; opacity:.5; }
+			.anologue .message:hover li.author span { opacity:1; }
 		.anologue li.text { position:relative; padding:.25em .5em 0 2em; margin:0 0 0 19.90em; background:url(../img/pointer.png) no-repeat top left; min-height:2.75em; }
 			.anologue .text a { border-bottom:1px dotted #77458c; }
 			.anologue .text .markdown {  }
 			.anologue .text .markdown ul { padding:.25em 1em; }
-		
-	#anologue-speech-bar { position:fixed; z-index:50; bottom:0; left:0; display:block; width:100%; min-width:1006px; clear:both; background:black; background-color:rgba(0,0,0,.85); color:white; }
+			
+/** Anologue Footer "Speech" Bar **/
+
+	#anologue-speech-bar { position:fixed; z-index:50; bottom:-200px; left:0; display:block; width:100%; min-width:1006px; clear:both; background:black; background-color:rgba(0,0,0,.85); color:white; }
 		.purple-background { background:#4c2c59 url(../img/bg.png); background-color:rgba(76,44,89,.75); height:150px; }
 		.twenty-percent { float:left; min-width:275px; }
 		.eighty-percent { float:left; width:70%; min-width:725px; }
-		
+
+/** Anologue Settings **/
+
 	.anologue-settings, .anologue-speak { padding:1em; }
 	
 	.anologue-settings > div { padding:0 0 2px 0; }
 	
 	.anologue-settings .input, .anologue-settings .about { clear:both; }
 	.anologue-settings input[type=text] { width:14em; border:none; padding:4px 6px; background:#4c2c59; color:white; height:16px; font-size:14px; }
-	.anologue-settings input[type=text]:focus { outline:none; background:white; color:black; }
+	.anologue-settings input[type=text]:focus { outline:none; background:white; color:black; -moz-box-shadow: inset 1px 1px 3px rgba(0,0,0,.75); -webkit-box-shadow: inset 1px 1px 3px rgba(0,0,0,.75); box-shadow: inset 1px 1px 3px rgba(0,0,0,.75); }
 	.anologue-settings .checkbox { float:left; padding:10px 0 0 0; margin: 0 2px 0 0; }
 	.anologue-settings .checkbox.first { clear:both; }
 	
@@ -76,10 +97,13 @@ p.last { padding:.5em 0 4em 0; }
 		.anologue-settings .about a:hover { color:white; }
 	
 /** Label Icons **/
+
 	label.icon { display:block; width:28px; height:28px; }
 	.anologue-settings label.icon { float:left; }
 	label.icon span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; }
 	.icon.disabled span { background:url(../img/icons/slash.png) no-repeat center center; }
+	
+	.checkbox label.icon:hover { background-color:white; -moz-box-shadow: inset 1px 1px 4px rgba(0,0,0,.75); -webkit-box-shadow: inset 1px 1px 4px rgba(0,0,0,.75); box-shadow: inset 1px 1px 4px rgba(0,0,0,.75); }
 	
 	.name .icon { background:url(../img/icons/name-tag.png) no-repeat center center; } 
 	.email .icon { background:url(../img/icons/mail.png) no-repeat center center; }
@@ -91,7 +115,10 @@ p.last { padding:.5em 0 4em 0; }
 	.anologue-speak .icon { background:url(../img/anonymous.png) no-repeat center center; }
 	
 /** Speech Input **/
+
 	.anologue-speak label { float:left; }
 	.anologue-speak textarea { padding:4px 6px; width:90%; height:6em; background:#4c2c59; color:white; border:none; font-size:14px; }
-	.anologue-speak textarea:focus { outline:none; background:white; color:black; }
+	.anologue-speak textarea:focus { outline:none; background:white; color:black; -moz-box-shadow: inset 1px 1px 6px rgba(0,0,0,.75); -webkit-box-shadow: inset 1px 1px 6px rgba(0,0,0,.75); box-shadow: inset 1px 1px 6px rgba(0,0,0,.75); }
+	#markdown-help { font-size:.75em; border:none; margin:.25em 0 .25em 28px; color:white; opacity:.5; }
+	#markdown-help:hover { opacity:1; }
 	.anologue-speak .submit { display:none; }

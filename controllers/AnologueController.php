@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use \app\models\Anologue;
 use \lithium\storage\Session;
-use \lithium\storage\session\adapter\Cookie;
 
 /**
  * The core controller for Anologue.
@@ -12,16 +11,6 @@ use \lithium\storage\session\adapter\Cookie;
  * @see lithium\action\controller 
  */
 class AnologueController extends \lithium\action\Controller {
-	
-	/**
-	 * Constructor
-	 */
-	public function __construct($config = null) {
-		Session::config(array(
-			'default' => array('adapter' => new Cookie())
-		));
-		parent::__construct($config);
-	}
 	
 	/**
 	 * This action is used to render the index view, which is essentially a static page.
@@ -107,7 +96,6 @@ class AnologueController extends \lithium\action\Controller {
 	 */ 
 	private function _manageCookie($data = array()) {
 		$cookieKeys = array('author','email','scrolling','sounds', 'cookies');
-		
 		if ($data['cookies'] == 'true') {
 			$user = array();
 		
@@ -122,7 +110,7 @@ class AnologueController extends \lithium\action\Controller {
 		
 			Session::write('user', serialize($user));
 		} else {
-			Session::delete('user');
+			Session::write('user', null);
 		}
 	}
 	
