@@ -28,7 +28,14 @@ class AnologueController extends \lithium\action\Controller {
 	public function view() {
 		$status = 'error';
 		$data = null;
-		$result = $user = array();
+		$result = array();
+		$defaultUser = array(
+			'author' => null,
+			'email' => null,
+			'scrolling' => 'true',
+			'sounds' => 'true',
+			'cookies' => 'true'
+		);
 		
 		if (!empty($this->request->params['id'])) {
 			$data = Anologue::find($this->request->params['id']);
@@ -48,7 +55,7 @@ class AnologueController extends \lithium\action\Controller {
 		
 		$user = Session::read('user');
 		if (!empty($user)) {
-			$user = unserialize($user);
+			$user = unserialize($user) + $defaultUser;
 		}
 		
 		$this->set(compact('data', 'user'));
