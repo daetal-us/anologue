@@ -1,11 +1,9 @@
-@font-face { font-family: "Anologue Standard"; src: url(../media/font/PT_Sans.ttf); }
-@font-face { font-family: "Anologue Bold"; src: url(../media/font/PT_Sans_Bold.ttf); }
 @font-face { font-family: "Anologue Titling"; src: url(../media/font/Bebas.ttf); }
 
 * { margin:0; padding:0; }
 
 h1, h2, h3, #markdown-help { font-family:"Anologue Titling", Helvetica, Arial, sans-serif; font-weight:normal; text-transform:uppercase; }
-strong { font-family:"Anologue Bold", Helvetica, Arial, sans-serif; font-weight:normal; }
+strong { font-family: Helvetica, Arial, sans-serif; }
 
 h1.title { font-size:9em; text-shadow: 1px 1px 4px rgba(0,0,0,.75); color:white; text-transform:uppercase; }
 	h1 a { color:black; border:none; opacity:.05; }
@@ -14,11 +12,11 @@ h2.sub { font-size:2.75em; font-weight:normal !important; opacity:.5; margin:.75
 h3.hash {  }
 	h3.hash a { border:none; color:#77458c; text-shadow: 1px 1px 1px rgba(0,0,0,.15); }
 	h3.hash a:hover {  }
-	
+
 a { color:#4c2c59; text-decoration:none; border-bottom:1px dotted #77458c; }
 a:hover { color:#77458c; }
 
-html, body, input, password, textarea { background:white; color:black; font-family: "Anologue Standard", Helvetica, Arial, sans-serif; }
+html, body, input, password, textarea { background:white; color:black; font-family: Helvetica, Arial, sans-serif; }
 body { padding:1em; }
 body.index { padding:0; }
 
@@ -38,7 +36,7 @@ p.last { padding:.5em 0 4em 0; }
 	.excellence img { margin:0 0 .5em 0; border:1em solid #f0f0f0; }
 	.excellence span { display:block; font-style:italic; font-size:.65em; text-align:center; }
 	.anologue-titling { float:left; }
-	
+
 	#anologue-help { position:fixed; z-index:50; bottom:-800px; left:0; display:block; width:100%; background:black; background:rgba(0,0,0,.95); color:white;  text-align:left; font-size:.85em; }
 		#anologue-help .padding { padding: 2em 2em 13em 2em; }
 		#anologue-help h2 { font-size:9em; margin:0; padding:0; }
@@ -50,9 +48,9 @@ p.last { padding:.5em 0 4em 0; }
 		#anologue-close-help { position:absolute; top:.25em; right:.5em; }
 		button.close { border:none; background:none; display:block; width:28px; height:28px; }
 			button.close span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; background:url(../img/icons/cross.png) no-repeat center center; }
-		
+
 	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:0 0 8.75em 0; padding:2em 0 0; }
-	
+
 /** Anologue Messages **/
 
 		.anologue .message { position:relative; display:block; background:#fafafa; border-bottom:3px solid white; vertical-align:top; font-size:.85em; min-height:3em; }
@@ -73,7 +71,7 @@ p.last { padding:.5em 0 4em 0; }
 			.anologue .text a { border-bottom:1px dotted #77458c; }
 			.anologue .text .markdown {  }
 			.anologue .text .markdown ul { padding:.25em 1em; }
-			
+
 /** Anologue Footer "Speech" Bar **/
 
 	#anologue-speech-bar { position:fixed; z-index:50; bottom:-200px; left:0; display:block; width:100%; min-width:1006px; clear:both; background:black; background-color:rgba(0,0,0,.85); color:white; }
@@ -84,36 +82,36 @@ p.last { padding:.5em 0 4em 0; }
 /** Anologue Settings **/
 
 	.anologue-settings, .anologue-speak { padding:1em; }
-	
+
 	.anologue-settings > div { padding:0 0 2px 0; }
-	
+
 	.anologue-settings .input, .anologue-settings .about { clear:both; }
 	.anologue-settings input[type=text] { width:14em; border:none; padding:4px 6px; background:#4c2c59; color:white; height:16px; font-size:14px; }
 	.anologue-settings input[type=text]:focus { outline:none; background:white; color:black; -moz-box-shadow: inset 1px 1px 3px rgba(0,0,0,.75); -webkit-box-shadow: inset 1px 1px 3px rgba(0,0,0,.75); box-shadow: inset 1px 1px 3px rgba(0,0,0,.75); }
 	.anologue-settings .checkbox { float:left; padding:10px 0 0 0; margin: 0 2px 0 0; }
 	.anologue-settings .checkbox.first { clear:both; }
-	
+
 		.anologue-settings .about a, .anologue-settings .about a:link { border:none; color:#77458c; font-size:.65em; }
 		.anologue-settings .about a:hover { color:white; }
-	
+
 /** Label Icons **/
 
 	label.icon { display:block; width:28px; height:28px; }
 	.anologue-settings label.icon { float:left; }
 	label.icon span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; }
 	.icon.disabled span { background:url(../img/icons/slash.png) no-repeat center center; }
-	
+
 	.checkbox label.icon:hover { background-color:white; -moz-box-shadow: inset 1px 1px 4px rgba(0,0,0,.75); -webkit-box-shadow: inset 1px 1px 4px rgba(0,0,0,.75); box-shadow: inset 1px 1px 4px rgba(0,0,0,.75); }
-	
-	.name .icon { background:url(../img/icons/name-tag.png) no-repeat center center; } 
+
+	.name .icon { background:url(../img/icons/name-tag.png) no-repeat center center; }
 	.email .icon { background:url(../img/icons/mail.png) no-repeat center center; }
-	
+
 	.auto-scroll .icon { background:#4c2c59 url(../img/icons/ui-scroll-bar.png) no-repeat center center; }
 	.sound .icon { background:#4c2c59 url(../img/icons/volume.png) no-repeat center center; }
 	.cookie .icon { background:#4c2c59 url(../img/icons/cookie.png) no-repeat center center; }
-	
+
 	.anologue-speak .icon { background:url(../img/anonymous.png) no-repeat center center; }
-	
+
 /** Speech Input **/
 
 	.anologue-speak label { float:left; }
