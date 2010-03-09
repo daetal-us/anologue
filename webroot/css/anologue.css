@@ -53,6 +53,7 @@ p.last { padding:.5em 0 4em 0; }
 
 /** Anologue Messages **/
 
+		.anologue h1, .anologue h2, .anologue h3, .anologue h4, .anologue h5, .anologue h6 { margin: .5em 0; font-family: Helvetica, Arial, sans-serif; text-transform: none; }
 		.anologue .message { position:relative; display:block; background:#fafafa; border-bottom:3px solid white; vertical-align:top; font-size:.85em; min-height:3em; }
 		.anologue .message:hover { background:white; }
 			.anologue .data { position:relative; }
@@ -70,8 +71,11 @@ p.last { padding:.5em 0 4em 0; }
 		.anologue li.text { position:relative; padding:.25em .5em 0 2em; margin:0 0 0 19.90em; background:url(../img/pointer.png) no-repeat top left; min-height:2.75em; }
 			.anologue .text a { border-bottom:1px dotted #77458c; }
 			.anologue .text .markdown {  }
-			.anologue .text .markdown ul { padding:.25em 1em; }
-
+			.anologue .text .markdown ul, .anologue .text .markdown ol { margin: .5em 0; padding:0 1em 0 2em; font-size: 0.95em; }
+			.anologue .text .markdown li { margin: .25em 0;}
+			.anologue .text .markdown code { background:#454545; color:white; padding: .75em; -moz-box-shadow:0 0 4px black; -webkit-box-shadow: 0 0 4px black; box-shadow: 0 0 4px black; }
+			.anologue .text .markdown .oembed-container a { border-bottom: none; }
+				.anologue .text .markdown .oembed-container img, .anologue .text .markdown .oembed-container object { border: 1px solid #454545; -moz-box-shadow:0 0 4px black; -webkit-box-shadow: 0 0 4px black; box-shadow: 0 0 4px black; }
 /** Anologue Footer "Speech" Bar **/
 
 	#anologue-speech-bar { position:fixed; z-index:50; bottom:-200px; left:0; display:block; width:100%; min-width:1006px; clear:both; background:black; background-color:rgba(0,0,0,.85); color:white; }

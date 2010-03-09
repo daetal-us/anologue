@@ -1,6 +1,6 @@
 <?php
 
-use \lithium\http\Router;
+use \lithium\net\http\Router;
 
 /**
  * Connect the testing routes.

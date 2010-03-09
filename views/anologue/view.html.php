@@ -11,7 +11,7 @@
 	<h1 class="smaller-title">
 		<?php
 			echo $this->html->link(
-				'anologue', 
+				'anologue',
 				array('controller' => 'anologue', 'action' => 'index')
 			);
 		?>
@@ -19,8 +19,8 @@
 	<h3 class="hash">
 		<?php
 			echo $this->html->link(
-				$data->id, 
-				array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id), 
+				$data->id,
+				array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id),
 				array('title' => 'Copy this url and give it to others')
 			);
 		?>
@@ -52,7 +52,7 @@
 				</li>
 				<li class="text">
 					<div class="markdown">
-						<pre><?php echo $this->html->escape($message->text); ?></pre>
+						<pre><?php echo $h($message->text); ?></pre>
 					</div>
 				</li>
 			</ul>
@@ -85,7 +85,7 @@
 				<div class="about">
 					<?php
 						echo $this->html->link(
-							'what is anologue?', 
+							'what is anologue?',
 							array('controller' => 'anologue', 'action' => 'index')
 						);
 					?>
@@ -112,8 +112,8 @@
 <audio id="anologue-speaker"></audio>
 
 <?php echo $this->html->script(array(
-	'http://code.jquery.com/jquery-1.4.min.js',
-	'md5.jquery.js', 'showdown.js', 'pretty.js', 'anologue.js',
+	'http://code.jquery.com/jquery-1.4.2.min.js',
+	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue',
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
@@ -121,7 +121,8 @@
 			id: '<?=$data->id?>',
 			base: '<?php echo $this->_request->env('base') ?>',
 			line: <?php echo count($data->messages); ?>,
-			icon: '<?php echo $avatar; ?>'			
+			icon: '<?php echo $avatar; ?>',
+			intro: <?php echo (!empty($user['email']) || !empty($user['author'])) ? 'false' : 'true'; ?>
 		});
 	});
 </script>

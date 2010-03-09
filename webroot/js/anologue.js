@@ -3,12 +3,13 @@ var anologue = {
 		id: 0,
 		base : null,
 		line: 0,
-		icon: null
+		icon: null,
+		intro: true,
 	},
 	shiftDown: false,
 
 	setup: function(config) {
-		this._config = config;
+		this._config = $.extend(this._config, config);
 		$(".sound label").click(function() {
 			anologue.toggleIcon('.sound');
 		});
@@ -26,7 +27,7 @@ var anologue = {
 			anologue.markdownHelp();
 			return false;
 		});
-		
+
 		this.setupSubmit();
 		this.markdown();
 		this.fireworks();
@@ -34,7 +35,7 @@ var anologue = {
 		this.listener();
 		this.humanizeTimes();
 		this.humanizeTimesTimer();
-		
+
 		$('body').focusin(function() {
 			anologue.resetTitle();
 		});
@@ -42,13 +43,17 @@ var anologue = {
 			anologue.resetTitle();
 		});
 	},
-	
+
 	fireworks: function() {
-		$("#anologue-help").animate({bottom: 0}, 2500);
+		if (this._config.intro) {
+			$("#anologue-help").animate({bottom: 0}, 2500);
+		} else {
+			this.closeHelp();
+		}
 		$("#anologue-speech-bar").animate({bottom: 0}, 1500);
 		$("#anologue-author").focus();
 	},
-	
+
 	setupSubmit: function() {
 		$("#anologue-form").submit(function() {
 			anologue.say();
@@ -141,13 +146,13 @@ var anologue = {
 		var id = 'message-' + $.md5(message.timestamp + message.author);
 		var html = '<li class="message" id="' + id + '" style="display:none;"><ul class="data"><li class="time"><span class="timestamp">' + message.timestamp + '</span><span class="human-time">' + this.humanizeTime(message.timestamp) + '</span></li><li class="ip">' + message.ip + '</li><li class="author"><img class="gravatar" src="http://gravatar.com/avatar/' + message.email + '?s=16&d=' + this._config.icon + '" border="0" /> <span title="' + $('<div/>').text(message.author).html() + '">' + $('<div/>').text(message.author).html() + '</span> </li><li class="text"><div class="markdown"><pre>' + $('<div/>').text(message.text).html() + '</pre></div></li></ul></li>';
 		$("#anologue").append(html);
-		
+
 		var docTitle = message.author+' posted a new message';
-		
+
 		var soundDisabled = $('.anologue-settings .sound .icon').hasClass('disabled');
-		
+
 		var user = $('#anologue-author').val();
-		
+
 		if (!soundDisabled) {
 			// lazy check to not trigger sound on your message
 			if (message.author != user && user != '') {
@@ -158,11 +163,11 @@ var anologue = {
 				}
 			}
 		}
-		
+
 		if (message.author != user) {
 			this.updateTitle(docTitle);
 		}
-		
+
 		$('#'+id).animate({
 			opacity: 'show'
 		}, 1000);
@@ -207,10 +212,15 @@ var anologue = {
 				var showdown = new Showdown.converter();
 				var text = showdown.makeHtml($(this).children('pre').html());
 				$(this).html(text).addClass('marked');
+				$(this).find("a").oembed(null, {
+					embedMethod: 'annotate',
+					maxWidth: 425,
+					maxHeight: 425
+				});
 			}
 		});
 	},
-	
+
 	toggleIcon: function(parentClass) {
 		var disabled = $('.anologue-settings '+parentClass+' .icon').hasClass('disabled');
 		if (!disabled) {
@@ -219,7 +229,7 @@ var anologue = {
 			$(parentClass+' .icon').removeClass('disabled');
 		}
 	},
-	
+
 	closeHelp: function() {
 		if (!$("#anologue-help").hasClass('closed')) {
 			$("#anologue-help").animate({bottom: '-500px'}, 1000);
@@ -227,14 +237,14 @@ var anologue = {
 		}
 		return false;
 	},
-	
+
 	getOption: function(parentClass) {
 		var disabled = $('.anologue-settings '+parentClass+' .icon').hasClass('disabled');
 		return !disabled;
 	},
-	
+
 	humanizeTimesTimeout: null,
-	
+
 	humanizeTimesTimer: function() {
 		clearTimeout(this.humanizeTimesTimeout);
 		anologue.humanizeTimes();
@@ -242,7 +252,7 @@ var anologue = {
 			anologue.humanizeTimesTimer();
 		}, 15000);
 	},
-	
+
 	humanizeTimes: function() {
 		$('li.time').each(function() {
 			var time = $(this).children('.timestamp').first().text();
@@ -250,19 +260,19 @@ var anologue = {
 			$(this).children('.human-time').first().text(prettyTime);
 		});
 	},
-	
+
 	humanizeTime: function(timestamp) {
 		return PrettyDate.convert(timestamp);
 	},
-	
+
 	resetTitle: function() {
 		document.title = 'anologue';
 	},
-	
+
 	updateTitle: function(msg) {
 		document.title = msg + ' - anologue';
 	},
-	
+
 	markdownHelp: function() {
 		if (!$('#anologue-help .padding').hasClass("markdown-help")) {
 			var html = '<h2>Markdown &nbsp;Syntax</h2><p># header 1 &nbsp;  &nbsp; ## header 2 &nbsp;  &nbsp; <em>*italic*</em> &nbsp;  &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; 	- unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg)</p>';
@@ -280,11 +290,15 @@ var anologue = {
 			this.showMarkdownHelp();
 		}
 	},
-	
+
 	showMarkdownHelp: function() {
-		$("#anologue-help").animate({bottom: 0}, 1000, function() {
-			$("#anologue-help").removeClass('closed');
-		});
+		if ($("#anologue-help").hasClass('closed')) {
+			$("#anologue-help").animate({bottom: 0}, 1000, function() {
+				$("#anologue-help").removeClass('closed');
+			});
+		} else {
+			this.closeHelp();
+		}
 	}
-	
+
 }

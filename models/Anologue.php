@@ -3,6 +3,7 @@
 namespace app\models;
 
 use \lithium\data\model\Document;
+use \app\extensions\helper\Oembed;
 
 /**
  * The core model and messages container for Anologue.
@@ -28,6 +29,7 @@ class Anologue extends \lithium\data\Model {
 	 *
 	 * @var array
 	 * @see app\models\Anologue::addMessage()
+	 * @todo move to Message model
 	 */
 	protected static $_defaultMessage = array(
 		'author' => 'anonymous',
@@ -38,13 +40,13 @@ class Anologue extends \lithium\data\Model {
 	);
 
 	/**
-	 * Create a new analogue using schema.
+	 * Create a new anologue using schema.
 	 *
 	 * @param array $data
 	 * @return void
 	 * @see lithium\data\Model::create()
 	 */
-	public static function create($data = array()) {
+	public static function create(array $data = array()) {
 		$default = array(
 			'messages' => null
 		);
@@ -61,13 +63,15 @@ class Anologue extends \lithium\data\Model {
 	 */
 	public static function addMessage($id, $message = array()) {
 		$anologue = static::find($id);
-		
+
+		$message['text'] = Oembed::classify($message['text'], array('markdown' => true));
+
 		if (!empty($message['email'])) {
 			$message['email'] = md5($message['email']);
 		}
-		
+
 		$message = $message + array('timestamp' => time()) + static::$_defaultMessage;
-		
+
 		if (!$anologue->messages) {
 			$anologue->messages = array($message);
 		} else {
