@@ -58,6 +58,12 @@ require __DIR__ . '/bootstrap/action.php';
  */
 require __DIR__ . '/bootstrap/cache.php';
 
+/**
+ * This file contains filters for the test suite to bypass having a controller and render test
+ * templates directly through the test dispatcher.
+ */
+require __DIR__ . '/bootstrap/test.php';
+
 
 use \lithium\storage\Session;
 

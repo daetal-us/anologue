@@ -15,4 +15,11 @@ Connections::add('default', array(
 	'host' => 'localhost'
 ));
 
+Connections::add('test', array(
+	'type' => 'Http',
+	'adapter' => 'CouchDb',
+	'database' => 'anologue_test',
+	'host' => 'localhost'
+));
+
 ?>

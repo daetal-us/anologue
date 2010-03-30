@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use \lithium\data\model\Document;
+use \lithium\data\Connections;
+use \lithium\data\collection\Document;
 use \app\extensions\helper\Oembed;
 
 /**
@@ -39,6 +40,33 @@ class Anologue extends \lithium\data\Model {
 		'text' => null
 	);
 
+	public static function __init(array $options = array()) {
+		parent::__init($options);
+		$self = static::_instance();
+		$self->_setupFinders();
+	}
+
+	protected function _setupFinders() {
+		$self = static::_instance();
+		$self->_finders['changes'] = function($self, $params, $change) {
+			$query = (array) $params['options']['conditions'] + array(
+				'filter' => 'changes/id'
+			);
+			$connection = Connections::get($self::meta('connection'));
+			$result = $connection->get(
+				$connection->_config['database'] . '/_changes/',
+				$query, array('type' => null)
+			);
+			if (empty($result->results)) {
+				return 0;
+			}
+			return new Document(array(
+				'items' => $result->results[0],
+				'model' => __CLASS__
+			));
+		};
+	}
+
 	/**
 	 * Create a new anologue using schema.
 	 *
@@ -46,12 +74,12 @@ class Anologue extends \lithium\data\Model {
 	 * @return void
 	 * @see lithium\data\Model::create()
 	 */
-	public static function create(array $data = array()) {
+	public static function create(array $data = array(), array $options = array()) {
 		$default = array(
 			'messages' => null
 		);
 		$data = $data + $default;
-		return parent::create($data);
+		return parent::create($data, $options);
 	}
 
 	/**
@@ -62,6 +90,12 @@ class Anologue extends \lithium\data\Model {
 	 * @see lithium\data\Model::save()
 	 */
 	public static function addMessage($id, $message = array()) {
+		$default = array(
+			'text' => null,
+			'email' => null
+		);
+		$message += $default;
+
 		$anologue = static::find($id);
 
 		$message['text'] = Oembed::classify($message['text'], array('markdown' => true));
@@ -78,6 +112,30 @@ class Anologue extends \lithium\data\Model {
 			$anologue->messages->append($message);
 		}
 		return $anologue->save();
+	}
+
+	/**
+	 * Query changes for a particular document
+	 *
+	 * @param string|array $id if a string assumed id, otherwise, assumed array of conditions
+	 * @param array $conditions (optional) array of conditions
+	 * @see http://wiki.apache.org/couchdb/HTTP_database_API#Changes
+	 */
+	public static function changes($id = null, $conditions = array()) {
+		$defaults = array(
+			'id' => null,
+			'since' => 0,
+			'style' => 'all_docs'
+		);
+
+		$conditions['id'] = $id;
+		if (is_array($id)) {
+			$conditions = $id;
+		}
+
+		$conditions += $defaults;
+
+		return static::find('changes', compact('conditions'));
 	}
 }
 
