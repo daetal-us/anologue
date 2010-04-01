@@ -8,15 +8,7 @@
 <form id="anologue-form">
 
 <div class="anologue-titling">
-	<h1 class="smaller-title">
-		<?php
-			echo $this->html->link(
-				'anologue',
-				array('controller' => 'anologue', 'action' => 'index')
-			);
-		?>
-	</h1>
-	<h3 class="hash">
+	<h2 id="anologue-title">
 		<?php
 			echo $this->html->link(
 				$data->id,
@@ -24,7 +16,7 @@
 				array('title' => 'Copy this url and give it to others')
 			);
 		?>
-	</h3>
+	</h2>
 </div>
 <div id="anologue-help">
 	<div class="padding">

@@ -79,6 +79,20 @@ class AnologueController extends \lithium\action\Controller {
 	}
 
 	/**
+	 * Set the title of an Anologue if one does not already exist
+	 */
+	public function title() {
+		$status = 'error';
+		if (!empty($this->request->params['id'])) {
+			if (!empty($this->request->data) && !empty($this->request->data['title'])) {
+				$result = Anologue::title($this->request->params['id'], $this->request->data['title']);
+				$status = ($result) ? 'success' : 'fail';
+			}
+		}
+		return $this->render(array('json' => compact('status')));
+	}
+
+	/**
 	 * Create a new anologue and redirect to view it.
 	 *
 	 * @see app\controllers\AnologueController::view()
@@ -101,7 +115,6 @@ class AnologueController extends \lithium\action\Controller {
 
 			$data['ip'] = $this->request->env('REMOTE_ADDR');
 			if (!empty($data)) {
-				$status = 'fail';
 				$result = Anologue::addMessage($this->request->params['id'], $data);
 				$status = ($result) ? 'success' : 'fail';
 			}

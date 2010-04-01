@@ -9,9 +9,10 @@ h1.title { font-size:9em; text-shadow: 1px 1px 4px rgba(0,0,0,.75); color:white;
 	h1 a { color:black; border:none; opacity:.05; }
 	h1 a:hover { color:black; }
 h2.sub { font-size:2.75em; font-weight:normal !important; opacity:.5; margin:.75em 0 .25em 0; text-shadow: 2px 2px 4px rgba(0,0,0,.25); }
-h3.hash {  }
-	h3.hash a { border:none; color:#77458c; text-shadow: 1px 1px 1px rgba(0,0,0,.15); }
-	h3.hash a:hover {  }
+
+h1.smaller-title, h2#anologue-title { font-size: 1.5em; padding: 0 .5em 0 0; float:left; }
+	h2#anologue-title a { border:none; color:#77458c; text-shadow: 1px 1px 1px rgba(0,0,0,.15); }
+	h2#anologue-title a:hover {  }
 
 a { color:#4c2c59; text-decoration:none; border-bottom:1px dotted #77458c; }
 a:hover { color:#77458c; }

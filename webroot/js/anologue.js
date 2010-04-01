@@ -115,7 +115,7 @@ var anologue = {
 		});
 	},
 
-	// get messages
+	// get messages, update title if needed
 	update: function() {
 		var url = this._config.base + '/' + this._config.id + '.json?_=' + (new Date().getTime());
 		$.getJSON(url, function(response) {
@@ -123,6 +123,12 @@ var anologue = {
 				return anologue.alert(response.status);
 			}
 			anologue.db = response.data;
+			if (
+				anologue.db.title != undefined
+				&& $('#anologue-title a').text() != anologue.db.title
+			) {
+				$('#anologue-title a').text(anologue.db.title);
+			}
 			if (anologue.db.messages != null) {
 				for (var i = anologue._config.line; i < anologue.db.messages.length; i++) {
 					anologue.render(anologue.db.messages[i]);
@@ -181,6 +187,20 @@ var anologue = {
 
 	},
 
+	// Set title of Anologue
+	title: function(title) {
+		if (this.db.title == undefined) {
+			data = {"title": title};
+			$.post(this._config.base + "/title/" + this._config.id, data, function(response) {
+				if (response.status != 'success') {
+					this.alert('Sorry, but this Anologue must already have a title.');
+				}
+			}, "json");
+		} else {
+			this.alert('Sorry, but this Anologue already has a title.');
+		}
+	},
+
 	//output messages
 	render: function(message) {
 		var id = 'message-' + $.md5(message.timestamp + message.author);
@@ -210,7 +230,7 @@ var anologue = {
 
 		$('#'+id).animate({
 			opacity: 'show'
-		}, 1000);
+		}, 650);
 		var scrollEnabled = this.getOption('.auto-scroll');
 		if (scrollEnabled) {
 			$('html, body').animate({
@@ -272,7 +292,7 @@ var anologue = {
 
 	closeHelp: function() {
 		if (!$("#anologue-help").hasClass('closed')) {
-			$("#anologue-help").animate({bottom: '-500px'}, 1000);
+			$("#anologue-help").animate({bottom: '-500px'}, 650);
 			$("#anologue-help").addClass('closed');
 		}
 		return false;
@@ -333,7 +353,7 @@ var anologue = {
 
 	showMarkdownHelp: function() {
 		if ($("#anologue-help").hasClass('closed')) {
-			$("#anologue-help").animate({bottom: 0}, 1000, function() {
+			$("#anologue-help").animate({bottom: 0}, 650, function() {
 				$("#anologue-help").removeClass('closed');
 			});
 		} else {

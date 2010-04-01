@@ -78,7 +78,7 @@ class Anologue extends \lithium\data\Model {
 		$default = array(
 			'messages' => null
 		);
-		$data = $data + $default;
+		$data += $default;
 		return parent::create($data, $options);
 	}
 
@@ -90,11 +90,7 @@ class Anologue extends \lithium\data\Model {
 	 * @see lithium\data\Model::save()
 	 */
 	public static function addMessage($id, $message = array()) {
-		$default = array(
-			'text' => null,
-			'email' => null
-		);
-		$message += $default;
+		$message = $message + array('timestamp' => time()) + static::$_defaultMessage;
 
 		$anologue = static::find($id);
 
@@ -104,14 +100,25 @@ class Anologue extends \lithium\data\Model {
 			$message['email'] = md5($message['email']);
 		}
 
-		$message = $message + array('timestamp' => time()) + static::$_defaultMessage;
-
 		if (!$anologue->messages) {
 			$anologue->messages = array($message);
 		} else {
 			$anologue->messages->append($message);
 		}
 		return $anologue->save();
+	}
+
+	public static function title($id, $title) {
+		$anologue = static::find($id);
+		if ($anologue) {
+			if (!isset($anologue->title)) {
+				$anologue->title = $title;
+				if ($anologue->save()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

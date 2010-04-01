@@ -12,7 +12,8 @@ Connections::add('default', array(
 	'type' => 'Http',
 	'adapter' => 'CouchDb',
 	'database' => 'anologue',
-	'host' => 'localhost'
+	'host' => 'localhost',
+	'timeout' => 60
 ));
 
 Connections::add('test', array(
