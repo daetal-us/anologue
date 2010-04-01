@@ -62,6 +62,22 @@ class AnologueController extends \lithium\action\Controller {
 		$this->render($result);
 	}
 
+	public function changes() {
+		$status = 'error';
+		$data = null;
+		$since = 0;
+		if (!empty($this->request->query['since'])) {
+			$since = $this->request->query['since'];
+		}
+		if (!empty($this->request->params['id'])) {
+			if ($changes = Anologue::changes($this->request->params['id'], compact('since'))) {
+				$status = 'success';
+				$data = $changes->to('array');
+			}
+		}
+		return $this->render(array('json' => compact('status', 'data')));
+	}
+
 	/**
 	 * Create a new anologue and redirect to view it.
 	 *

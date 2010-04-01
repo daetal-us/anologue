@@ -118,6 +118,8 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		anologue.setup({
+			db: <?php echo json_encode($data->to('array')); ?>,
+
 			id: '<?=$data->id?>',
 			base: '<?php echo $this->_request->env('base') ?>',
 			line: <?php echo count($data->messages); ?>,

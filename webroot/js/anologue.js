@@ -1,14 +1,50 @@
 var anologue = {
+	/**
+	 * Local container for the current document dataset
+	 *
+	 * @type Object
+	 */
+	db: {},
+
+	/**
+	 * Default Config
+	 * 		- `id`: id of the current anologue
+	 * 		- `seq`: current sequence to limit _changes requests by
+	 * 		- `base`: regular domain name of the application. (i.e. `localhost`, `anologue.com`)
+	 * 		- `line`: last message rendered
+	 * 		- `icon`: default gravatar image url
+	 * 		- `intro`: override for rendering help on page load.
+	 *
+	 * @type Object
+	 */
 	_config: {
 		id: 0,
+		seq: 0,
 		base : null,
 		line: 0,
 		icon: null,
 		intro: true,
 	},
+
+	/**
+	 * Is shift currently pressed down?
+	 *
+	 * @todo move to _config?
+	 * @type Boolean
+	 */
 	shiftDown: false,
 
+	/**
+	 * Configure and start the show!
+	 *
+	 * @param Object config merged into default config.
+	 * @see this._config
+	 */
 	setup: function(config) {
+		if (config.db) {
+			this.db = config.db;
+			config.db = undefined;
+		}
 		this._config = $.extend(this._config, config);
 		$(".sound label").click(function() {
 			anologue.toggleIcon('.sound');
@@ -32,7 +68,7 @@ var anologue = {
 		this.markdown();
 		this.fireworks();
 		this.setupSpeaker();
-		this.listener();
+		this.scout();
 		this.humanizeTimes();
 		this.humanizeTimesTimer();
 
@@ -79,39 +115,44 @@ var anologue = {
 		});
 	},
 
-	//the set time out method
-	timeout: null,
-
-	//setup the listener on a timeout
-	run: function () {
-		clearTimeout(this.timeout);
-		this.timeout = setTimeout(function() {
-			$("a").attr({"target":"_blank"});
-			anologue.listener();
-		}, 2000);
-	},
-
-	//get messages
-	listener: function() {
+	// get messages
+	update: function() {
 		var url = this._config.base + '/' + this._config.id + '.json?_=' + (new Date().getTime());
 		$.getJSON(url, function(response) {
 			if (response.status != "success") {
 				return anologue.alert(response.status);
 			}
-			if (response.data.messages != null) {
-				for (var i = anologue._config.line; i < response.data.messages.length; i++) {
-					anologue.render(response.data.messages[i]);
+			anologue.db = response.data;
+			if (anologue.db.messages != null) {
+				for (var i = anologue._config.line; i < anologue.db.messages.length; i++) {
+					anologue.render(anologue.db.messages[i]);
 					anologue._config.line++;
 				}
 				anologue.markdown();
-				anologue.run();
 			}
 		});
 	},
 
-	//add message
+	// long poller
+	scout: function() {
+		var url = this._config.base
+				+ '/changes/' + this._config.id + '?since=' + this._config.seq;
+		$.getJSON(url, function(response) {
+			if (response.status != "success") {
+				return anologue.alert(response.status);
+			}
+			if (response.data.results.length > 0) {
+				if (response.data.results[0].changes[0].rev != anologue.db.rev) {
+					anologue.update();
+				}
+			}
+			anologue._config.seq = response.data.last_seq;
+			anologue.scout();
+		});
+	},
+
+	// add message
 	say: function() {
-		clearTimeout(this.timeout);
 		this.closeHelp();
 		var data = {
 			author: $('#anologue-author').val(),
@@ -122,7 +163,6 @@ var anologue = {
 			cookies: this.getOption('.cookie')
 		}
 		if (data.text == '') {
-			anologue.listener();
 			return false;
 		}
 		if (data.author == '') {
@@ -134,9 +174,9 @@ var anologue = {
 			if (response.status != 'success') {
 				$("#anologue-text").val(input);
 				// this might occur if someone sends an update at the same time...
-				anologue.alert('Hold your horses, Spammy McSpamsky. Wait until your last message goes through and try sending your message again.');
+				anologue.alert( 'Hold your horses, Spammy McSpamsky. Wait until your last message'
+								+ 'goes through and try sending your message again.');
 			}
-			anologue.listener();
 		}, "json");
 
 	},
@@ -275,7 +315,7 @@ var anologue = {
 
 	markdownHelp: function() {
 		if (!$('#anologue-help .padding').hasClass("markdown-help")) {
-			var html = '<h2>Markdown &nbsp;Syntax</h2><p># header 1 &nbsp;  &nbsp; ## header 2 &nbsp;  &nbsp; <em>*italic*</em> &nbsp;  &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; 	- unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg)</p>';
+			var html = '<h2>Markdown &nbsp;Syntax</h2> <p><strong>#heading</strong> &nbsp; &nbsp; <em>_italic_</em> &nbsp; &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; - unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg) &nbsp; &nbsp; <code>`inline code`</code></p> <pre><code>{{{ code block }}}</code></pre>';
 			if (!$("#anologue-help").hasClass("closed")) {
 				$("#anologue-help").animate({bottom: '-500px'}, 1000, function() {
 					$("#anologue-help").addClass('closed');

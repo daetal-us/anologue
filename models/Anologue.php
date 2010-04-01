@@ -57,11 +57,11 @@ class Anologue extends \lithium\data\Model {
 				$connection->_config['database'] . '/_changes/',
 				$query, array('type' => null)
 			);
-			if (empty($result->results)) {
+			if (empty($result)) {
 				return 0;
 			}
 			return new Document(array(
-				'items' => $result->results[0],
+				'items' => $result,
 				'model' => __CLASS__
 			));
 		};
@@ -124,6 +124,8 @@ class Anologue extends \lithium\data\Model {
 	public static function changes($id = null, $conditions = array()) {
 		$defaults = array(
 			'id' => null,
+			'feed' => 'longpoll',
+			'timeout' => 55000,
 			'since' => 0,
 			'style' => 'all_docs'
 		);
