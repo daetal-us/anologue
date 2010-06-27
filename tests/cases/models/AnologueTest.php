@@ -13,8 +13,8 @@ class AnologueTest extends \lithium\test\Unit {
 			'connection' => 'test'
 		);
 
-		Anologue::__init($config);
-		AnologueView::__init($config);
+		Anologue::meta($config);
+		AnologueView::meta($config);
 
 		$connection = Connections::get(Anologue::meta('connection'));
 		$message 	= 'Cannot connect to your database. Is CouchDB started and your connection '
