@@ -345,7 +345,7 @@ var anologue = {
 				$('.footer input.message').val();
 				// this might occur if someone sends an update at the same time...
 				anologue.alert( 'Hold your horses, Spammy McSpamsky. Wait until your last message'
-								+ 'goes through and try sending your message again.');
+				 				+ 'goes through and try sending your message again.');
 			}
 		}, "json");
 	},
@@ -372,6 +372,10 @@ var anologue = {
 				$('#anologue-speaker').get(0).play();
 			}
 		},
+	},
+
+	alert: function(msg) {
+		// do something with the message
 	},
 
 	getOption: function(e) {
