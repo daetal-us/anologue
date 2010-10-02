@@ -1,3 +1,10 @@
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
+
 var anologue = {
 	/**
 	 * Local container for the current document dataset
@@ -64,6 +71,7 @@ var anologue = {
 			return false;
 		});
 
+		this.setupSettings();
 		this.setupSubmit();
 		this.markdown();
 		this.fireworks();
@@ -88,6 +96,13 @@ var anologue = {
 		}
 		$("#anologue-speech-bar").animate({bottom: 0}, 1500);
 		$("#anologue-author").focus();
+	},
+
+	setupSettings: function() {
+		$('.toggle-settings').bind('click.config', function() {
+			anologue.toggleOverlay($(this).attr('data-overlay'));
+			return false;
+		})
 	},
 
 	setupSubmit: function() {
@@ -147,12 +162,12 @@ var anologue = {
 			if (response.status != "success") {
 				return anologue.alert(response.status);
 			}
-			if (response.data.results.length > 0) {
-				if (response.data.results[0].changes[0].rev != anologue.db.rev) {
+			if (response.data.changes.length > 0) {
+				if (response.data.changes[0].rev != anologue.db.rev) {
 					anologue.update();
 				}
 			}
-			anologue._config.seq = response.data.last_seq;
+			anologue._config.seq = response.data.seq;
 			anologue.scout();
 		});
 	},
@@ -262,6 +277,7 @@ var anologue = {
 	},
 
 	alert: function(message) {
+		console.log(message);
 		alert(message);
 		return null;
 	},
@@ -314,7 +330,7 @@ var anologue = {
 	},
 
 	humanizeTimes: function() {
-		$('li.time').each(function() {
+		$('span.time').each(function() {
 			var time = $(this).children('.timestamp').first().text();
 			var prettyTime = anologue.humanizeTime(time);
 			$(this).children('.human-time').first().text(prettyTime);
@@ -359,6 +375,35 @@ var anologue = {
 		} else {
 			this.closeHelp();
 		}
+	},
+
+	toggleOverlay: function(selector) {
+		if (!selector) {
+			return;
+		}
+		if ($(selector).hasClass('open')) {
+			return this.hideOverlay(selector);
+		}
+		return this.showOverlay(selector);
+	},
+
+	showOverlay: function(selector) {
+		if (!selector) {
+			return;
+		}
+		$(selector).animate({bottom: 0}, 2000, function() {
+			$(this).addClass('open');
+		});
+	},
+
+	hideOverlay: function(selector) {
+		if (!selector) {
+			return;
+		}
+		var negative = $(selector).height() * -2;
+		$(selector).animate({bottom: negative}, 2000, function() {
+			$(this).removeClass('open');
+		});
 	}
 
 }

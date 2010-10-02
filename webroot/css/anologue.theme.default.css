@@ -1,0 +1,402 @@
+body {
+	overflow-x: hidden;
+}
+.anologue {
+	position: relative;
+}
+.anologue .anologue-title {
+	display: block;
+	padding: 1em;
+	color: #AEBABF;
+}
+.anologue h1 {
+	font-size: 3em;
+	font-family: "Anologue Titling", Helvetica, Arial, sans-serif;
+}
+.anologue .anologue-title h1, .anologue .anologue-title h1 a {
+	color: #00557F;
+	float: left;
+	border-bottom: none;
+}
+.anologue .anologue-title .description {
+	clear: both;
+}
+.anologue .anologue-title .description h1 {
+	font-size: 2.5em;
+	color: #006ea6;
+}
+.anologue .icon {
+	display: block;
+	float: left;
+	background: transparent url(../img/icons/anonymous.png) no-repeat center center;
+	width: 28px;
+	height: 28px;
+	cursor: pointer;
+}
+.anologue .icon.sound {
+	background-image: url(../img/icons/volume.png);
+}
+.anologue .icon.scroll {
+	background-image: url(../img/icons/scroll.png);
+}
+.anologue .icon.cookie {
+	background-image: url(../img/icons/cookies.png);
+}
+.anologue .icon.user-settings {
+	background-image: url(../img/icons/gear.png);
+}
+.anologue .icon.user-settings:hover, .anologue .icon.user-settings.on {
+	background-image: url(../img/icons/gear-on.png);
+}
+.anologue .icon.viewers {
+	background-image: url(../img/icons/users.png);
+}
+.anologue .icon.viewers:hover, .anologue .icon.viewers.on {
+	background-image: url(../img/icons/users-on.png);
+}
+.anologue .icon.markdown-help {
+	background-image: url(../img/icons/code.png);
+}
+.anologue .icon.markdown-help:hover, .anologue .icon.markdown-help.on {
+	background-image: url(../img/icons/code-on.png);
+}
+.anologue.textarea .icon.expand-text {
+	background-image: url(../img/icons/arrow-down.png);
+}
+.anologue.textarea .icon.expand-text:hover {
+	background-image: url(../img/icons/arrow-down-on.png);
+}
+.anologue .icon.expand-text {
+	background-image: url(../img/icons/arrow-up.png);
+}
+.anologue .icon.expand-text:hover {
+	background-image: url(../img/icons/arrow-up-on.png);
+}
+.anologue .icon.close {
+	background-image: url(../img/icons/cancel.png);
+}
+.anologue .icon.close:hover {
+	background-image: url(../img/icons/cancel-on.png);
+}
+.anologue .icon command {
+	display: block;
+	width: 28px;
+	height: 0;
+	padding: 28px 0 0 0;
+	overflow: hidden;
+	background: transparent none no-repeat center center;
+
+}
+.anologue .icon.disabled {
+	opacity: .20 !important;
+}
+.anologue .icon.disabled:hover {
+	opacity: .5 !important;
+}
+.anologue label {
+	display: none;
+}
+.anologue.textarea .overlay {
+	padding-bottom: 104px;
+}
+.anologue .footer {
+	position: fixed;
+	z-index: 50;
+	bottom: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	color: #fff;
+	background: #2B1933;
+	padding: 2px 2px 20px 2px;
+	-moz-box-shadow: 0 0 18px rgba(0,0,0,.75);
+	-webkit-box-shadow: 0 0 18px rgba(0,0,0,.75);
+	box-shadow: 0 0 18px rgba(0,0,0,.75);
+}
+.anologue .footer .icon:hover, .anologue .footer .icon.on {
+	cursor: pointer;
+	background-color: #40264C;
+}
+.anologue .about {
+	display: block;
+	float: right;
+	padding: 6px 12px 0 0;
+	font-size: 20px;
+	color: #6B407F;
+	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
+}
+.anologue .about:hover {
+	color: #fff;
+}
+.anologue .footer textarea {
+	height: 64px;
+	display: none;
+}
+
+.anologue.textarea .footer textarea {
+	display: block;
+}
+.anologue.textarea .footer input {
+	display: none;
+}
+.anologue .footer input,
+.anologue .footer textarea {
+	width: 50%;
+	float: left;
+}
+.anologue #user-settings {
+	width: 228px;
+	position: fixed;
+	bottom: 0;
+}
+.anologue.display-viewers #user-settings {
+	left: 200px;
+}
+.anologue #user-settings input {
+	width: 190px;
+	color: rgba(255,255,255,.55);
+}
+.anologue #user-settings input:-moz-placeholder {
+	color: rgba(255,255,255.15);
+}
+.anologue #user-settings input::-webkit-input-placeholder {
+	color: rgba(255,255,255,.15);
+}
+.anologue #user-settings input:hover {
+	background-color: rgba(255,255,255,.2) !important;
+	color: rgba(255,255,255,.85);
+}
+.anologue #user-settings input:focus {
+	background-color: #fff !important;
+	color: #000;
+}
+.anologue #user-settings input.user {
+	background: rgba(255,255,255,.1) none no-repeat 8px 6px;
+	padding-left: 32px;
+	margin-bottom: 2px;
+}
+.anologue #user-settings .user.name {
+	background-image: url(../img/icons/nametag.png);
+}
+.anologue #user-settings .user.name:focus {
+	background-image: url(../img/icons/nametag-on.png);
+}
+.anologue #user-settings .user.email {
+	background-image: url(../img/icons/mail.png);
+}
+.anologue #user-settings .user.email:focus {
+	background-image: url(../img/icons/mail-on.png);
+}
+.anologue #user-settings .user.url {
+	background-image: url(../img/icons/globe.png);
+}
+.anologue #user-settings .user.url:focus {
+	background-image: url(../img/icons/globe-on.png);
+}
+
+.anologue #user-settings .command {
+	cursor: pointer;
+	background-color: rgba(255,255,255,.1);
+	-moz-box-shadow: inset 1px 1px 3px rgba(0,0,0,.75);
+	-webkit-box-shadow: inset 1px 1px 3px rgba(0,0,0,.75);
+	box-shadow: inset 1px 1px 3px rgba(0,0,0,.75);
+	margin: 0 2px 2px 0;
+}
+.anologue #user-settings .command:hover {
+	background-color: rgba(255,255,255,.2);
+	opacity: 1;
+}
+.anologue .messages {
+	position: relative;
+	padding-bottom: 36px;
+}
+.anologue.textarea .messages {
+	padding-bottom: 84px;
+}
+.anologue .messages ul {
+	padding: 0 2px 0 2px;
+	margin: 2px 0;
+}
+.anologue .messages .message {
+	margin-bottom: 2px;
+	min-height: 2.5em;
+	background: rgba(0,0,0,.02);
+}
+.anologue .messages .message:hover {
+	background: #fff;
+}
+.anologue .message .meta {
+	background: #ededed;
+	padding: 10px 1em;
+	margin-right: 2em;
+	min-height: 20px;
+	width: 20em;
+	display: block;
+	float: left;
+	position: relative;
+	color: rgba(0,0,0,.15);
+	font-size: 14px;
+}
+.anologue .message .meta .ip,
+.anologue .message .meta .time {
+	display: block;
+	position: absolute;
+	top: .8em;
+	left: 1em;
+	width: 10em;
+}
+.anologue .message .meta .ip,
+.anologue .message .meta:hover .time {
+	display: none;
+}
+.anologue .message .meta:hover .ip {
+	display: inline;
+}
+.anologue .message .author {
+	vertical-align: middle;
+	background: #ededed none no-repeat center right;
+	text-align: right;
+	color: black;
+	padding-right: 2.5em;
+	display: block;
+	line-height: 20px;
+}
+.anologue .message .author a {
+	border-bottom: none;
+	color: #6B407F;
+}
+.anologue .message .author:first-letter {
+	padding-left: 10em;
+}
+.anologue .message .separator {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: -15px;
+	width: 15px;
+	height: 0;
+	padding: 40px 0 0 0;
+	overflow: hidden;
+	background: transparent url(../img/pointer.png) no-repeat top right;
+}
+.anologue .message .text {
+	display: block;
+}
+.anologue .message:last-child .text {
+	padding-bottom: 1em;
+}
+.anologue #viewers {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 196px;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	background: rgba(0,0,0,.9);
+}
+.anologue.display-viewers .messages {
+	border-left: 202px solid #ededed;
+}
+.anologue #viewers h1 {
+	font-size: 2em;
+	background: rgba(255,255,255,.1);
+	padding: .5em .5em;
+}
+.anologue #viewers .viewer {
+	display: block;
+	padding: 3px;
+	margin: 2px 0;
+	border-bottom: 1px dashed #292929;
+}
+.anologue #viewers .viewer:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+.anologue #viewers .viewer a, .anologue #viewers .viewer span {
+	display: block;
+	padding-left: 2em;
+	background: transparent url(../img/icons/user-anonymous.png) no-repeat center left;
+	color: #e6e6e6;
+	border: none;
+	line-height: 16px;
+}
+.anologue #viewers .viewer.anonymous a, .anologue #viewers .viewer.anonymous span {
+	background-image: url(../img/icons/user-anonymous.png);
+}
+.anologue #viewers .viewer a {
+	color: #00557F;
+}
+.anologue #viewers .viewer a:hover {
+	color: #fff;
+}
+.anologue #viewers .viewer.away a, .anologue #viewers .viewer.away span {
+	font-style: italic;
+	color: rgba(255,255,255,.35);
+}
+
+.anologue #markdown-help {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	padding-top: 1em;
+	padding-left: 1em;
+	color: rgba(255,255,255,.5);
+}
+.anologue #markdown-help h1 {
+	color: #fff;
+}
+
+.anologue #oembed {
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: .5em;
+}
+
+.anologue #oembed .source {
+	font-size: 11px;
+	text-align: right;
+	font-style: italic;
+}
+.anologue #oembed .source a {
+	color: rgba(255,255,255,.25);
+}
+
+.anologue .message code {
+	padding: .25em .5em;
+	background: rgba(0,0,0,.1);
+}
+
+.anologue .message pre code {
+	padding: 1em 2em;
+	display: block;
+	clear: left;
+	-moz-box-shadow: inset 1px 1px 3px rgba(0,0,0,.15);
+	-webkit-box-shadow: inset 1px 1px 3px rgba(0,0,0,.15);
+	box-shadow: inset 1px 1px 3px rgba(0,0,0,.15);
+}
+
+.anologue .message ul, .anologue .message ol {
+	clear: left;
+	padding: .5em .5em .5em 2em;
+}
+.anologue .message ul li, .anologue .message ol li {
+	display: block;
+	padding: .25em;
+}
+
+.anologue .message ul li:before, .anologue .message ol li:before {
+	content: ' * ';
+}
+
+.anologue .message a.oembed {
+	background: transparent url(../img/icons/arrow-ur-purple.png) no-repeat top right;
+	padding-right: 1em;
+}
+.anologue .message a.oembed:hover {
+	background-image: url(../img/icons/arrow-ur-blue.png);
+}
+.anologue .message a.oembed.open {
+	background-image: url(../img/icons/arrow-ur-ltblue.png);
+}

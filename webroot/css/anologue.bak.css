@@ -1,0 +1,97 @@
+.overlay {
+	position:fixed; z-index:25; bottom:-800px; left:0; display:block; width:100%; background:#372940; background: rgba(34,37,38,.95); color:white;  text-align:left;
+}
+
+	#anologue-help { font-size:.85em; }
+		#anologue-help .padding { padding: 2em 2em 13em 2em; }
+		#anologue-help h2 { font-size:9em; margin:0; padding:0; }
+			#anologue-help .markdown-help h2 { font-size:6em; }
+			#anologue-help h2 span { display:inline; }
+		#anologue-help p {  }
+		#anologue-help .markdown-help p {  }
+		#anologue-help code { background: rgba(255,255,255,.1); padding: .25em; }
+		#anologue-help pre code { background: rgba(255,255,255,.1); padding: .75em; display: block; }
+		#anologue-help a { color:#77458c; }
+		#anologue-close-help { position:absolute; top:.25em; right:.5em; }
+		button.close { border:none; background:none; display:block; width:28px; height:28px; }
+			button.close span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; background:url(../img/icons/cross.png) no-repeat center center; }
+
+	.anologue { position:relative; z-index:10; width:100%; display:block; clear:both; margin:0 0 8.75em 0; padding:2em 0 0; }
+
+/** Anologue Messages **/
+
+		.anologue h1, .anologue h2, .anologue h3, .anologue h4, .anologue h5, .anologue h6 { margin: .5em 0; text-transform: none; }
+		.anologue .message { position:relative; display:block; background:#fafafa; border-bottom:3px solid white; vertical-align:top; font-size:.85em; min-height:3em; }
+		.anologue .message:hover { background:white; }
+			.anologue .data { position:relative; }
+			.anologue .data > li { display:block; padding:.5em; position:absolute; left:0; top:0; }
+		.anologue li.time { position:absolute; z-index:50; white-space:nowrap; text-align:center; width:4em; top:0; left:0; padding:.75em .5em .5em .75em; }
+			.anologue li.time .timestamp { display:none; }
+			.anologue li.time .human-time { opacity:.15; font-size:.85em; }
+			.anologue .message:hover .human-time { opacity:.25; }
+		.anologue li.ip { position:absolute; z-index:50; opacity:0; whitespace:nowrap; text-align:left; width:4em; left:.5em; top:2em; font-size:.75em; }
+		.anologue .message:hover li.ip { opacity:.15; }
+		.anologue li.author { white-space:nowrap; text-align:right; width:14em; padding:.75em .5em .25em 5.5em; min-height:2em; background:#ededed; }
+			.anologue li.author img { float:right; margin:0 0 0 .5em; }
+			.anologue li.author span { max-width:12em; overflow:hidden; display:block; opacity:.5; }
+			.anologue .message:hover li.author span { opacity:1; }
+		.anologue li.text { position:relative; padding:.25em .5em 0 2em; margin:0 0 0 19.90em; background:url(../img/pointer.png) no-repeat top left; min-height:2.75em; }
+			.anologue .text a { border-bottom:1px dotted #77458c; }
+			.anologue .text .markdown {  }
+			.anologue .text .markdown ul, .anologue .text .markdown ol { margin: .5em 0; padding:0 1em 0 2em; font-size: 0.95em; }
+			.anologue .text .markdown li { margin: .25em 0;}
+			.anologue .text .markdown code { padding: .25em; background: #eee; -moz-box-shadow: inset 0 0 4px #ccc; -webkit-box-shadow:inset 0 0 4px #ccc; box-shadow:inset 0 0 4px #ccc; }
+			.anologue .text .markdown pre code { display: block; background:#222; border:1px solid #000; color:white; padding: .75em; -moz-box-shadow:inset 0 0 20px black; -webkit-box-shadow:inset 0 0 20px black; box-shadow:inset 0 0 20px black; }
+			.anologue .text .markdown .oembed-container a { border-bottom: none; }
+				.anologue .text .markdown .oembed-container img, .anologue .text .markdown .oembed-container object { border: 1px solid #454545; -moz-box-shadow:0 0 4px black; -webkit-box-shadow: 0 0 4px black; box-shadow: 0 0 4px black; }
+
+/** Anologue Settings **/
+
+	.anologue-settings { padding:1em 1em 160px 1em; float: left; }
+	.anologue-settings > div { padding:0 0 2px 0; }
+	.anologue-settings .input, .anologue-settings .about { clear:both; }
+
+
+	.anologue-settings .input label { display: none; }
+
+	.anologue-settings .checkbox { float:left; padding:0; margin: 0 2px 0 0; }
+	.anologue-settings .checkbox.first { clear:both; }
+		.anologue-settings .about a, .anologue-settings .about a:link { border:none; color:#77458c; font-size:.65em; }
+		.anologue-settings .about a:hover { color:white; }
+
+/** Label Icons **/
+
+	.icon { background:url(../img/anonymous.png) no-repeat center center; }
+
+	label.icon { display:block; width:28px; height:28px; cursor: pointer; }
+	.anologue-settings label.icon { float:left; }
+	label.icon span { display:block; width:28px; height:0; padding:28px 0 0 0; overflow:hidden; }
+	.icon.disabled span { background: url(../img/icons/slash.png) no-repeat center center; }
+
+	.icon.help { background-image: url(../img/icons/question.png); }
+
+	.checkbox label.icon:hover {  }
+
+	.icon.cog { background-image: url(../img/icons/gear.png); }
+
+	.auto-scroll .icon, .sound .icon, .cookie .icon { }
+	.auto-scroll .icon { background-image: url(../img/icons/ui-scroll-bar.png); }
+	.cookie .icon { background-image: url(../img/icons/cookie.png); }
+
+	#anologue-speech-bar .icon:hover { }
+
+/** Speech Input **/
+
+#anologue-speech-bar { position:fixed; z-index:50; min-height: 1.5em; bottom:-200px; left:0; display:block; padding: 2px; width: 100%; color:white; -webkit-box-shadow: 0 0 8px rgba(0,0,0,.5); }
+	.purple-background { background:#2B1933; }
+	#anologue-speech-bar .icon { float: left; margin-right: 2px; }
+	.anologue-speak { float: left; }
+		.anologue-speak label { float:left; }
+		.anologue-speak input { display: block; height: 1em; padding: .25em; float:left; }
+		.anologue-speak textarea { padding:4px 6px; width:90%; height:6em; background:#372940; color:white; border:none; font-size:14px; }
+		.anologue-speak textarea:focus { outline:none; background:white; color:black; -moz-box-shadow: inset 1px 1px 6px rgba(0,0,0,.75); -webkit-box-shadow: inset 1px 1px 6px rgba(0,0,0,.75); box-shadow: inset 1px 1px 6px rgba(0,0,0,.75); }
+		.anologue-speak .submit { display:none; }
+	.about { float: right; padding: .25em .5em; }
+		.about a { color: #6B407F; font-size: .75em; }
+		.about a:hover { color: white; }
+		.about:after { content: ' '; display: block; height: 1px; overflow: hidden; clear: both; }

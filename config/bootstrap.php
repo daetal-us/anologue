@@ -1,6 +1,6 @@
 <?php
 /**
- * Lithium: the most rad php framework
+ * Anologue: anonymous, linear dialogue
  *
  * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
  * @license       http://opensource.org/licenses/bsd-license.php The BSD License
@@ -41,9 +41,9 @@ if (!include LITHIUM_LIBRARY_PATH . '/lithium/core/Libraries.php') {
 require __DIR__ . '/bootstrap/libraries.php';
 
 /**
- * Include this file if your application uses a database connection.
+ * Include this file if your application uses one or more database connections.
  */
-require __DIR__ . '/connections.php';
+require __DIR__ . '/bootstrap/connections.php';
 
 /**
  * This file defines bindings between classes which are triggered during the request cycle, and
@@ -59,14 +59,21 @@ require __DIR__ . '/bootstrap/action.php';
 require __DIR__ . '/bootstrap/cache.php';
 
 /**
- * This file contains filters for the test suite to bypass having a controller and render test
- * templates directly through the test dispatcher.
+ * This file contains configuration for session (and/or cookie) storage, and user or web service
+ * authentication.
  */
-require __DIR__ . '/bootstrap/test.php';
+require __DIR__ . '/bootstrap/session.php';
 
+/**
+ * This file contains configurations for handling different content types within the framework,
+ * including converting data to and from different formats, and handling static media assets.
+ */
+require __DIR__ . '/bootstrap/media.php';
 
-use \lithium\storage\Session;
+/**
+ * This file configures console filters and settings, specifically output behavior and coloring.
+ */
+require __DIR__ . '/bootstrap/console.php';
 
-Session::config(array('default' => array('adapter' => 'Cookie')));
 
 ?>

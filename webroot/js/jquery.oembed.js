@@ -67,6 +67,23 @@
 					container.addClass('open');
 				}
 				break;
+			case "player":
+				$(container).addClass('oembed');
+				$(container).data('oembed-code', oembed.code);
+				$(container).bind('click.oembed', function() {
+					if (!$(container).hasClass('open')) {
+						$('a.oembed').removeClass('open');
+						$('#oembed-display').html($(this).data('oembed-code'));
+						$('#oembed-source').html($(this).clone());
+						$(this).addClass('open');
+						anologue.overlay.show('#oembed', {top: 0});
+					} else {
+						anologue.overlay.hide('#oembed', {top: '-100%'});
+						$(this).removeClass('open');
+					}
+					return false;
+				});
+				break;
 		}
 	}
 
@@ -144,8 +161,8 @@
         new OEmbedProvider("imdb", "imdb.com"),
         new OEmbedProvider("metacafe", "metacafe.com"),
         new OEmbedProvider("qik", "qik.com"),
-        new OEmbedProvider("revision3", "slideshare"),
-        new OEmbedProvider("slideshare", "5min.com"),
+        new OEmbedProvider("revision3", "revision3.com"),
+        new OEmbedProvider("slideshare", "slideshare.net"),
         new OEmbedProvider("twitpic", "twitpic.com"),
         new OEmbedProvider("viddler", "viddler.com"),
         new OEmbedProvider("vimeo", "vimeo.com", "http://vimeo.com/api/oembed.json"),

@@ -1,6 +1,6 @@
 <?php
 /**
- * Lithium: the most rad php framework
+ * Anologue: anonymous, linear dialogue
  *
  * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
  * @license       http://opensource.org/licenses/bsd-license.php The BSD License
@@ -15,10 +15,14 @@ use lithium\core\Libraries;
 use lithium\action\Dispatcher;
 use lithium\storage\cache\adapter\Apc;
 
+if (PHP_SAPI === 'cli') {
+	return;
+}
+
 /**
  * If APC is not available and the cache directory is not writeable, bail out.
  */
-if (!$apcEnabled = Apc::enabled() && !is_writable(LITHIUM_APP_PATH . '/resources/tmp/cache')) {
+if (!($apcEnabled = Apc::enabled()) && !is_writable(LITHIUM_APP_PATH . '/resources/tmp/cache')) {
 	return;
 }
 
@@ -40,5 +44,6 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	}
 	return $result;
 });
+
 
 ?>

@@ -1,6 +1,8 @@
 /**
- * Found the core of this script on John Resig's blog in the comments, by Dean Landoldt. Made a 
- * number of tweaks to work for what I need, and encapsulated the whole thing. Muchas gracias.
+ * Found the core of this script on John Resig's blog in the comments, by Dean Landoldt. Made a
+ * number of tweaks to work for what we need, and encapsulated the whole thing. Muchas gracias.
+ *
+ * Mashup by Jon Adams (pointlessjon) http://union-of-rad.org
  *
  * @see http://deanlandolt.com/
  * @see http://ejohn.org/
@@ -9,9 +11,9 @@
 var PrettyDate = {
 	formats: [
 		[60, 'just now', "now"], // 60
-		[120, '1 minute ago', '1 minute from now'], // 60*2
+		[120, 'a moment ago', '1 minute from now'], // 60*2
 		[3600, 'minutes', 60], // 60*60, 60
-		[7200, '1 hour ago', '1 hour from now'], // 60*60*2
+		[7200, 'an hour ago', '1 hour from now'], // 60*60*2
 		[86400, 'hours', 3600], // 60*60*24, 60*60
 		[172800, 'yesterday', 'tomorrow'], // 60*60*24*2
 		[604800, 'days', 86400], // 60*60*24*7, 60*60*24

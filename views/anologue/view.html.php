@@ -1,122 +1,170 @@
 <?php
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
+
 	$base = $this->_request->env('base');
 	if ((!empty($base)) && !preg_match('/^\//', $base)) {
 		$base = '/' . $base;
 	}
-	$avatar = 'http://'.$_SERVER['HTTP_HOST'].$base.'/img/anonymous.png';
+	$avatar = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icon/user-anonymous-black.png';
+	$alternate = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icon/user-anonymous.png';
+
+	//var_dump($user);
 ?>
-<form id="anologue-form">
+<?php echo $this->html->style('anologue.theme.default'); ?>
 
-<div class="anologue-titling">
-	<h2 id="anologue-title">
-		<?php
-			echo $this->html->link(
-				$data->id,
-				array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id),
-				array('title' => 'Copy this url and give it to others')
-			);
-		?>
-	</h2>
-</div>
-<div id="anologue-help">
-	<div class="padding">
-	<h2>hello.</h2>
-	<p>to get started type your name, then your message in the appropriate boxes below. <br /><?php echo $this->html->link('markdown', 'http://daringfireball.net/projects/markdown/syntax'); ?> is supported, to an extent.</p>
-	<p><strong>for your privacy,</strong> your email is only used to generate your <?php echo $this->html->link('gravatar', 'http://gravatar.com'); ?> and is stored in an unreadable, encoded format.</p>
+<div class="anologue article admin">
+<article>
+	<div class="header anologue-title">
+		<header>
+			<h1 class="title">
+				<?php
+					echo $this->html->link(
+						($data->title) ?: $data->id,
+						array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id),
+						array('title' => 'Direct link to this anologue')
+					);
+				?>
+			</h1>
+			<div class="description markdown">
+				<pre><?php echo $h($data->description); ?></pre>
+			</div>
+		</header>
 	</div>
-	<button id="anologue-close-help" class="close" title="Close this help window"><span>close</span></button>
-</div>
 
-
-<ul id="anologue" class="anologue">
-<?php if (!empty($data->messages)) { ?>
-	<?php foreach ($data->messages as $key => $message) { ?>
-		<li class="message" id="message-<?php echo md5($message->timestamp . $message->author);?>">
-			<ul class="data">
-				<li class="time"><span class="timestamp"><?php echo $message->timestamp;?></span><span class="human-time"></span></li>
-				<li class="ip"><?php echo $message->ip;?></li>
-				<li class="author">
-					<?php echo $this->html->image(
-						"http://gravatar.com/avatar/{$message->email}?s=16&d={$avatar}"); ?>
-					<span title="<?php echo $this->html->escape($message->author);?>">
-						<?php echo $this->html->escape($message->author);?>
-					</span>
-				</li>
-				<li class="text">
-					<div class="markdown">
-						<pre><?php echo $h($message->text); ?></pre>
-					</div>
-				</li>
+	<div class="section messages">
+		<section>
+			<ul id="anologue">
+				<?php if (!empty($data->messages)) { ?>
+					<?php foreach ($data->messages as $key => $message) { ?>
+						<li class="message">
+							<span class="meta">
+								<span class="ip"><?php echo $message->ip;?></span>
+								<time datetime="<?php echo date('c', $message->timestamp); ?>"><span data-timestamp="<?php echo $message->timestamp;?>" class="time"></span></time>
+								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message->email; ?>?s=20&d=<?php echo $avatar; ?>);"><?php echo !empty($message->url) ? $this->html->link($message->name, $message->url) : $this->html->escape($message->name); ?></span>
+								<span class="separator">: </span>
+							</span>
+							<div class="text markdown">
+								<pre><?php echo $h($message->text); ?></pre>
+							</div>
+						</li>
+					<?php } ?>
+				<?php } ?>
 			</ul>
-		</li>
-	<?php } ?>
-<?php } ?>
-</ul>
+		</section>
+	</div>
 
-<div id="anologue-speech-bar">
-	<div class="purple-background">
-		<div class="twenty-percent">
-			<div class="anologue-settings">
-				<div class="input name">
-					<label class="icon" for="anologue-author" title="Your name"><span>Your name</span></label>
-					<input type="text" name="anologue-author" id="anologue-author" value="<?php echo ($user['author']) ?: ''; ?>" tabindex="1" />
-				</div>
-				<div class="input email">
-					<label class="icon" for="anologue-email" title="Your e-mail address"><span>Your e-mail</span></label>
-					<input type="text" name="anologue-email" id="anologue-email" value="<?php echo ($user['email']) ?: ''; ?>" tabindex="2" />
-				</div>
-				<div class="checkbox first sound">
-					<label class="icon <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sounds"><span>Toggle sounds</span></label>
-				</div>
-				<div class="checkbox auto-scroll">
-					<label class="icon <?php echo ($user['scrolling'] == 'false') ? 'disabled' : ''; ?>" title="Toggle auto-scrolling"><span>Toggle auto-scrolling</span></label>
-				</div>
-				<div class="checkbox cookie">
-					<label class="icon" title="Toggle cookies"><span>Toggle cookies</span></label>
-				</div>
-				<div class="about">
-					<?php
-						echo $this->html->link(
-							'what is anologue?',
-							array('controller' => 'anologue', 'action' => 'index')
-						);
-					?>
-				</div>
+	<div class="aside overlay" id="viewers">
+	<aside>
+		<header>
+			<h1>viewers</h1>
+			<ul>
+				<li class="loading">loading...</li>
+			</ul>
+		</header>
+	</aside>
+	</div>
+
+	<div class="aside overlay" id="oembed">
+		<aside>
+			<div class="display" id="oembed-display"></div>
+			<div class="source" id="oembed-source"></div>
+			<div class="menu toolbar close">
+				<menu type="toolbar">
+					<span class="command icon close" title="Close this multimedia overlay">
+						<command type="checkbox">
+					</span>
+				</menu>
 			</div>
-		</div>
-		<div class="eighty-percent">
-			<div class="anologue-speak">
-				<div class="input textarea">
-					<label class="icon" for="anologue-text" title="Type what you want to say and press enter"><span>you say:</span></label>
-					<textarea name="anologue-text" id="anologue-text" tabindex="3"></textarea>
-					<label id="markdown-help">markdown &nbsp; syntax</label>
-				</div>
-				<div class="submit">
-					<button id="anologue-submit"><span>send</span></button>
-				</div>
+		</aside>
+	</div>
+
+	<div class="aside overlay" id="markdown-help">
+		<aside>
+			<h1>Markdown Syntax</h1>
+			<div class="content">
+				<p># header 1 &nbsp;  &nbsp; ## header 2 &nbsp;  &nbsp; <em>*italic*</em> &nbsp;  &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; 	- unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg)</p>
 			</div>
+		</aside>
+	</div>
+
+	<div class="aside overlay" id="user-settings">
+		<div class="menu toolbar fieldset">
+			<fieldset name="">
+				<label for="user[name]">Name</label>
+				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="<?php echo ($user['name']) ?: ''; ?>" />
+				<label for="user[email]">Email</label>
+				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="<?php echo ($user['email']) ?: ''; ?>" />
+				<label for="user[url]">Website</label>
+				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="<?php echo ($user['url']) ?: ''; ?>" />
+			</fieldset>
+			<menu type="toolbar">
+				<span class="command icon sound <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sound effects">
+					<command type="checkbox">
+				</span>
+				<span class="command icon scroll <?php echo ($user['scrolling'] == 'false') ? 'disabled' : ''; ?>" title="Toggle auto-scrolling window when a new message is posted">
+					<command type="checkbox">
+				</span>
+				<span class="command icon cookie <?php echo ($user['cookies'] == 'false') ? 'disabled' : ''; ?>" title="Toggle saving your user data">
+					<command type="checkbox">
+				</span>
+			</menu>
 		</div>
 	</div>
+
+	<div class="footer">
+		<footer>
+			<menu type="toolbar">
+				<span class="command icon viewers" title="Toggle viewer list">
+					<command type="checkbox" data-overlay="#viewers">
+				</span>
+				<span class="command icon user-settings" title="Toggle my user settings">
+					<command type="checkbox" data-overlay="#user-settings">
+				</span>
+				<span class="command icon markdown-help" title="Toggle markdown help">
+					<command type="checkbox" data-overlay="#markdown-help">
+				</span>
+				<label for="text">Text</label>
+				<input type="text" name="message" value="" class="text message" data-alternate=".footer textarea.message" />
+				<textarea name="message" class="message" data-alternate=".footer input.message"></textarea>
+				<span class="command icon expand-text" title="Toggle expanded text input">
+					<command type="checkbox">
+				</span>
+				<?php
+					echo $this->html->link(
+						'this is anologue.',
+						array('controller' => 'anologue', 'action' => 'index'),
+						array('class' => 'about')
+					);
+				?>
+			</menu>
+		</footer>
+	</div>
+</article>
 </div>
 
-</form>
-
-<audio id="anologue-speaker"></audio>
+<div class="sound">
+	<audio id="anologue-speaker"></audio>
+</div>
 
 <?php echo $this->html->script(array(
 	'http://code.jquery.com/jquery-1.4.2.min.js',
-	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue',
+	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue-2',
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		anologue.setup({
+		anologue.start({
 			db: <?php echo json_encode($data->to('array')); ?>,
-
 			id: '<?=$data->id?>',
 			base: '<?php echo $this->_request->env('base') ?>',
 			line: <?php echo count($data->messages); ?>,
 			icon: '<?php echo $avatar; ?>',
-			intro: <?php echo (!empty($user['email']) || !empty($user['author'])) ? 'false' : 'true'; ?>
+			intro: <?php echo (!empty($user['email']) || !empty($user['author'])) ? 'false' : 'true'; ?>,
+			admin: <?php echo (!empty($user['admin'])) ? 'true' : 'false'; ?>
 		});
 	});
 </script>

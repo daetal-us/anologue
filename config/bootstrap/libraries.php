@@ -1,6 +1,6 @@
 <?php
 /**
- * Lithium: the most rad php framework
+ * Anologue: anonymous, linear dialogue
  *
  * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
  * @license       http://opensource.org/licenses/bsd-license.php The BSD License
@@ -21,6 +21,7 @@ require LITHIUM_LIBRARY_PATH . '/lithium/util/Inflector.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/util/String.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/core/Adaptable.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/core/Environment.php';
+require LITHIUM_LIBRARY_PATH . '/lithium/net/Message.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/net/http/Message.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/net/http/Media.php';
 require LITHIUM_LIBRARY_PATH . '/lithium/net/http/Request.php';
@@ -48,6 +49,7 @@ Libraries::add('lithium');
  * Add the application.  You can pass a `'path'` key here if this bootstrap file is outside of
  * your main application, but generally you should not need to change any settings.
  */
-Libraries::add('app', array('default' => true));
+Libraries::add('anologue', array('default' => true));
+
 
 ?>

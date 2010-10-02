@@ -1,10 +1,18 @@
 <?php
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
 
-namespace app\models;
+namespace anologue\models;
 
+use \lithium\util\Inflector;
 use \lithium\data\Connections;
-use \lithium\data\collection\Document;
-use \app\extensions\helper\Oembed;
+use \lithium\data\collection\DocumentSet;
+use \lithium\data\entity\Document;
+use \anologue\models\Message;
 
 /**
  * The core model and messages container for Anologue.
@@ -15,6 +23,16 @@ class Anologue extends \lithium\data\Model {
 
 	public static $alias = 'Anologue';
 
+	protected $_schema = array(
+		'type' => 			array('default' => 'anologue'),
+		'created' => 		array('default' => null),
+		'title' => 			array('default' => null),
+		'description' => 	array('default' => null),
+		'webhook' => 		array('default' => null),
+		'messages' => 		array('default' => array()),
+		'viewers' => 		array('default' => array()),
+	);
+
 	/**
 	 * Anologue meta
 	 *
@@ -22,33 +40,64 @@ class Anologue extends \lithium\data\Model {
 	 * @see lithium\data\Model::$_meta
 	 */
 	protected $_meta = array(
-		'source' => 'anologue'
-	);
-
-	/**
-	 * Default key/values for messages.
-	 *
-	 * @var array
-	 * @see app\models\Anologue::addMessage()
-	 * @todo move to Message model
-	 */
-	protected static $_defaultMessage = array(
-		'author' => 'anonymous',
-		'ip' => null,
-		'email' => null,
-		'timestamp' => null,
-		'text' => null
+		'connection' => 'anologue',
+		'source' => 'anologue',
+		'locked' => false,
 	);
 
 	public static function __init(array $options = array()) {
 		parent::__init($options);
-		$self = static::_instance();
+
+		static::applyFilter('find', function ($self, $params, $chain) {
+			$result = $chain->next($self, $params, $chain);
+
+			if (empty($result)) {
+				return $result;
+			}
+
+			if (!empty($result->messages)) {
+				$messages = new DocumentSet(array(
+					'data' => $result->messages->data(),
+					'model' => 'anologue\models\Message'
+				));
+				$result->set(compact('messages'));
+			}
+
+			return $result;
+		});
+
+		static::applyFilter('save', function($self, $params, $chain) {
+			$anologue = $params['entity'];
+
+			if (empty($anologue->created)) {
+				$created = time();
+				$params['entity']->set(compact('created'));
+			}
+
+			if (empty($anologue->id) && !empty($anologue->title)) {
+
+				$id = $slug = Inflector::slug($anologue->title);
+
+				if (strlen($id) < 5) {
+					$id = $slug = $id . '-' . substr(md5($slug . time()), 0, 5);
+				}
+
+				while ($existing = Anologue::first($id)) {
+					$id = "$slug-" .  substr(md5($slug . time()), 0, 4);
+				}
+
+				$params['entity']->set(compact('id'));
+			}
+			return $chain->next($self, $params, $chain);
+		});
+
+		$self = static::_object();
 		$self->_setupFinders();
 	}
 
 	protected function _setupFinders() {
-		$self = static::_instance();
-		$self->_finders['changes'] = function($self, $params, $change) {
+		$self = static::_object();
+		$self->_finders['changes'] = function($self, $params, $chain) {
 			$query = (array) $params['options']['conditions'] + array(
 				'filter' => 'changes/id'
 			);
@@ -57,68 +106,92 @@ class Anologue extends \lithium\data\Model {
 				$connection->_config['database'] . '/_changes/',
 				$query, array('type' => null)
 			);
-			if (empty($result)) {
+			if (empty($result) || empty($result->results)) {
 				return 0;
 			}
 			return new Document(array(
-				'items' => $result,
+				'data' => $result->results[0],
 				'model' => __CLASS__
 			));
 		};
 	}
 
-	/**
-	 * Create a new anologue using schema.
-	 *
-	 * @param array $data
-	 * @return void
-	 * @see lithium\data\Model::create()
-	 */
-	public static function create(array $data = array(), array $options = array()) {
+	public static function ping($id, $data = array()) {
 		$default = array(
-			'messages' => null
+			'key' => null,
+			'user' => null
 		);
 		$data += $default;
-		return parent::create($data, $options);
+
+		if (!empty($data['user']['email'])) {
+			$data['user']['email'] = md5($data['user']['email']);
+		}
+
+		if (empty($data['user']['name'])) {
+			$data['user']['name'] = 'anonymous';
+		}
+
+		$record = static::first($id);
+		$anologue = $record->data();
+
+		$cutoff = strtotime('-2 minutes');
+
+		$viewers = array();
+
+
+		if (!empty($anologue['viewers'])) {
+			foreach ($anologue['viewers'] as $viewer => $value) {
+				if ($value->timestamp >= $cutoff) {
+					$viewers[$viewer] = $anologue['viewers'][$viewer];
+				}
+			}
+		}
+
+		var_dump($data['user']);
+
+		$viewers[$data['key']] = $data['user'] + array('timestamp' => time());
+
+		return $record->save(compact('viewers'));
 	}
 
 	/**
 	 * Append a message to an existing anologue. For user privacy, hashes the email before saving.
 	 *
 	 * @param integer $id
-	 * @param array $message
+	 * @param mixed $message array or instance of `anologue\models\Message`
+	 * @see anologue\models\Message
 	 * @see lithium\data\Model::save()
 	 */
 	public static function addMessage($id, $message = array()) {
-		$message = $message + array('timestamp' => time()) + static::$_defaultMessage;
 
-		$anologue = static::find($id);
+		$anologue = static::first($id);
 
-		$message['text'] = Oembed::classify($message['text'], array('markdown' => true));
-
-		if (!empty($message['email'])) {
-			$message['email'] = md5($message['email']);
+		if (empty($anologue)) {
+			return false;
 		}
 
-		if (!$anologue->messages) {
-			$anologue->messages = array($message);
-		} else {
-			$anologue->messages->append($message);
+		$message = Message::create($message);
+
+		if (!$message->save()) {
+			return false;
 		}
+
+		$messages = !empty($anologue->messages)
+			? $anologue->messages->data()
+			: array();
+
+		$messages[] = $message;
+
+		$messages = new DocumentSet(array(
+			'data' => $messages,
+			'model' => 'anologue\models\Message'
+		));
+
+		$anologue->messages = $messages;
+
+		print_r($anologue->data());
+
 		return $anologue->save();
-	}
-
-	public static function title($id, $title) {
-		$anologue = static::find($id);
-		if ($anologue) {
-			if (!isset($anologue->title)) {
-				$anologue->title = $title;
-				if ($anologue->save()) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	/**

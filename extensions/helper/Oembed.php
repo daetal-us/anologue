@@ -1,6 +1,12 @@
 <?php
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
 
-namespace app\extensions\helper;
+namespace anologue\extensions\helper;
 
 class Oembed extends \lithium\template\Helper {
 

@@ -1,36 +1,102 @@
 <?php
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
 
-namespace app\tests\cases\models;
+namespace anologue\tests\cases\models;
 
 use \lithium\data\Connections;
-use \app\models\Anologue;
-use \app\models\AnologueView;
+use \anologue\models\Anologue;
+use \anologue\models\Message;
+use \anologue\models\AnologueView;
+
 
 class AnologueTest extends \lithium\test\Unit {
 
 	public function skip() {
 		$config = array(
-			'connection' => 'test'
+			'connection' => 'anologue_test'
 		);
 
 		Anologue::meta($config);
+		Message::meta($config);
 		AnologueView::meta($config);
 
-		$connection = Connections::get(Anologue::meta('connection'));
+		$connection = Connections::get($config['connection']);
 		$message 	= 'Cannot connect to your database. Is CouchDB started and your connection '
 						. 'properly configured?';
 		$this->skipIf(!$connection, $message);
 
+		$configs = Connections::config();
+		$connection->describe($configs[$config['connection']]['database']);
+
+	}
+
+	public function setUp() {
 		foreach (AnologueView::$views as $key => $view) {
 			$result = AnologueView::create($view)->save();
-			$this->skipIf(!$result, 'Could not install required design document');
+		}
+	}
+
+	public function tearDown() {
+		$results = Anologue::all();
+		if ($results->count()) {
+			$results->delete();
 		}
 	}
 
 	public function testCreate() {
-		$anologue = Anologue::create();
+
+		$data = array(
+			'title' => 'Custom Title',
+			'messages' => array(
+				array(
+					'ip' => '127.0.0.1',
+					'email' => 'jon@anologue.com',
+					'text' => 'hi.'
+				)
+			)
+		);
+		$anologue = Anologue::create($data);
 		$result = $anologue->save();
-		$this->assertTrue($result, 'Cannot save document. Make sure `test` database exists.');
+		$this->assertTrue($result, 'Cannot save document.');
+
+		$result = Anologue::first($anologue->id);
+		$this->assertTrue($result, 'Cannot find document.');
+
+		$result = $result->data();
+
+		$this->assertTrue(array_key_exists('title', $result));
+
+		$expected = $data['title'];
+		$this->assertEqual($expected, $result['title']);
+
+		$this->assertTrue(array_key_exists('messages', $result));
+
+		$this->assertTrue(!empty($result['messages']));
+
+		$expected = $data['messages'][0]['ip'];
+		$this->assertEqual($expected, $result['messages'][0]['ip']);
+
+		$expected = $data['messages'][0]['email'];
+		$this->assertEqual($expected, $result['messages'][0]['email']);
+
+		$expected = $data['messages'][0]['text'];
+		$this->assertEqual($expected, $result['messages'][0]['text']);
+
+		$this->assertTrue(array_key_exists('created', $result));
+		$this->assertTrue(is_numeric($result['created']));
+
+		$expected = date('Y-m-d');
+		$this->assertEqual($expected, date('Y-m-d', $result['created']));
+
+		$this->assertTrue(array_key_exists('type', $result));
+
+		$expected = 'anologue';
+		$this->assertEqual($expected, $result['type']);
 	}
 
 	public function testAddEmptyMessage() {
@@ -39,45 +105,64 @@ class AnologueTest extends \lithium\test\Unit {
 		$this->assertTrue($result);
 
 		$result = Anologue::addMessage($anologue->id);
-		$this->assertTrue($result);
-
-		$anologue = Anologue::find($anologue->id);
-		$expected = '\lithium\data\collection\Document';
-		$result = '\\' . get_class($anologue->messages);
-		$this->assertEqual($expected, $result);
+		$this->assertFalse($result);
 	}
 
-	public function testAddMessageMarkdownLink() {
+	public function testAddMessage() {
 		$anologue = Anologue::create();
-		$result =  $anologue->save();
+		$result = $anologue->save();
 		$this->assertTrue($result);
 
-		$result = Anologue::addMessage($anologue->id, array(
-			'text' => 'unlinked http://example.com'
-		));
-		$this->assertTrue($result);
-
-		$result = Anologue::find($anologue->id);
-		$firstMessage = $result->messages->first()->to('array');
-		$expected = 'unlinked [http://example.com](http://example.com)';
-		$this->assertEqual($expected, $firstMessage['text']);
-
-		$result = Anologue::addMessage($anologue->id, array('text' => '[already a link](http://example.com)'));
+		$message = array(
+			'text' => 'new message'
+		);
+		$result = Anologue::addMessage($anologue->id, $message);
 		$this->assertTrue($result);
 
 		$result = Anologue::find($anologue->id);
-		$secondMessage = $result->messages->next()->to('array');
-		$expected = '[already a link](http://example.com)';
-		$this->assertEqual($expected, $secondMessage['text']);
+		$this->assertTrue(!empty($result));
+
+		$this->assertTrue(!empty($result->messages));
+
+		$expected = 1;
+		$this->assertEqual($expected, $result->messages->count());
+
+		$expected = $message['text'];
+		$this->assertEqual($expected, $result->messages->first()->text);
+
+		$messageTwo = array(
+			'text' => 'second message'
+		);
+		$result = Anologue::addMessage($anologue->id, $messageTwo);
+		$this->assertTrue($result);
+
+		$result = Anologue::find($anologue->id);
+
+		$this->assertTrue(!empty($result));
+
+		$this->assertTrue(!empty($result->messages));
+
+		$expected = 2;
+		$this->assertEqual($expected, $result->messages->count());
+
+		$expected = $message['text'];
+		$this->assertEqual($expected, $result->messages->first()->text);
+
+		$result->messages->next();
+		$expected = $messageTwo['text'];
+		$this->assertEqual($expected, $result->messages->current()->text);
 	}
 
 	public function testEmailEncryption() {
 		$anologue = Anologue::create();
 		$anologue->save();
-		$message = array('email' => 'danny.tanner@wake-up-san-francisco.com');
+		$message = array(
+			'text' => 'something',
+			'email' => 'danny.tanner@wake-up-san-francisco.com'
+		);
 		Anologue::addMessage($anologue->id, $message);
 		$anologue = Anologue::find($anologue->id);
-		$messages = $anologue->messages->to('array');
+		$messages = $anologue->messages->data();
 
 		$notExpected = 'danny.tanner@wake-up-san-francisco.com';
 		$this->assertNotEqual($notExpected, $messages[0]['email']);
@@ -89,9 +174,9 @@ class AnologueTest extends \lithium\test\Unit {
 	public function testMessageTimestamp() {
 		$anologue = Anologue::create();
 		$anologue->save();
-		Anologue::addMessage($anologue->id);
+		Anologue::addMessage($anologue->id, array('text' => 'blah'));
 		$anologue = Anologue::find($anologue->id);
-		$messages = $anologue->messages->to('array');
+		$messages = $anologue->messages->data();
 
 		$this->assertFalse(empty($messages[0]['timestamp']));
 
@@ -102,18 +187,18 @@ class AnologueTest extends \lithium\test\Unit {
 		$anologue = Anologue::create();
 		$anologue->save();
 
-		$result = Anologue::changes($anologue->id);
+		$result = Anologue::changes($anologue->id, array('timeout' => 1));
 		$this->assertTrue($result);
 
 		$sequence = $result->seq;
 
-		$result = Anologue::changes($anologue->id, array('since' => $sequence));
+		$result = Anologue::changes($anologue->id, array('since' => $sequence, 'timeout' => 1));
 		$this->assertFalse($result);
 
 		$result = Anologue::addMessage($anologue->id, array('text' => 'some message'));
 		$this->assertTrue($result);
 
-		$result = Anologue::changes($anologue->id, array('since' => $sequence));
+		$result = Anologue::changes($anologue->id, array('since' => $sequence, 'timeout' => 1));
 		$this->assertTrue($result);
 
 		$result = $result->seq > $sequence;

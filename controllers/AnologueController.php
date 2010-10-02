@@ -1,9 +1,16 @@
 <?php
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
 
-namespace app\controllers;
+namespace anologue\controllers;
 
-use \app\models\Anologue;
+use \anologue\models\Anologue;
 use \lithium\storage\Session;
+use \lithium\core\Environment;
 
 /**
  * The core controller for Anologue.
@@ -27,11 +34,12 @@ class AnologueController extends \lithium\action\Controller {
 	 */
 	public function view() {
 		$status = 'error';
-		$data = null;
+		$id = $data = null;
 		$result = array();
 		$defaultUser = array(
-			'author' => null,
+			'name' => null,
 			'email' => null,
+			'url' => null,
 			'scrolling' => 'true',
 			'sounds' => 'true',
 			'cookies' => 'true'
@@ -39,12 +47,21 @@ class AnologueController extends \lithium\action\Controller {
 
 		if (!empty($this->request->params['id'])) {
 			$data = Anologue::find($this->request->params['id']);
-			$status = (!empty($data)) ? 'success' : 'fail';
 		}
 
-		if (!empty($data->error) || empty($this->request->params['id'])) {
+		if (empty($data) || !empty($data->error)) {
 			$this->redirect('/');
 		}
+
+		if (isset($this->request->query['user'])) {
+			$defaultUser = (array) $this->request->query['user'] + $defaultUser;
+		}
+		if (isset($this->request->data['user'])) {
+			$defaultUser = (array) $this->request->data['user'] + $defaultUser;
+		}
+
+		$id = $this->request->params['id'];
+		$status = 'success';
 
 		if (!empty($this->request->params['type'])) {
 			$data = $data->to('array');
@@ -53,13 +70,35 @@ class AnologueController extends \lithium\action\Controller {
 			);
 		}
 
-		$user = Session::read('user');
+		$user = Session::read($id);
 		if (!empty($user)) {
 			$user = unserialize($user) + $defaultUser;
+		} else {
+			$user = $defaultUser;
 		}
+
+		$this->_manageCookie($id, $user);
 
 		$this->set(compact('data', 'user'));
 		$this->render($result);
+	}
+
+	/**
+	 * Pinging an anologue updates the anologue with a timestamp and your user data. This is what
+	 * makes the "viewers" feature possible.
+	 *
+	 */
+	public function ping() {
+		if (!empty($this->request->params['id'])) {
+			$id = $this->request->params['id'];
+			$user = Session::read($id, array('name' => 'php'));
+			$key = Session::key('php');
+			if (!empty($user)) {
+				$user = unserialize($user);
+			}
+			$result = Anologue::ping($id, compact('key','user'));
+		}
+		return $this->render(array('json' => compact('result')));
 	}
 
 	public function changes() {
@@ -79,27 +118,38 @@ class AnologueController extends \lithium\action\Controller {
 	}
 
 	/**
-	 * Set the title of an Anologue if one does not already exist
-	 */
-	public function title() {
-		$status = 'error';
-		if (!empty($this->request->params['id'])) {
-			if (!empty($this->request->data) && !empty($this->request->data['title'])) {
-				$result = Anologue::title($this->request->params['id'], $this->request->data['title']);
-				$status = ($result) ? 'success' : 'fail';
-			}
-		}
-		return $this->render(array('json' => compact('status')));
-	}
-
-	/**
-	 * Create a new anologue and redirect to view it.
+	 * Create a new anologue, set admin parameter in user cookie and redirect to view.
 	 *
-	 * @see app\controllers\AnologueController::view()
+	 * @see anologue\controllers\AnologueController::view()
 	 */
 	public function add() {
-		$anologue = Anologue::create();
+
+		$data = array(
+			'title' => null,
+			'description' => null,
+			'webhook' => null
+		);
+
+		foreach (array_keys($data) as $key) {
+			if (isset($this->request->query[$key])) {
+				$data[$key] = $this->request->query[$key];
+			}
+			if (isset($this->request->data[$key])) {
+				$data[$key] = $this->request->data[$key];
+			}
+		}
+
+		$anologue = Anologue::create(array_filter($data));
 		$anologue->save();
+
+		if (!empty($this->request->params['type'])) {
+			$data = $anologue->to('array');
+			$result = array(
+				$this->request->params['type'] => compact('data')
+			);
+			return $this->render($result);
+		}
+
 		$this->redirect(array('controller' => 'anologue', 'action' => 'view', 'id' => $anologue->id));
 	}
 
@@ -109,18 +159,29 @@ class AnologueController extends \lithium\action\Controller {
 	public function say() {
 		$status = 'error';
 		if (!empty($this->request->params['id'])) {
+			$id = $this->request->params['id'];
 			$data = $this->request->data;
 
-			$this->_manageCookie($data);
+			if (isset($data['admin'])) {
+				unset($data['admin']);
+			}
+
+			$this->_manageCookie($id, $data);
 
 			$data['ip'] = $this->request->env('REMOTE_ADDR');
 			if (!empty($data)) {
-				$result = Anologue::addMessage($this->request->params['id'], $data);
+				$result = Anologue::addMessage($id, $data);
 				$status = ($result) ? 'success' : 'fail';
 			}
 		}
 		$this->render(array('json' => (object) compact('status', 'data')));
 	}
+
+
+	/**
+	 * Convenient skinning with sample content.
+	 */
+	public function skeleton() {}
 
 	/**
 	 * Internal method to create or delete data in cookie.
@@ -128,25 +189,30 @@ class AnologueController extends \lithium\action\Controller {
 	 * This method is currently intended to be called from within `AnologueController::say()`.
 	 *
 	 * @param array $data associative array of user data and options to be saved
-	 * @see app\controllers\AnologueController::say()
+	 * @see anologue\controllers\AnologueController::say()
 	 */
-	private function _manageCookie($data = array()) {
-		$cookieKeys = array('author','email','scrolling','sounds', 'cookies');
-		if ($data['cookies'] == 'true') {
+	private function _manageCookie($id = null, $data = array()) {
+
+		$keys = array('name','email','url','scrolling','sounds','cookies');
+
+		if (isset($data['cookies']) && $data['cookies'] == 'false') {
+			Session::write($id, null);
+		} else {
 			$user = array();
 
-			array_walk($cookieKeys, function($key) use (&$data, &$user) {
+			array_walk($keys, function($key) use (&$data, &$user) {
 				if (!empty($data[$key])) {
 					$user[$key] = $data[$key];
-					if ($key == 'author' && $data[$key] == 'anonymous') {
+					if ($key == 'name' && $data[$key] == 'anonymous') {
 						unset($user[$key]);
 					}
 				}
 			});
 
-			Session::write('user', serialize($user));
-		} else {
-			Session::write('user', null);
+			$user = serialize($user);
+
+			Session::write($id, $user);
+			Session::write($id, $user, array('name' => 'php'));
 		}
 	}
 
