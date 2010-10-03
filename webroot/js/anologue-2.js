@@ -376,7 +376,7 @@ var anologue = {
 	},
 
 	alert: function(msg) {
-		console.log(msg);
+		//console.log(msg);
 		// do something with the message
 	},
 

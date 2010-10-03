@@ -147,8 +147,6 @@ class Anologue extends \lithium\data\Model {
 			}
 		}
 
-		var_dump($data['user']);
-
 		$viewers[$data['key']] = $data['user'] + array('timestamp' => time());
 
 		return $record->save(compact('viewers'));
