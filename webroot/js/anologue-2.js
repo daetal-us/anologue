@@ -188,6 +188,7 @@ var anologue = {
 				+ '/changes/' + this._config.id + '?since=' + this._config.seq;
 		$.getJSON(url, function(response) {
 			if (response.status != "success") {
+				anologue.poll();
 				return anologue.alert(response.status);
 			}
 			if (response.data.changes.length > 0) {
@@ -375,6 +376,7 @@ var anologue = {
 	},
 
 	alert: function(msg) {
+		console.log(msg);
 		// do something with the message
 	},
 
