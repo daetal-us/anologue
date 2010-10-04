@@ -99,15 +99,6 @@ class AnologueTest extends \lithium\test\Unit {
 		$this->assertEqual($expected, $result['type']);
 	}
 
-	public function testAddEmptyMessage() {
-		$anologue = Anologue::create();
-		$result = $anologue->save();
-		$this->assertTrue($result);
-
-		$result = Anologue::addMessage($anologue->id);
-		$this->assertFalse($result);
-	}
-
 	public function testAddMessage() {
 		$anologue = Anologue::create();
 		$result = $anologue->save();

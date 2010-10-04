@@ -55,7 +55,7 @@ class Anologue extends \lithium\data\Model {
 	 * @var array
 	 */
 	public static $restricted = array(
-		'ping', 'changes', 'anologue'
+		'ping', 'changes', 'anologue', 'about', 'blog', 'news', 'download'
 	);
 
 	public static function __init(array $options = array()) {

@@ -10,18 +10,7 @@ class MessageTest extends \lithium\test\Unit {
 
 	public function tearDown() {}
 
-	public function testValidation() {
-		$message = Message::create();
-		$this->assertFalse($message->validates());
-
-		$message->text = 'something';
-		$this->assertTrue($message->validates());
-	}
-
 	public function testSave() {
-		$message = Message::create();
-		$result = $message->save();
-		$this->assertFalse($result);
 
 		$message = Message::create(array('text' => 'aloha'));
 		$result = $message->save();
