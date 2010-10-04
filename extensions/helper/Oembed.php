@@ -35,7 +35,7 @@ class Oembed extends \lithium\template\Helper {
 			$link = "[$1]($1)";
 		}
 		$string = preg_replace(
-			'@((?<![\[\(])https?://([-\w\.]+)+(:\d+)?(/([-\w/_\.]*(#?)([-\w]+)(\?\S+)?)?)?)@',
+			'@((?<![\[\(])https?://([-\w\.]+)+(:\d+)?(/([-\w/_\.]*(#?)([-\w\%\/]+)(\?\S+)?)?)?)@',
 			$link,
 			$string
 		);
