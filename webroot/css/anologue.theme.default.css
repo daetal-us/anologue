@@ -11,7 +11,7 @@ body {
 }
 .anologue h1 {
 	font-size: 3em;
-	font-family: "Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family: "Anologue Titling", Helvetica, Arial, sans-serif;
 }
 .anologue .anologue-title h1, .anologue .anologue-title h1 a {
 	color: #00557F;
@@ -123,7 +123,7 @@ body {
 	padding: 6px 12px 0 0;
 	font-size: 20px;
 	color: #6B407F;
-	font-family:"Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
 }
 .anologue .about:hover {
 	color: #fff;

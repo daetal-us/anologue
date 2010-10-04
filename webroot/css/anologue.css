@@ -5,13 +5,13 @@
  * @license       http://opensource.org/licenses/bsd-license.php The BSD License
  */
 @font-face {
-	font-family:"Anologue Titling";
-	src:url(../media/font/Blackout/Blackout-Midnight.ttf);
-}
-
-@font-face {
-	font-family:"Anologue SVG";
-	src:url(../media/font/Blackout/Blackout-Midnight.svg);
+	font-family: 'Anologue Titling';
+	src: url('../media/font/Blackout/blackout-midnight-webfont.eot');
+	src: local('☺'), url('../media/font/Blackout/blackout-midnight-webfont.woff') format('woff'),
+		url('../media/font/Blackout/blackout-midnight-webfont.ttf') format('truetype'),
+		url('../media/font/Blackout/blackout-midnight-webfont.svg#webfontr2bsaV0s') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 body {
@@ -51,13 +51,13 @@ em {
 	text-shadow:0 0 18px #000;
 	color:#FFF;
 	text-transform:uppercase;
-	font-family:"Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
 	font-weight:700;
 	margin:.5em 0;
 }
 
 .home h2 {
-	font-family:"Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
 	font-size:4em;
 	font-weight:400!important;
 	color:#00557F;
@@ -119,7 +119,7 @@ em {
 	text-align:center;
 	color:#AEBABF;
 	margin:2em 0 6em;
-	font-family:"Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
 }
 
 .home .excellence {
@@ -143,7 +143,7 @@ em {
 	text-align:center;
 	color:#AEBABF;
 	padding:.5em;
-	font-family:"Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
 }
 
 input,
@@ -212,7 +212,7 @@ textarea::-webkit-input-placeholder {
 	border: none;
 	color: rgba(255,255,255,.45);
 	font-size: 1em;
-	font-family: "Anologue Titling", "Anologue SVG", Helvetica, Arial, sans-serif;
+	font-family: "Anologue Titling", Helvetica, Arial, sans-serif;
 	cursor: pointer;
 }
 #anologue-settings button:hover {
