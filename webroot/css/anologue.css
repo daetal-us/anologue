@@ -97,6 +97,7 @@ em {
 
 #anologue-new a {
 	display:block;
+	min-width: 1002px;
 	font-size:2em;
 	color:#6E537F;
 	background:#372940;
