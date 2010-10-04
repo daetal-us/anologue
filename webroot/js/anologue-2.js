@@ -197,7 +197,7 @@ var anologue = {
 		$.getJSON(url, function(response) {
 			if (response.status != "success") {
 				anologue.poll();
-				return anologue.alert(response.status);
+				return anologue.log(response.status);
 			}
 			if (response.data.changes.length > 0) {
 				if (response.data.changes[0].rev != anologue.db.rev) {
@@ -227,7 +227,7 @@ var anologue = {
 		var url = this._config.base + '/' + this._config.id + '.json?_=' + (new Date().getTime());
 		$.getJSON(url, function(response) {
 			if (response.status != "success") {
-				return anologue.alert(response.status);
+				return anologue.log(response.status);
 			}
 			anologue.db = response.data;
 			if (anologue.db.messages != null) {
@@ -359,8 +359,7 @@ var anologue = {
 			$('.footer .message').removeAttr('disabled');
 			if (response.status != 'success') {
 				// this might occur if someone sends an update at the same time...
-				anologue.alert( 'Hold your horses, Spammy McSpamsky. Wait until your last message'
-				 				+ 'goes through and try sending your message again.');
+				return anologue.log(response);
 			} else {
 				$('.footer .message').val('');
 			}
@@ -402,10 +401,9 @@ var anologue = {
 		},
 	},
 
-	alert: function(msg) {
-		console.log('error n stuff:');
-		console.log(msg);
-		// do something with the message
+	log: function(msg) {
+		//console.log(msg);
+		return true;
 	},
 
 	getOption: function(e) {

@@ -12,6 +12,7 @@ use \lithium\util\Inflector;
 use \lithium\data\Connections;
 use \lithium\data\collection\DocumentSet;
 use \lithium\data\entity\Document;
+use \lithium\net\http\Service;
 use \lithium\util\Validator;
 use \anologue\models\Message;
 
@@ -251,7 +252,10 @@ class Anologue extends \lithium\data\Model {
 	 * @return void
 	 */
 	public static function webhook($uri, $data) {
-		return;
+		extract($url = parse_url($uri));
+		$path = str_replace($scheme . '://' . $host, '', $uri);
+		$http = new Service(compact('scheme','host'));
+		return $http->post($path, $data, array('type' => 'json'));
 	}
 }
 
