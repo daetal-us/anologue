@@ -95,8 +95,8 @@ class Anologue extends \lithium\data\Model {
 			}
 
 			if (!empty($anologue->description)) {
-				$anologue->description = Oembed::classify(
-					$params['entity']->text, array('markdown' => true)
+				$params['entity']->description = Oembed::classify(
+					$params['entity']->description, array('markdown' => true)
 				);
 			}
 
