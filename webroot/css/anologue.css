@@ -6,10 +6,8 @@
  */
 @font-face {
 	font-family: 'Anologue Titling';
-	src: url('../media/font/Blackout/blackout-midnight-webfont.eot');
-	src: local('☺'), url('../media/font/Blackout/blackout-midnight-webfont.woff') format('woff'),
-		url('../media/font/Blackout/blackout-midnight-webfont.ttf') format('truetype'),
-		url('../media/font/Blackout/blackout-midnight-webfont.svg#webfontr2bsaV0s') format('svg');
+	src: url('../media/font/Blackout/blackout-midnight-webfont.ttf');
+	src: local('☺'), url('../media/font/Blackout/blackout-midnight-webfont.svg#webfontr2bsaV0s') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -74,12 +72,12 @@ em {
 	background:#2B1933;
 	color:#fff;
 	margin:0;
-	padding:2em 1em;
+	padding:2em;
+	min-width: 1002px;
 }
 
 .home .header h1 {
-	position: relative;
-	top: -44px;
+
 }
 
 .home .header .aside {
