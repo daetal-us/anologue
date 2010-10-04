@@ -47,12 +47,11 @@ em {
 }
 
 .home h1 {
-	font-size:11em;
+	font-size:170px;
 	text-shadow:0 0 18px #000;
 	color:#FFF;
 	text-transform:uppercase;
 	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
-	font-weight:700;
 	margin:.5em 0;
 }
 
@@ -80,7 +79,7 @@ em {
 
 .home .header h1 {
 	position: relative;
-	top: -50px;
+	top: -44px;
 }
 
 .home .header .aside {
