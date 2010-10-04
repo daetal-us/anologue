@@ -174,6 +174,7 @@ textarea::-webkit-input-placeholder {
 }
 
 .overlay {
+	background: #000;
 	background: rgba(0,0,0,.9);
 	color: white;
 	-moz-box-shadow: 0 0 18px rgba(0,0,0,.75);
