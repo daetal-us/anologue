@@ -67,6 +67,7 @@ em {
 .home .width-constraint {
 	display:block;
 	width:1002px;
+	padding: 0 1em;
 	margin:0 auto;
 }
 
@@ -75,6 +76,11 @@ em {
 	color:#fff;
 	margin:0;
 	padding:2em 1em;
+}
+
+.home .header h1 {
+	position: relative;
+	top: -50px;
 }
 
 .home .header .aside {
@@ -208,10 +214,11 @@ textarea::-webkit-input-placeholder {
 }
 #anologue-settings button {
 	text-align: center;
+	padding: 0 1em;
 	background: none;
 	border: none;
 	color: rgba(255,255,255,.45);
-	font-size: 1em;
+	font-size: 2.5em;
 	font-family: "Anologue Titling", Helvetica, Arial, sans-serif;
 	cursor: pointer;
 }
