@@ -12,7 +12,9 @@ use \lithium\util\Inflector;
 use \lithium\data\Connections;
 use \lithium\data\collection\DocumentSet;
 use \lithium\data\entity\Document;
+use \lithium\util\Validator;
 use \anologue\models\Message;
+
 
 /**
  * The core model and messages container for Anologue.
@@ -45,6 +47,15 @@ class Anologue extends \lithium\data\Model {
 		'locked' => false,
 	);
 
+	/**
+	 * List of restricted document ids
+	 *
+	 * @var array
+	 */
+	public static $restricted = array(
+		'ping', 'changes', 'anologue'
+	);
+
 	public static function __init(array $options = array()) {
 		parent::__init($options);
 
@@ -74,21 +85,34 @@ class Anologue extends \lithium\data\Model {
 				$params['entity']->set(compact('created'));
 			}
 
-			if (empty($anologue->id) && !empty($anologue->title)) {
+			if (
+				empty($params['entity']->webhook)
+				|| !Validator::rule('url', $params['entity']->webhook)
+			) {
+				unset($params['entity']->webhook);
+			}
 
+			if (empty($anologue->id) && !empty($anologue->title)) {
 				$id = $slug = Inflector::slug($anologue->title);
 
 				if (strlen($id) < 5) {
 					$id = $slug = $id . '-' . substr(md5($slug . time()), 0, 5);
 				}
 
-				while ($existing = Anologue::first($id)) {
+				while (in_array($id, $self::$restricted) || $existing = Anologue::first($id)) {
 					$id = "$slug-" .  substr(md5($slug . time()), 0, 4);
 				}
 
 				$params['entity']->set(compact('id'));
 			}
-			return $chain->next($self, $params, $chain);
+
+			$result = $chain->next($self, $params, $chain);
+
+			if ($result && $anologue->webhook) {
+				$self::webhook($anologue->webhook, $anologue->data());
+			}
+
+			return $result;
 		});
 
 		$self = static::_object();
@@ -216,6 +240,17 @@ class Anologue extends \lithium\data\Model {
 		$conditions += $defaults;
 
 		return static::find('changes', compact('conditions'));
+	}
+
+	/**
+	 * Post data in json format to a url
+	 *
+	 * @param string $uri
+	 * @param array $data
+	 * @return void
+	 */
+	public static function webhook($uri, $data) {
+		return;
 	}
 }
 

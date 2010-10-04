@@ -9,6 +9,7 @@
 namespace anologue\models;
 
 use \anologue\extensions\helper\Oembed;
+use \lithium\util\Validator;
 
 class Message extends \lithium\data\Model {
 
@@ -35,8 +36,8 @@ class Message extends \lithium\data\Model {
 
 		static::applyFilter('save', function ($self, $params, $chain) {
 
-			if (empty($params['entity']->url)) {
-				$params['entity']->url = null;
+			if (empty($params['entity']->url) || !Validator::rule('url', $params['entity']->url)) {
+				unset($params['entity']->url);
 			}
 
 			if (!empty($params['entity']->email)) {
