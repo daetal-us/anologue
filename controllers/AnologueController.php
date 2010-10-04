@@ -91,11 +91,8 @@ class AnologueController extends \lithium\action\Controller {
 	public function ping() {
 		if (!empty($this->request->params['id'])) {
 			$id = $this->request->params['id'];
-			$user = Session::read($id, array('name' => 'php'));
+			$user = $this->_manageCookie($id, $this->request->data);
 			$key = Session::key('php');
-			if (!empty($user)) {
-				$user = unserialize($user);
-			}
 			$result = Anologue::ping($id, compact('key','user'));
 		}
 		return $this->render(array('json' => compact('result')));
@@ -195,25 +192,26 @@ class AnologueController extends \lithium\action\Controller {
 
 		$keys = array('name','email','url','scrolling','sounds','cookies');
 
+		$user = array();
+
 		if (isset($data['cookies']) && $data['cookies'] == 'false') {
 			Session::write($id, null);
 		} else {
-			$user = array();
+			$allowed = array_fill_keys($keys, null);
 
-			array_walk($keys, function($key) use (&$data, &$user) {
-				if (!empty($data[$key])) {
-					$user[$key] = $data[$key];
-					if ($key == 'name' && $data[$key] == 'anonymous') {
-						unset($user[$key]);
-					}
-				}
-			});
+			$user = array_filter(array_intersect_key($data, $allowed));
 
-			$user = serialize($user);
+			if (isset($user['name']) && $user['name'] == 'anonymous') {
+				unset($user['name']);
+			}
 
-			Session::write($id, $user);
-			Session::write($id, $user, array('name' => 'php'));
+			$serialized = serialize($user);
+
+			Session::write($id, $serialized);
+			Session::write($id, $serialized, array('name' => 'php'));
 		}
+
+		return $user;
 	}
 
 }

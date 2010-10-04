@@ -61,7 +61,7 @@
 	<div class="aside overlay" id="viewers">
 	<aside>
 		<header>
-			<h1>viewers</h1>
+			<h1><span class="count">0</span> <span class="noun">viewers</span></h1>
 			<ul>
 				<li class="loading">loading...</li>
 			</ul>

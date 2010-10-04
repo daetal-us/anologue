@@ -25,6 +25,11 @@ var anologue = {
 	},
 
 	/**
+	 * New messages assumed not yet viewed
+	 */
+	newMessages: 0,
+
+	/**
 	 * Is shift currently pressed down?
 	 *
 	 * @todo move to _config?
@@ -55,6 +60,7 @@ var anologue = {
 		this.setupToolbars();
 		this.setupInputs();
 		this.sound.setup();
+		this.update();
 		this.time.setup();
 		this.markdown();
 		this.ping.run();
@@ -131,7 +137,6 @@ var anologue = {
 			if (key.which == 13) {
 				if (!anologue.shiftDown) {
 					anologue.say($(this).val());
-					$(this).val('');
 					return false;
 				} else {
 					if (!$('.anologue').hasClass('textarea')) {
@@ -154,6 +159,9 @@ var anologue = {
 				var e = $(this).attr('data-alternate');
 				$(e).val($(this).val());
 			}
+		});
+		$('#user-settings input').change(function() {
+			anologue.ping.send();
 		});
 
 		$('.footer input.message').bind('paste', function(e) {
@@ -204,10 +212,13 @@ var anologue = {
 	ping: {
 		timeout: null,
 		run: function() {
+			this.send();
+		},
+		send: function() {
 			clearTimeout(this.timeout);
-			$.post(anologue._config.base + '/ping/' + anologue._config.id);
+			$.post(anologue._config.base + '/ping/' + anologue._config.id, anologue.user());
 			this.timeout = setTimeout(function() {
-				anologue.ping.run();
+				anologue.ping.send();
 			}, 90000);
 		},
 	},
@@ -228,19 +239,22 @@ var anologue = {
 				anologue.markdown();
 			}
 
-			if (anologue.db.viewers != null) {
-				var viewers = $.makeArray(anologue.db.viewers);
-				$('#viewers ul').html('');
-				$.each(anologue.db.viewers, function(k, v) {
-					$('#viewers ul').append(anologue.viewer(v));
-				});
-				var sorted = $('#viewers ul li').sort(function(a,b) {
-					var a = $(a).attr('data-name');
-					var b = $(b).attr('data-name');
-					return (a < b) ? -1 : (a > b) ? 1 : 0;
-				});
-				$('#viewers ul').html(sorted);
-			}
+			var viewers = $.makeArray(anologue.db.viewers);
+			$('#viewers ul').html('');
+			$.each(anologue.db.viewers, function(k, v) {
+				$('#viewers ul').append(anologue.viewer(v));
+			});
+			var sorted = $('#viewers ul li').sort(function(a,b) {
+				var a = $(a).attr('data-name');
+				var b = $(b).attr('data-name');
+				return (a < b) ? -1 : (a > b) ? 1 : 0;
+			});
+			$('#viewers ul').html(sorted);
+
+			var count = $('#viewers ul li').length;
+			$('#viewers .noun').text((count === 1) ? 'viewer' : 'viewers');
+			$('#viewers .count').text(count);
+
 		});
 	},
 
@@ -293,11 +307,11 @@ var anologue = {
 
 		var soundDisabled = this.getOption('#user-settings .command.sound');
 
-		var user = $('#user-setings .user.name').val();
+		var user = this.user();
 
 		if (!soundDisabled) {
 			// lazy check to not trigger sound on your message
-			if (message.name != user && user != '') {
+			if (user.name != '' && message.name != user.name) {
 				var userRegex = new RegExp(user.toLowerCase(), 'i');
 				if (userRegex.test(message.text)) {
 					this.sound.play();
@@ -306,8 +320,9 @@ var anologue = {
 			}
 		}
 
-		if (message.name != user) {
-			this.title.update(docTitle);
+		if (message.name != user.name) {
+			this.newMessages++;
+			this.title.blink(this.newMessages + ' new message(s)');
 		}
 
 		$('#'+id).animate({
@@ -327,28 +342,40 @@ var anologue = {
 			return false;
 		}
 
-		var data = {
-			name: $('#user-settings .user.name').val(),
-			email: $('#user-settings .user.email').val(),
-			url: $('#user-settings .user.url').val(),
-			text: message,
-			scrolling: this.getOption('#user-settings .command.auto-scroll'),
-			sounds: this.getOption('#user-settings .command.sound'),
-			cookies: this.getOption('#user-settings .command.cookie')
-		}
+		var data = this.user();
+
+		data.text = message;
 
 		if (data.name == '') {
 			data.name = 'anonymous';
 		}
 
+		if ($('.command.user-settings').hasClass('on')) {
+			$('.command.user-settings command').click();
+		}
+
+		$('.footer .message').attr('disabled', 'disabled');
 		$.post(this._config.base + "/say/" + this._config.id, data, function(response) {
+			$('.footer .message').removeAttr('disabled');
 			if (response.status != 'success') {
-				$('.footer input.message').val();
 				// this might occur if someone sends an update at the same time...
 				anologue.alert( 'Hold your horses, Spammy McSpamsky. Wait until your last message'
 				 				+ 'goes through and try sending your message again.');
+			} else {
+				$('.footer .message').val('');
 			}
 		}, "json");
+	},
+
+	user: function() {
+		return {
+			name: $('#user-settings .user.name').val(),
+			email: $('#user-settings .user.email').val(),
+			url: $('#user-settings .user.url').val(),
+			scrolling: this.getOption('#user-settings .command.auto-scroll'),
+			sounds: this.getOption('#user-settings .command.sound'),
+			cookies: this.getOption('#user-settings .command.cookie')
+		};
 	},
 
 	sound: {
@@ -376,7 +403,8 @@ var anologue = {
 	},
 
 	alert: function(msg) {
-		//console.log(msg);
+		console.log('error n stuff:');
+		console.log(msg);
 		// do something with the message
 	},
 
@@ -469,11 +497,32 @@ var anologue = {
 	},
 
 	title: {
+		timeout: null,
+		_default: 'anologue',
 		reset: function() {
-			document.title = 'anologue';
+			clearTimeout(this.timeout);
+			anologue.newMessages = 0;
+			document.title = this._default;
 		},
+
 		update: function(msg) {
-			document.title = msg + ' - anologue';
+			document.title = msg;
+		},
+
+		get: function() {
+			return document.title;
+		},
+
+		blink: function(msg) {
+			clearTimeout(this.timeout);
+			if (this.get() == msg) {
+				this.update(this._default);
+			} else {
+				this.update(msg);
+			}
+			this.timeout = setTimeout(function() {
+				anologue.title.blink(msg);
+			}, 2000);
 		}
 	},
 }

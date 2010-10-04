@@ -143,7 +143,11 @@ class Anologue extends \lithium\data\Model {
 	public static function ping($id, $data = array()) {
 		$default = array(
 			'key' => null,
-			'user' => null
+			'user' => array(
+				'name' => null,
+				'email' => null,
+				'url' => null
+			)
 		);
 		$data += $default;
 
@@ -161,8 +165,6 @@ class Anologue extends \lithium\data\Model {
 		$cutoff = strtotime('-2 minutes');
 
 		$viewers = array();
-
-
 		if (!empty($anologue['viewers'])) {
 			foreach ($anologue['viewers'] as $viewer => $value) {
 				if ($value->timestamp >= $cutoff) {
@@ -171,7 +173,8 @@ class Anologue extends \lithium\data\Model {
 			}
 		}
 
-		$viewers[$data['key']] = $data['user'] + array('timestamp' => time());
+		$viewers[$data['key']] = array_filter(array_intersect_key($data['user'], $default['user']))
+			+ array('timestamp' => time());
 
 		return $record->save(compact('viewers'));
 	}
@@ -210,8 +213,6 @@ class Anologue extends \lithium\data\Model {
 		));
 
 		$anologue->messages = $messages;
-
-		print_r($anologue->data());
 
 		return $anologue->save();
 	}

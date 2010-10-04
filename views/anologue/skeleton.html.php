@@ -425,7 +425,7 @@
 	<div class="aside overlay" id="viewers">
 	<aside>
 		<header>
-			<h1>viewers</h1>
+			<h1>viewers <span clas="count">(18)</span></h1>
 			<ul>
 				<li class="viewer"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Sample User</a></li>
 				<li class="viewer"><span>Bob Dole aSd faSD faS f sdF asDFas dfASDF fds </span></li>
