@@ -15,6 +15,7 @@ use \lithium\data\entity\Document;
 use \lithium\net\http\Service;
 use \lithium\util\Validator;
 use \anologue\models\Message;
+use \anologue\extensions\helper\Oembed;
 
 
 /**
