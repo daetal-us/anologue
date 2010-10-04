@@ -93,6 +93,12 @@ class Anologue extends \lithium\data\Model {
 				unset($params['entity']->webhook);
 			}
 
+			if (!empty($anologue->description)) {
+				$anologue->description = Oembed::classify(
+					$params['entity']->text, array('markdown' => true)
+				);
+			}
+
 			if (empty($anologue->id) && !empty($anologue->title)) {
 				$id = $slug = Inflector::slug($anologue->title);
 
