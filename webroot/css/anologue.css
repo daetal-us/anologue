@@ -55,7 +55,7 @@ em {
 
 .home h2 {
 	font-family:"Anologue Titling", Helvetica, Arial, sans-serif;
-	font-size:4em;
+	font-size:3.8em;
 	font-weight:400!important;
 	color:#00557F;
 	margin:.75em 0 .25em;
@@ -87,7 +87,7 @@ em {
 
 .home .footer {
 	text-align:center;
-	padding:4em 0 2em;
+	padding:4em 0 1em 2em;
 }
 
 .home .footer a {
