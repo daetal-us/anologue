@@ -270,14 +270,14 @@ var anologue = {
 		}
 
 		if (viewer.email) {
-			background = 'style="background-image: url(http://gravatar.com/avatar/'+viewer.email+'?s=16&d='+this._config.icon+')"';
+			background = 'style="background-image: url(http://gravatar.com/avatar/'+ $('<div/>').text(viewer.email).html() +'?s=16&d='+this._config.icon+')"';
 		}
 		if (viewer.url) {
-			html = '<a href="' + viewer.url + '"' + background + '>' + viewer.name + '</a>';
+			html = '<a href="' + $('<div/>').text(viewer.url).html() + '"' + background + '>' + $('<div/>').text(viewer.name).html() + '</a>';
 		} else {
-			html = '<span ' + background + '>' + viewer.name + '</span>';
+			html = '<span ' + background + '>' + $('<div/>').text(viewer.name).html() + '</span>';
 		}
-		return '<li class="viewer' + away + '" data-name="' + viewer.name + '">' + html + '</li>';
+		return '<li class="viewer' + away + '" data-name="' + $('<div/>').text(viewer.name).html() + '">' + html + '</li>';
 	},
 
 	render: function(message) {

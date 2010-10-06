@@ -13,7 +13,7 @@
 	$avatar = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icons/user-anonymous-black.png';
 	$alternate = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icons/user-anonymous.png';
 
-	//var_dump($user);
+	extract($user);
 ?>
 <?php echo $this->html->style('anologue.theme.default'); ?>
 
@@ -43,9 +43,9 @@
 					<?php foreach ($data->messages as $key => $message) { ?>
 						<li class="message">
 							<span class="meta">
-								<span class="ip"><?php echo $message->ip;?></span>
+								<span class="ip"><?php echo $message->ip; ?></span>
 								<time datetime="<?php echo date('c', $message->timestamp); ?>"><span data-timestamp="<?php echo $message->timestamp;?>" class="time"></span></time>
-								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message->email; ?>?s=20&d=<?php echo $avatar; ?>);"><?php echo !empty($message->url) ? $this->html->link($message->name, $message->url) : $this->html->escape($message->name); ?></span>
+								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message->email; ?>?s=20&d=<?php echo $avatar; ?>);"><?php echo !empty($message->url) ? $this->html->link($h($message->name), $message->url) : $h($message->name); ?></span>
 								<span class="separator">: </span>
 							</span>
 							<div class="text markdown">
@@ -96,11 +96,11 @@
 		<div class="menu toolbar fieldset">
 			<fieldset name="">
 				<label for="user[name]">Name</label>
-				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="<?php echo ($user['name']) ?: ''; ?>" />
+				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="<?=$name; ?>" />
 				<label for="user[email]">Email</label>
-				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="<?php echo ($user['email']) ?: ''; ?>" />
+				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="<?=$email; ?>" />
 				<label for="user[url]">Website</label>
-				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="<?php echo ($user['url']) ?: ''; ?>" />
+				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="<?=$url; ?>" />
 			</fieldset>
 			<menu type="toolbar">
 				<span class="command icon sound <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sound effects">
