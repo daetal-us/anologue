@@ -10,8 +10,8 @@
 	if ((!empty($base)) && !preg_match('/^\//', $base)) {
 		$base = '/' . $base;
 	}
-	$avatar = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icon/user-anonymous-black.png';
-	$alternate = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icon/user-anonymous.png';
+	$avatar = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icons/user-anonymous-black.png';
+	$alternate = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icons/user-anonymous.png';
 
 	//var_dump($user);
 ?>
