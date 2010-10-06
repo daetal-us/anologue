@@ -218,9 +218,10 @@ body {
 	margin: 2px 0;
 }
 .anologue .messages .message {
-	margin-bottom: 2px;
+	clear: both;
 	min-height: 2.5em;
 	background: rgba(0,0,0,.02);
+	border-top: 1px solid white;
 }
 .anologue .messages .message:hover {
 	background: #fff;
@@ -361,6 +362,7 @@ body {
 }
 .anologue #oembed .source a {
 	color: rgba(255,255,255,.25);
+	border-bottom: none;
 }
 
 .anologue .message code {

@@ -86,7 +86,7 @@
 	<div class="aside overlay" id="anologue-settings" style="display:none;">
 		<aside>
 		<h1>start an anologue</h1>
-		<div class="fieldset">
+		<div class="fieldset width-constraint">
 			<fieldset>
 				<label for="AnolougeTitle">Title</label>
 				<input type="text" id="AnologueTitle" name="anologue[title]" class="text anologue title" title="Anologue Title" value="" placeholder="Title" />

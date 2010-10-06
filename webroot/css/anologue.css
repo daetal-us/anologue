@@ -183,8 +183,14 @@ textarea::-webkit-input-placeholder {
 	padding: 2px 2px 56px 4px;
 	z-index: 50;
 }
+.overlay a {
+	color: #ccc;
+	border-bottom: 1px dotted #A060BE;
+
+}
 .overlay a:hover {
-	color: #fff;
+	color: #A060BE;
+	border-bottom: 1px dotted #ccc;
 }
 
 #anologue-settings {
