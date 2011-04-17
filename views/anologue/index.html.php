@@ -103,7 +103,7 @@
 </article>
 </div>
 <?php echo $this->html->script(array(
-	'http://code.jquery.com/jquery-1.4.2.min.js',
+	'http://code.jquery.com/jquery-1.5.2.min.js',
 )); ?>
 <script type="text/javascript">
 var anologue = {

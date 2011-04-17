@@ -337,7 +337,7 @@ var anologue = {
 	},
 
 	say: function(message) {
-
+		
 		if (message == '') {
 			return false;
 		}

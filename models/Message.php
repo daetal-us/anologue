@@ -13,7 +13,7 @@ use \lithium\util\Validator;
 
 class Message extends \lithium\data\Model {
 
-	protected $_classes = array(
+	protected static $_classes = array(
 		'entity' => '\lithium\data\entity\Document'
 	);
 

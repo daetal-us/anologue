@@ -43,13 +43,14 @@
 					<?php foreach ($data->messages as $key => $message) { ?>
 						<li class="message">
 							<span class="meta">
-								<span class="ip"><?php echo $message->ip; ?></span>
-								<time datetime="<?php echo date('c', $message->timestamp); ?>"><span data-timestamp="<?php echo $message->timestamp;?>" class="time"></span></time>
-								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message->email; ?>?s=20&d=<?php echo $avatar; ?>);"><?php echo !empty($message->url) ? $this->html->link($h($message->name), $message->url) : $h($message->name); ?></span>
+								<span class="ip"><?php echo $message['ip']; ?></span>
+								<time datetime="<?php echo date('c', $message['timestamp']);  ?>"><span data-timestamp="<?php echo $message['timestamp']; ?>" class="time"></span></time>
+								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message['email']; ?>?s=20&d=<?php echo $avatar; ?>);"><?php echo !empty($message['url']) ? $this->html->link($h($message['name']), $message['url']) : $h($message['name']); ?></span>
 								<span class="separator">: </span>
 							</span>
 							<div class="text markdown">
-								<pre><?php echo $h($message->text); ?></pre>
+								
+								<pre><?php echo $h($message['text']); ?></pre>
 							</div>
 						</li>
 					<?php } ?>
@@ -96,11 +97,11 @@
 		<div class="menu toolbar fieldset">
 			<fieldset name="">
 				<label for="user[name]">Name</label>
-				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="<?=$name; ?>" />
+				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="<?php echo $name; ?>" />
 				<label for="user[email]">Email</label>
-				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="<?=$email; ?>" />
+				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="<?php echo $email; ?>" />
 				<label for="user[url]">Website</label>
-				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="<?=$url; ?>" />
+				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="<?php echo $url; ?>" />
 			</fieldset>
 			<menu type="toolbar">
 				<span class="command icon sound <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sound effects">
@@ -152,14 +153,14 @@
 </div>
 
 <?php echo $this->html->script(array(
-	'http://code.jquery.com/jquery-1.4.2.min.js',
+	'http://code.jquery.com/jquery-1.5.2.min.js',
 	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue-2',
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		anologue.start({
 			db: <?php echo json_encode($data->to('array')); ?>,
-			id: '<?=$data->id?>',
+			id: '<?php echo $data->id; ?>',
 			base: '<?php echo $this->_request->env('base') ?>',
 			line: <?php echo count($data->messages); ?>,
 			icon: '<?php echo $avatar; ?>',
