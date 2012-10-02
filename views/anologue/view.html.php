@@ -45,7 +45,7 @@
 							<span class="meta">
 								<span class="ip"><?php echo $message['ip']; ?></span>
 								<time datetime="<?php echo date('c', $message['timestamp']);  ?>"><span data-timestamp="<?php echo $message['timestamp']; ?>" class="time"></span></time>
-								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message['email']; ?>?s=20&d=<?php echo $avatar; ?>);"><?php echo !empty($message['url']) ? $this->html->link($h($message['name']), $message['url']) : $h($message['name']); ?></span>
+								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message['email']; ?>?s=20&d=<?php echo urlencode($avatar); ?>);"><?php echo !empty($message['url']) ? $this->html->link($h($message['name']), $message['url']) : $h($message['name']); ?></span>
 								<span class="separator">: </span>
 							</span>
 							<div class="text markdown">
