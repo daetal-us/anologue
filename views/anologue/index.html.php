@@ -13,52 +13,43 @@
 			<div class="width-constraint">
 				<?php echo $this->html->image('anologue.png', array('id' => 'anologue-logo')); ?>
 				<h1 class="title">anologue</h1>
+				<h2 class="subtitle">anonymous, linear dialogue</h2>
 			</div>
 		</header>
 	</div>
 
-	<div id="anologue-new"><?php echo $this->html->link('new &nbsp;anologue &raquo;', array(
+	<div id="anologue-new"><?php echo $this->html->link('start a new anologue', array(
 		'controller' => 'anologue', 'action' => 'add'
 	), array('escape' => false)); ?></div>
 
 	<div class="width-constraint">
 
-		<p class="large center"><strong>anonymous, linear dialogue</strong></p>
-
-		<h2>a slightly different approach</h2>
+		<h2>a <em>slightly</em> different approach</h2>
 
 		<div class="aside excellence">
 			<aside>
 				<?php echo $this->html->image('excellent.jpg', array(
 					'alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent'
 				)); ?>
-				<span>your future us's use anologue!</span>
+				<span>no accounts. &nbsp;no installations. <br> no way?! &nbsp;yes, way!</span>
 			</aside>
 		</div>
 
-		<p><strong>anologue</strong> is like comments, meets im, meets irc, meets
-		<?php echo $this->html->link('your favorite paste app', 'http://pastium.org'); ?>,
-		meets instant coffee.</p>
+		<p><strong>anologue</strong> is like comments with markdown + instant-messaging with oembed / irc meets web = 47.</p>
 
-		<p>actually, instant coffee sucks.</p>
-
-		<p>with anologue you can quickly and easily engage in an anonymous (or not) linear dialogue
-			with any number of people (within reason).</p>
-
-		<p><strong>no accounts. no installations. no way?! <em>yes, way!</em></strong></p>
+		<p>with anologue you can quickly and easily engage in an anonymous (relatively) linear dialogue
+			with anyone else with a modern web browser.</p>
 
 		<p><?php echo $this->html->link(
 			'your "chat room" is created by the time this link loads',
 			array('controller' => 'anologue', 'action' => 'add')
-		); ?>. invite whomever you want by giving them your unique link, and chat away.</p>
+		); ?>. inviting someone is as simple as giving them the url.</p>
 
 		<h2>let's make this better, together</h2>
 
-		<p>perhaps best of all:
-		<?php echo $this->html->link('this is open source', 'http://rad-dev.org/lithium_anologue'); ?>
-		. built with <?php echo $this->html->link('php 5.3+', 'http://php.net'); ?>, using the most
-		non-heinous, totally rad framework <?php echo $this->html->link(
-			'lithium', 'http://li3.rad-dev.org'
+		<p><?php echo $this->html->link('this is open source', 'http://github.com/pointlessjon/anologue'); ?>.</p>
+		<p>built with <?php echo $this->html->link('php 5.3+', 'http://php.net'); ?>, <?php echo $this->html->link(
+			'lithium', 'http://github.com/unionofrad/lithium'
 		); ?>, <?php echo $this->html->link('couchdb', 'http://couchdb.apache.org'); ?>,
 		<?php echo $this->html->link('jquery', 'http://jquery.com'); ?>, a few other scripts as well
 		as some classy, custom and established <?php echo $this->html->link(
@@ -66,12 +57,7 @@
 		); ?> and <?php echo $this->html->link(
 			'typefaces', 'http://www.theleagueofmoveabletype.com/'
 		); ?>; all coming together for the
-		conversational goodness you're about to experience.</p>
-
-		<p><?php echo $this->html->link(
-			'fork and contribute to the core', 'http://rad-dev.org/lithium_anologue/'
-		); ?> or download the source and setup your own. this one's for
-			you, internets.</p>
+		conversational goodness you're here to experience.</p>
 	</div>
 
 	<div class="footer">
