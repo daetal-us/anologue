@@ -153,7 +153,7 @@
 </div>
 
 <?php echo $this->html->script(array(
-	'http://code.jquery.com/jquery-1.5.2.min.js',
+	'http://code.jquery.com/jquery-1.8.2.min.js',
 	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue-2',
 )); ?>
 <script type="text/javascript" charset="utf-8">
