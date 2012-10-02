@@ -20,6 +20,7 @@ class Message extends \lithium\data\Model {
 	protected $_meta = array(
 		'source' => false,
 		'connection' => false,
+		'locked' => false
 	);
 
 	protected $_schema = array(
