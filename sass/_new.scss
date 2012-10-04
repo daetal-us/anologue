@@ -1,0 +1,75 @@
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http: //union-of-rad.org)
+ * @license       http: //opensource.org/licenses/bsd-license.php The BSD License
+ */
+
+#new-anologue {
+	@include background-image(linear-gradient(#2B1933, #00557F));
+	@include user-select(none);
+
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 1em;
+	text-align: center;
+
+	@include display-box;
+	@include box-orient(vertical);
+	@include box-align(center);
+	@include box-pack(center);
+
+	h1 {
+		font-size: 5em;
+	}
+
+	input,
+	textarea {
+		font-family: $default-font-family;
+		display: block;
+		padding: .5em .5em;
+		color: #000;
+		background-color: white;
+		border: none;
+		height: 1.2em;
+		font-size: 1em;
+		width: 40em;
+		margin: 0 auto;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	input:first-child {
+		@include border-radius(.25em .25em 0 0);
+		border-bottom: 1px solid whiteSmoke;
+	}
+
+	textarea {
+		height: 4em;
+	}
+
+	#AnologueWebhook {
+		@include border-radius(0 0 .25em .25em);
+		background: whiteSmoke url(../img/icons/webhooks.png) no-repeat .5em .55em;
+		padding-left: 2em;
+		width: 38.5em;
+	}
+
+	button {
+		text-align: center;
+		padding: 0 1em;
+		background: none;
+		border: none;
+		color: rgba(255,255,255,.45);
+		font-size: 2.5em;
+		font-family: "Anologue Titling", Helvetica, Arial, sans-serif;
+		cursor: pointer;
+
+		&:hover {
+			color: white;
+		}
+	}
+}

@@ -1,0 +1,122 @@
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http: //union-of-rad.org)
+ * @license       http: //opensource.org/licenses/bsd-license.php The BSD License
+ */
+ 
+.home {
+	#anologue-logo {
+		margin: -2em -2.2em 0 1em;
+		display: block;
+		float: left;
+		padding: .7em 0 0;
+	}
+
+	.width-constraint {
+		display: block;
+		width: 1002px;
+		padding: 0 1em;
+		margin: 4em auto;
+	}
+
+	a {
+		border-bottom: 1px dashed #00557F;
+	}
+
+	p {
+		font-size: 1.4em;
+		padding: .5em 0;
+	}
+
+	h1 {
+		font-size: 10em;
+		text-shadow: 0 0 18px #000;
+		color: #FFF;
+		text-transform: uppercase;
+		font-family: $alt-font-family;
+		margin: .5em 0;
+	}
+
+	h2 {
+		font-family: $alt-font-family;
+		font-size: 3.8em;
+		font-weight: 400!important;
+		color: #2B1933;
+		margin: 1em 0 .25em;
+
+		&:nth-child(odd) {
+			color: #00557F;
+			padding-top: 1em;
+		}
+	}
+
+	header {
+		@include user-select(none);
+		@include background-image(linear-gradient(#2B1933, #00557F));
+		cursor: default;
+		color: #fff;
+		margin: 0;
+		padding-top: 1em;
+		min-width: 1002px;
+		position: relative;
+
+		h2 {
+			margin: 0;
+			padding: 0 !important;
+			position: relative;
+			text-align: center;
+			top: -3em;
+			left: .75em;
+			font-size: 2em;
+			font-family: $default-font-family;
+
+			&:after {
+				content: " ";
+				display: inline-block;
+				width: 8em;
+			}
+		}
+
+		.aside {
+			text-align: right;
+			vertical-align: bottom;
+		}
+	}
+
+	#anologue-new {
+		@include box-shadow(0 0 .5em rgba(0,0,0,.5));
+
+		margin-top: 1em;
+		display: block;
+		font-size: 2em;
+		color: white;
+		background: #2B1933;
+		text-align: right;
+		padding: .65em 1em;
+	}
+
+	.excellence {
+		@include user-select(none);
+		@include box-shadow(.1em .1em .5em rgba(0,0,0,.35));
+		@include rotate(4deg);
+
+		float: right;
+		margin: 2em 0 2em 4em;
+		padding: .75em;
+		border: 1px solid #ccc;
+
+		img {
+			margin: 0 0 .25em;
+		}
+
+		span {
+			display: block;
+			font-style: italic;
+			text-align: center;
+			color: #999;
+			line-height: 1.5em;
+			padding: .25em;
+		}
+	}
+}

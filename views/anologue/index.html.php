@@ -8,36 +8,31 @@
 ?>
 <div class="home article">
 <article>
-	<div class="header">
-		<header>
-			<div class="width-constraint">
-				<?php echo $this->html->image('anologue.png', array('id' => 'anologue-logo')); ?>
-				<h1 class="title">anologue</h1>
-				<h2 class="subtitle">anonymous, linear dialogue</h2>
-			</div>
-		</header>
-	</div>
-
-	<div id="anologue-new"><?php echo $this->html->link('start a new anologue', array(
-		'controller' => 'anologue', 'action' => 'add'
-	), array('escape' => false)); ?></div>
+	<header>
+		<div class="width-constraint">
+			<?php echo $this->html->image('anologue.png', array('id' => 'anologue-logo')); ?>
+			<h1 class="title">anologue</h1>
+			<h2 class="subtitle">web-based, linear dialogue</h2>
+		</div>
+		<?php echo $this->html->link('start a new anologue', array(
+			'controller' => 'anologue', 'action' => 'add'
+		), array('escape' => false, 'id' => 'anologue-new')); ?>
+	</header>
 
 	<div class="width-constraint">
 
 		<h2>a <em>slightly</em> different approach</h2>
 
-		<div class="aside excellence">
-			<aside>
-				<?php echo $this->html->image('excellent.jpg', array(
-					'alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent'
-				)); ?>
-				<span>no accounts. &nbsp;no installations. <br> no way?! &nbsp;yes, way!</span>
-			</aside>
-		</div>
+		<aside class="excellence">
+			<?php echo $this->html->image('excellent.jpg', array(
+				'alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent'
+			)); ?>
+			<span>no accounts. &nbsp;no installations. <br> no way?! &nbsp;yes, way!</span>
+		</aside>
 
 		<p><strong>anologue</strong> is like comments with markdown + instant-messaging with oembed / irc meets web = 47.</p>
 
-		<p>with anologue you can quickly and easily engage in an anonymous (relatively) linear dialogue
+		<p>with anologue you can quickly and easily engage in a relatively anonymous (or not) linear dialogue
 			with anyone else with a modern web browser.</p>
 
 		<p><?php echo $this->html->link(
@@ -59,33 +54,16 @@
 		); ?>; all coming together for the
 		conversational goodness you're here to experience.</p>
 	</div>
-
-	<div class="footer">
-		<footer>
-			<?php echo $this->html->link($this->html->image(
-				'http://imgur.com/6eddU.gif',
-				array('border' => 0, 'alt' => 'powered by lithium')
-			), 'http://li3.rad-dev.org', array('escape' => false)); ?>
-			<?php echo $this->html->script('http://www.ohloh.net/p/471008/widgets/project_users_logo.js'); ?>
-		</footer>
-	</div>
-	<div class="aside overlay" id="anologue-settings" style="display:none;">
-		<aside>
-		<h1>start an anologue</h1>
-		<div class="fieldset width-constraint">
-			<fieldset>
-				<label for="AnolougeTitle">Title</label>
-				<input type="text" id="AnologueTitle" name="anologue[title]" class="text anologue title" title="Anologue Title" value="" placeholder="Title" />
-				<label for="AnologueDescription">Description</label>
-				<textarea id="AnologueDescription" name="anologue[description]" placeholder="enter a description (markdown enabled) or leave blank for none... "></textarea>
-				<label for="AnologueWebhook">Custom Webhook URI</label>
-				<input type="url" id="AnologueWebhook" name="anologue[webhook]" class="text anologue webhook" title="Custom Webhook URI" value="" placeholder="Custom Webhook URI" />
-				<p>note: none of these options are required. in a rush? just click start.</p>
-				<div><button class="cancel"><span>cancel</span></button> <button class="start"><span>start</span></button></div>
-			</fieldset>
-		</div>
-		</aside>
-	</div>
+	<aside class="overlay" id="new-anologue" style="display:none;">
+		<h1>start a new anologue</h1>
+		<fieldset>
+			<input type="text" id="AnologueTitle" name="anologue[title]" class="text anologue title" title="Anologue Title" value="" placeholder="title..." />
+			<textarea id="AnologueDescription" name="anologue[description]" placeholder="description..."></textarea>
+			<input type="url" id="AnologueWebhook" name="anologue[webhook]" class="text anologue webhook" title="Custom Webhook URI" value="" placeholder="http://webhook/uri" />
+			<p>none of these options are required.</p>
+			<div><button class="cancel"><span>cancel</span></button> <button class="start"><span>start</span></button></div>
+		</fieldset>
+	</aside>
 </article>
 </div>
 <?php echo $this->html->script(array(
@@ -94,20 +72,22 @@
 <script type="text/javascript">
 var anologue = {
 	setup: function() {
-		$('#anologue-settings').css({height: $('body').height()});
-		$('#anologue-new a').click(function() {
-			if ($('#anologue-settings').hasClass('on')) {
+		$('#anologue-new').click(function() {
+			if ($('#new-anologue').hasClass('on')) {
 				return true;
 			} else {
-				$('#anologue-settings').fadeIn();
-				$('#anologue-settings').addClass('on');
+				$('body').addClass('constrained');
+				$('#new-anologue').css({height: $(window).height()});
+				$('#new-anologue').fadeIn();
+				$('#new-anologue').addClass('on');
 				return false;
 			}
 		});
-		$('#anologue-settings button.cancel').click(function() {
-			$('#anologue-settings').fadeOut().removeClass('on');
+		$('#new-anologue button.cancel').click(function() {
+			$('body').removeClass('constrained');
+			$('#new-anologue').fadeOut().removeClass('on');
 		});
-		$('#anologue-settings button.start').click(function() {
+		$('#new-anologue button.start').click(function() {
 			anologue.start();
 		});
 	},

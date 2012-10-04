@@ -45,7 +45,8 @@
 							<span class="meta">
 								<span class="ip"><?php echo $message['ip']; ?></span>
 								<time datetime="<?php echo date('c', $message['timestamp']);  ?>"><span data-timestamp="<?php echo $message['timestamp']; ?>" class="time"></span></time>
-								<span class="author gravatar" style="background-image:url(http://gravatar.com/avatar/<?php echo $message['email']; ?>?s=20&d=<?php echo urlencode($avatar); ?>);"><?php echo !empty($message['url']) ? $this->html->link($h($message['name']), $message['url']) : $h($message['name']); ?></span>
+								<img class="gravatar" src="http://gravatar.com/avatar/<?php echo $message['email']; ?>?s=20&d=<?php echo urlencode($avatar); ?>">
+								<span class="author"><?php echo !empty($message['url']) ? $this->html->link($h($message['name']), $message['url']) : $h($message['name']); ?></span>
 								<span class="separator">: </span>
 							</span>
 							<div class="text markdown">
@@ -84,15 +85,6 @@
 		</aside>
 	</div>
 
-	<div class="aside overlay" id="markdown-help">
-		<aside>
-			<h1>Markdown Syntax</h1>
-			<div class="content">
-				<p># header 1 &nbsp;  &nbsp; ## header 2 &nbsp;  &nbsp; <em>*italic*</em> &nbsp;  &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; 	- unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg)</p>
-			</div>
-		</aside>
-	</div>
-
 	<div class="aside overlay" id="user-settings">
 		<div class="menu toolbar fieldset">
 			<fieldset name="">
@@ -125,9 +117,6 @@
 				</span>
 				<span class="command icon user-settings" title="Toggle my user settings">
 					<command type="checkbox" data-overlay="#user-settings">
-				</span>
-				<span class="command icon markdown-help" title="Toggle markdown help">
-					<command type="checkbox" data-overlay="#markdown-help">
 				</span>
 				<label for="text">Text</label>
 				<input type="text" name="message" value="" class="text message" data-alternate=".footer textarea.message" />

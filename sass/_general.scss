@@ -1,0 +1,61 @@
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http://union-of-rad.org)
+ * @license       http://opensource.org/licenses/bsd-license.php The BSD License
+ */
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font-family: $default-font-family;
+/*	-webkit-font-smoothing: subpixel-antialiased;*/
+}
+
+body.constrained {
+	overflow: hidden;
+}
+
+a {
+	color: #00557F;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #00658F;
+}
+
+html, body, input, password, textarea {
+	background: #FFF;
+	color: #000;
+}
+
+p {
+	line-height: 140%;
+	padding: .5em 0;
+}
+
+em {
+	font-style: italic;
+}
+
+.overlay {
+	background: rgba(0,0,0,.9);
+	@include box-shadow();
+	color: white;
+	padding: 1em;
+	z-index: 50;
+
+	a {
+		color: #ccc;
+		border-bottom: 1px dotted #A060BE;
+
+		&:hover {
+			color: #A060BE;
+			border-bottom: 1px dotted #ccc;
+		}
+	}
+}

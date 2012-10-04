@@ -11,30 +11,47 @@
  * standard UI elements in place as well as sample content.
  */
 ?>
-<?php echo $this->html->style('anologue.theme.default'); ?>
+<?php echo $this->html->style('anologue-2'); ?>
 
-<div class="anologue article admin">
-<article>
-	<div class="header anologue-title">
-		<header>
-			<h1 class="title">04713d29463623248f252c7702094439</h1>
-			<div class="description markdown"><pre>Some custom description.</pre></div>
-		</header>
-	</div>
+<article class="anologue">
+	<header>
+		<h1 class="title">04713d29463623248f252c7702094439</h1>
+		<div class="description">Some custom description.</div>
+	</header>
 
-	<div class="section messages">
-		<section>
+	<section class="body">
+
+		<section id="viewers">
+			<h1>viewers <span clas="count">(18)</span></h1>
+			<ul>
+				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+				<li class="viewer"><span>Bob Dole aSd faSD faS f sdF asDFas dfASDF fds </span></li>
+				<li class="viewer anonymous"><span>anonymous</span></li>
+				<li class="viewer away"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+				<li class="viewer"><span>Bob Dole</span></li>
+				<li class="viewer anonymous"><span>anonymous</span></li>
+				<li class="viewer away"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+				<li class="viewer"><span>Bob Dole</span></li>
+				<li class="viewer anonymous"><span>anonymous</span></li>
+				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+			</ul>
+		</section>
+
+		<section class="messages">
 			<ul id="anologue">
 				<li class="message">
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1280087742" class="time"></span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
-
-		```code```
+	
+	```code```
 
 {{{
 
@@ -78,8 +95,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1282026742" class="time"></span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -88,8 +106,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time"></span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -98,8 +117,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -114,8 +134,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -124,8 +145,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -134,8 +156,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -150,8 +173,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -160,8 +184,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -170,8 +195,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -186,8 +212,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -196,8 +223,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -206,8 +234,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -222,8 +251,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -232,8 +262,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -242,8 +273,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Super Long USer Name WooooOOO</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -258,8 +290,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -268,8 +301,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -278,8 +312,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -294,8 +329,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -304,8 +340,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -314,8 +351,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -330,8 +368,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -340,8 +379,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -350,8 +390,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -366,8 +407,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -376,8 +418,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
@@ -386,8 +429,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>#my content
 	code
@@ -402,8 +446,9 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.youtube.com/watch?v=_K97ITEkd8g](http://www.youtube.com/watch?v=_K97ITEkd8g)
 					</pre></div>
@@ -412,68 +457,41 @@
 					<span class="meta">
 						<span class="ip">localhost</span>
 						<time datetime="1979-10-14T12:00:00.001-04:00"><span data-timestamp="1284016742" class="time">3 minutes ago</span></time>
-						<span class="author gravatar" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=20);">Jon</span>
-						<span class="separator">: </span>
+						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?=20">
+						<span class="author">Jon</span>
+						<span class="separator"></span>
 					</span>
 					<div class="text markdown"><pre>[http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks](http://www.slideshare.net/nateabele/lithium-the-framework-for-people-who-hate-frameworks)
 					</pre></div>
 				</li>
 			</ul>
 		</section>
-	</div>
+	</section>
 
-	<div class="aside overlay" id="viewers">
-	<aside>
-		<header>
-			<h1>viewers <span clas="count">(18)</span></h1>
-			<ul>
-				<li class="viewer"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Sample User</a></li>
-				<li class="viewer"><span>Bob Dole aSd faSD faS f sdF asDFas dfASDF fds </span></li>
-				<li class="viewer anonymous"><span>anonymous</span></li>
-				<li class="viewer away"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Steven</a></li>
-				<li class="viewer"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Sample User</a></li>
-				<li class="viewer"><span>Bob Dole</span></li>
-				<li class="viewer anonymous"><span>anonymous</span></li>
-				<li class="viewer away"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Steven</a></li>
-				<li class="viewer"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Sample User</a></li>
-				<li class="viewer"><span>Bob Dole</span></li>
-				<li class="viewer anonymous"><span>anonymous</span></li>
-				<li class="viewer away"><a href="http://example.com" style="background-image:url(http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=16)">Steven</a></li>
-			</ul>
-		</header>
-	</aside>
-	</div>
-
-	<div class="aside overlay" id="oembed">
-		<aside>
-			<div class="display" id="oembed-display">
-				<object width="425" height="264"><param name="movie" value="http://www.youtube.com/v/vXjnEM_Kp_4?fs=1"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><embed src="http://www.youtube.com/v/vXjnEM_Kp_4?fs=1" type="application/x-shockwave-flash" width="425" height="264" allowscriptaccess="always" allowfullscreen="true"></object>
-			</div>
-			<div class="source" id="oembed-source">
-				<a href="http://www.youtube.com/watch?v=vXjnEM_Kp_4&amp;feature=popular" class="open" target="_blank">http://www.youtube.com/watch?v=vXjnEM<em>Kp</em>4&amp;feature=popular</a>
-			</div>
-			<div class="menu toolbar close">
-				<menu type="toolbar">
-					<span class="command icon close" title="Close this multimedia overlay">
-						<command type="checkbox">
-					</span>
-				</menu>
-			</div>
-		</aside>
-	</div>
-
-	<div class="aside overlay" id="markdown-help">
-		<aside>
-			<h1>Markdown Syntax</h1>
-			<div class="content">
-				<p># header 1 &nbsp;  &nbsp; ## header 2 &nbsp;  &nbsp; <em>*italic*</em> &nbsp;  &nbsp; <strong>**bold**</strong> &nbsp;  &nbsp; 	- unordered list &nbsp;  &nbsp; 1. ordered list &nbsp;  &nbsp; [a link](http://example.com/) &nbsp;  &nbsp; ![image alt text](http://example.com/image.jpg)</p>
-			</div>
-		</aside>
-	</div>
-
-	<div class="aside overlay" id="user-settings">
-		<div class="menu toolbar fieldset">
-			<fieldset name="">
+	<footer>
+		<menu type="toolbar">
+			<span class="command icon viewers" title="Toggle viewer list">
+				<command type="checkbox" data-overlay="#viewers">
+			</span>
+			<span class="command icon user-settings" title="Toggle my user settings">
+				<command type="checkbox" data-overlay="#user-settings">
+			</span>
+			<label for="text">Text</label>
+			<input type="text" name="message" value="" class="text message" data-alternate=".footer textarea.message" />
+			<textarea name="message" class="message" data-alternate=".footer input.message"></textarea>
+			<span class="command icon expand-text" title="Toggle expanded text input">
+				<command type="checkbox">
+			</span>
+			<?php
+				echo $this->html->link(
+					'this is anologue.',
+					array('controller' => 'anologue', 'action' => 'index'),
+					array('class' => 'about')
+				);
+			?>
+		</menu>
+		<aside class="overlay" id="user-settings">
+			<fieldset>
 				<label for="user[name]">Name</label>
 				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="" />
 				<label for="user[email]">Email</label>
@@ -492,44 +510,14 @@
 					<command type="checkbox">
 				</span>
 			</menu>
-		</div>
-	</div>
-
-	<div class="footer">
-		<footer>
-			<menu type="toolbar">
-				<span class="command icon viewers" title="Toggle viewer list">
-					<command type="checkbox" data-overlay="#viewers">
-				</span>
-				<span class="command icon user-settings" title="Toggle my user settings">
-					<command type="checkbox" data-overlay="#user-settings">
-				</span>
-				<span class="command icon markdown-help" title="Toggle markdown help">
-					<command type="checkbox" data-overlay="#markdown-help">
-				</span>
-				<label for="text">Text</label>
-				<input type="text" name="message" value="" class="text message" data-alternate=".footer textarea.message" />
-				<textarea name="message" class="message" data-alternate=".footer input.message"></textarea>
-				<span class="command icon expand-text" title="Toggle expanded text input">
-					<command type="checkbox">
-				</span>
-				<?php
-					echo $this->html->link(
-						'this is anologue.',
-						array('controller' => 'anologue', 'action' => 'index'),
-						array('class' => 'about')
-					);
-				?>
-			</menu>
-		</footer>
-	</div>
+		</aside>
+	</footer>
 </article>
-</div>
 
 <audio id="anologue-speaker"></audio>
 
 <?php echo $this->html->script(array(
-	'http://code.jquery.com/jquery-1.5.2.min.js',
+	'http://code.jquery.com/jquery-1.8.2.js',
 	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue-2',
 )); ?>
 <script type="text/javascript" charset="utf-8">
