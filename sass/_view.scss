@@ -10,30 +10,54 @@ article.anologue {
 	@include box-orient(vertical);
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 
 	header {
 		@include display-box;
 		@include box-orient(horizontal);
-		@include box-shadow(0 0 1em black);
-		background: #00557F;
-		color: white;
-		font-size: .75em;
+		@include gradient-beta;
+		text-shadow: 0 1px #00557F;
 		z-index: 100;
+		position: relative;
 
-		.title, .description {
+		.title, .viewers, .description {
 			margin: 0;
 			padding: .5em;
+			line-height: 1.5em;
 			display: block;
 		}
 
 		.title {
+			background: url(../media/anologue.png) no-repeat .25em .25em;
+			background-size: 1.8em 1.8em;
 			font-weight: bold;
+			padding-left: 2.5em;
+			color: #002d4d;
+
+			a {
+				color: #002d4d;
+			}
 		}
 
 		.description {
 			@include box-flex(1);
-			color: rgba(255,255,255,.5);
+			color: rgba(255,255,255,.25);
+			font-size: .8em;
+			line-height: 2em;
+			padding-right: 1em;
+			text-shadow: none;
 			text-align: right;
+		}
+
+		&:after {
+			display: block;
+			content: ' ';
+			position: absolute;
+			bottom: -.25em;
+			height: .25em;
+			width: 100%;
+			left: 0;
+			@include background-image(linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,0)));
 		}
 	}
 
@@ -41,7 +65,8 @@ article.anologue {
 		@include display-box;
 		@include box-orient(horizontal);
 		@include box-flex(1);
-		@include background-image(linear-gradient(#2B1933, #00557F));
+		@include background-image(linear-gradient(#16041E, #2B1933));
+		@include background-image(linear-gradient(#16041E, #003f5f));
 
 		section {
 			font-size: .8em; 
@@ -49,22 +74,21 @@ article.anologue {
 
 			&#viewers {
 				background: rgba(255,255,255,.05);
-				color: rgba(255,255,255,.5);
+				color: rgba(255,255,255,.15);
 				width: 14em;
-
-				h1 {
-					font-weight: bold;
-					padding: .5em;
-					background: rgba(0,0,0,.1);
-				}
+				padding: .25em;
 
 				ul {
+					padding: 0;
 					font-size: .85em;
+
 					li {
-						padding: .25em .25em .25em 2.25em;
+						list-style: none;
 						position: relative;
-						line-height: 1.25em;
+						padding: .5em .25em .5em 2.5em;
 						border-top: 1px solid rgba(0,0,0,.15);
+						color: white;
+						line-height: 1.25em;
 
 						a {
 							color: white;
@@ -82,9 +106,10 @@ article.anologue {
 
 						img {
 							position: absolute;
-							left: 0;
-							top: 0;
+							left: .25em;
+							top: .25em;
 							width: 1.75em;
+							border-radius: .25em;
 						}
 					}
 				}
@@ -93,88 +118,97 @@ article.anologue {
 			&.messages {
 				@include box-flex(1);
 
-				.message {
-					display: block;
-					@include display-box;
-					@include box-orient(horizontal);
-					margin: .25em;
-					position: relative;
+				#anologue {
+					padding: 0;
 
-					.meta {
-						display: block;
-						margin-right: 1.5em;
+					.message {
+						@include display-box;
+						@include box-orient(horizontal);
+						position: relative;
+						margin: 1em;
 
-						.gravatar {
-							border-radius: .25em;
-							width: 3em;
-							float: right;
-							@include box-shadow;
-						}
-
-						.author {
-							text-align: right;
-							display: block;
-							line-height: 3em;
-							padding: 0 .5em;
-							margin-right: 2em;
-							width: 10em;
-							white-space: nowrap;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							color: rgba(255,255,255,.25);
-							font-weight: bold;
-						}
-
-						.ip, time {
-							color: rgba(0,0,0,.25);
-							font-size: .75em;
-							position: absolute;
-							top: .25em;
-							right: .5em;
-							z-index: 50;
-						}
-
-						.ip {
-							top: auto;
-							bottom: .25em;
+						&.template {
 							display: none;
 						}
-					}
 
-					&:hover {
-						.ip {
+						.meta {
+							@include user-select(none);
+							cursor: default;
 							display: block;
+							margin-right: 1.5em;
+
+							.gravatar {
+								width: 3em;
+								float: right;
+								border-radius: .25em;
+								background: rgba(255,255,255,.05);
+								@include shadow-alpha;
+							}
+
+							.author {
+								text-align: right;
+								display: block;
+								line-height: 3em;
+								padding: 0 .5em;
+								margin-right: 2em;
+								width: 10em;
+								white-space: nowrap;
+								overflow: hidden;
+								text-overflow: ellipsis;
+								color: rgba(255,255,255,.5);
+								font-weight: bold;
+
+								a {
+									color: white;
+								}
+							}
+
+							time {
+								color: rgba(255,255,255,.15);
+								font-size: .8em;
+								position: absolute;
+								top: 2.5em;
+								left: 1em;
+								width: 12em;
+								text-align: right;
+								z-index: 50;
+							}
+							
+							.ip {
+								display: none;
+							}
 						}
-					}
 
-					.text {
-						display: block;
-						font-size: .9em;
-						@include box-flex(1);
-						background: white;
-						border-radius: .5em;
-						padding: .5em 1em;
-						position: relative;
-						line-height: 1.5em;
+						.text {
+							@include box-flex(1);
+							@include box-shadow;
 
-						&:before {
-							content: ' ';
 							display: block;
-							border-top: 1em solid transparent;
-							border-right: 1em solid white;
-							position: absolute;
-							left: -.9em;
-							top: .5em;
-						}
+							background: white;
+							border-radius: 1em;
+							padding: .5em 1.5em;
+							position: relative;
+							border-top: 1px solid whiteSmoke;
 
-						pre {
-							background: rgba(0,0,0,.1);
-							padding: 1em;
-							font-size: .8em;
-							line-height: 1.5em;
+							&:before {
+								@include rotate(-5deg);
+								content: ' ';
+								display: block;
+								border-top: 1em solid transparent;
+								border-right: 1em solid white;
+								position: absolute;
+								left: -.85em;
+								top: .75em;
+							}
 
-							code {
-								font-family: monaco;
+							.oembedall-container {
+
+								.oembedall-closehide {
+									cursor: pointer;
+									color: #00557F;
+									width: 1em;
+									display: inline-block;
+								}
 							}
 						}
 					}
@@ -185,6 +219,127 @@ article.anologue {
 
 	footer {
 		background: #2B1933;
+		@include background-image(linear-gradient(#2B1933, #1B0923));
+		position: relative;
+		z-index: 100;
 
+		&:after {
+			display: block;
+			content: ' ';
+			position: absolute;
+			top: -.25em;
+			height: .25em;
+			width: 100%;
+			left: 0;
+			@include background-image(linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.35)));
+		}
+
+		menu {
+			@include display-box;
+			@include box-orient(horizontal);
+			padding: 2px;
+
+			command {
+				display: block;
+				cursor: pointer;
+				background: transparent none no-repeat center center;
+				width: 2.2em;
+				height: 2em;
+				margin-right: 2px;
+				opacity: .25;
+				@include transition(opacity .25s ease);
+
+				&.viewers {
+					background-image: url(../media/users.svg);
+					background-size: 1.5em 1.5em;
+				}
+
+				&.user-settings {
+					background-image: url(../media/cog.svg);
+					background-size: 1em 1em;
+				}
+
+				&.on {
+					opacity: 1;
+				}
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+
+			textarea {
+				@include box-flex(1);
+				border: none;
+				background: #190721;
+				@include background-image(linear-gradient(#16041E, #190721));
+				color: white;
+				border: 1px solid #2B1933;
+				border-top-color: #16041E;
+				border-left-color: #16041E;
+				display: block;
+				box-sizing: border-box;
+				font-family: $font-family-alpha;
+				font-size: 1em;
+				height: 2em;
+				padding: .5em;
+
+				&:focus {
+					outline: none;
+				}
+			}
+
+			a {
+				padding: 0 1em;
+				line-height: 2em;
+				font-size: 1em;
+				font-family: $font-family-beta;
+				color: #190721;
+				text-shadow: 0 1px #2B1933;
+			}
+		}
+
+		aside {
+			background: rgba(0,0,0,.9);
+			position: absolute;
+			bottom: 2em;
+			margin-bottom: .25em;
+			z-index: 50;
+			padding: 2px;
+
+			fieldset {
+				@include display-box;
+				@include box-orient(vertical);
+
+				input {
+					display: block;
+					font-family: $font-family-alpha;
+					width: 16em;
+					margin: 0 0 2px;
+					border: none;
+					@include box-shadow(inset 0 0 .25em rgba(0,0,0,.35));
+					padding: .25em;
+
+					&:focus {
+						outline: none;
+					}
+				}
+			}
+
+			command.sound {
+				background-image: url(../media/speaker.svg);
+				background-size: 1.25em 1.25em;
+			}
+
+			command.scroll {
+				background-image: url(../media/down.svg);
+				background-size: 1em 1em;
+			}
+
+			command.cookie {
+				background-image: url(../media/elephant.svg);
+				background-size: 1.5em 1.5em;
+			}
+		}
 	}
 }

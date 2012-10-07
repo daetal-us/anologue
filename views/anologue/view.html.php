@@ -10,44 +10,58 @@
 	if ((!empty($base)) && !preg_match('/^\//', $base)) {
 		$base = '/' . $base;
 	}
-	$avatar = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icons/user-anonymous-black.png';
-	$alternate = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/img/icons/user-anonymous.png';
+	$avatar = 'http://' . $_SERVER['HTTP_HOST'] . $base . '/media/user.svg';
 
 	extract($user);
 ?>
-<?php echo $this->html->style('anologue.theme.default'); ?>
 
-<div class="anologue article admin">
-<article>
-	<div class="header anologue-title">
-		<header>
-			<h1 class="title">
-				<?php
-					echo $this->html->link(
-						($data->title) ?: $data->id,
-						array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id),
-						array('title' => 'Direct link to this anologue')
-					);
-				?>
-			</h1>
-			<div class="description markdown">
-				<pre><?php echo $h($data->description); ?></pre>
-			</div>
-		</header>
-	</div>
+<article class="anologue">
+	<header>
+		<h1 class="title">
+			<?php
+				echo $this->html->link(
+					($data->title) ?: $data->id,
+					array('controller' => 'anologue', 'action' => 'view', 'id' => $data->id),
+					array('title' => 'Direct link to this anologue')
+				);
+			?>
+		</h1>
+		<div class="description"><?php echo $h($data->description); ?></div>
+	</header>
 
-	<div class="section messages">
-		<section>
+	<section class="body">
+
+		<section id="viewers">
+			<ul>
+				<li class="loading">loading...</li>
+			</ul>
+		</section>
+
+		<section class="messages">
 			<ul id="anologue">
 				<?php if (!empty($data->messages)) { ?>
+					<li class="message template">
+						<span class="meta">
+							<span class="ip"></span>
+							<time><span data-timestamp="" class="time"></span></time>
+							<img class="gravatar">
+							<span class="author"></span>
+						</span>
+						<div class="text"></div>
+					</li>
 					<?php foreach ($data->messages as $key => $message) { ?>
-						<li class="message">
+						<li class="message" id="message-<?php echo md5($message['timestamp'] . $message['name']); ?>">
 							<span class="meta">
 								<span class="ip"><?php echo $message['ip']; ?></span>
 								<time datetime="<?php echo date('c', $message['timestamp']);  ?>"><span data-timestamp="<?php echo $message['timestamp']; ?>" class="time"></span></time>
-								<img class="gravatar" src="http://gravatar.com/avatar/<?php echo $message['email']; ?>?s=20&d=<?php echo urlencode($avatar); ?>">
+								<?php
+									$image = $avatar;
+									if (!empty($message['email'])) {
+										$image = 'http://gravatar.com/avatar/' . $message['email'] . '?s=64&d=<' . urlencode($avatar);
+									}
+								?>
+								<img class="gravatar" src="<?php echo $image; ?>">
 								<span class="author"><?php echo !empty($message['url']) ? $this->html->link($h($message['name']), $message['url']) : $h($message['name']); ?></span>
-								<span class="separator">: </span>
 							</span>
 							<div class="text markdown">
 								
@@ -55,87 +69,34 @@
 							</div>
 						</li>
 					<?php } ?>
+						
 				<?php } ?>
 			</ul>
 		</section>
-	</div>
 
-	<div class="aside overlay" id="viewers">
-	<aside>
-		<header>
-			<h1><span class="count">0</span> <span class="noun">viewers</span></h1>
-			<ul>
-				<li class="loading">loading...</li>
-			</ul>
-		</header>
-	</aside>
-	</div>
+	</section>
 
-	<div class="aside overlay" id="oembed">
-		<aside>
-			<div class="display" id="oembed-display"></div>
-			<div class="source" id="oembed-source"></div>
-			<div class="menu toolbar close">
-				<menu type="toolbar">
-					<span class="command icon close" title="Close this multimedia overlay">
-						<command type="checkbox">
-					</span>
-				</menu>
-			</div>
-		</aside>
-	</div>
-
-	<div class="aside overlay" id="user-settings">
-		<div class="menu toolbar fieldset">
-			<fieldset name="">
-				<label for="user[name]">Name</label>
-				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="<?php echo $name; ?>" />
-				<label for="user[email]">Email</label>
-				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="<?php echo $email; ?>" />
-				<label for="user[url]">Website</label>
-				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="<?php echo $url; ?>" />
+	<footer>
+		<menu type="toolbar">
+			<command class="viewers on" title="Toggle viewer list" type="checkbox">
+			<command class="user-settings" title="Toggle my user settings" type="checkbox" data-overlay="#user-settings">
+			<textarea name="message" class="message"></textarea>
+			<?php echo $this->html->link('this is anologue.', '/'); ?>
+		</menu>
+		<aside class="overlay" id="user-settings">
+			<fieldset>
+				<input type="text" name="user[name]" class="text user name" placeholder="name..." title="Your name" value="<?php echo $user['name']; ?>" />
+				<input type="email" name="user[email]" class="text user email" placeholder="e-mail..." title="Your e-mail" value="<?php echo $user['email']; ?>" />
+				<input type="url" name="user[url]" class="text user url" placeholder="http://" title="Your website" value="<?php echo $user['url']; ?>" />
 			</fieldset>
 			<menu type="toolbar">
-				<span class="command icon sound <?php echo ($user['sounds'] == 'false') ? 'disabled' : ''; ?>" title="Toggle sound effects">
-					<command type="checkbox">
-				</span>
-				<span class="command icon scroll <?php echo ($user['scrolling'] == 'false') ? 'disabled' : ''; ?>" title="Toggle auto-scrolling window when a new message is posted">
-					<command type="checkbox">
-				</span>
-				<span class="command icon cookie <?php echo ($user['cookies'] == 'false') ? 'disabled' : ''; ?>" title="Toggle saving your user data">
-					<command type="checkbox">
-				</span>
+				<command type="checkbox" class="command icon sound <?php echo !$user['sounds'] ? null : 'on'; ?>" title="Toggle sound effects">
+				<command type="checkbox" class="command icon scroll <?php echo !$user['scrolling'] ? null : 'on'; ?>" title="Toggle auto-scrolling window when a new message is posted">
+				<command type="checkbox" class="command icon cookie <?php echo !$user['cookies'] ? null : 'on'; ?>" title="Toggle saving your user data">
 			</menu>
-		</div>
-	</div>
-
-	<div class="footer">
-		<footer>
-			<menu type="toolbar">
-				<span class="command icon viewers" title="Toggle viewer list">
-					<command type="checkbox" data-overlay="#viewers">
-				</span>
-				<span class="command icon user-settings" title="Toggle my user settings">
-					<command type="checkbox" data-overlay="#user-settings">
-				</span>
-				<label for="text">Text</label>
-				<input type="text" name="message" value="" class="text message" data-alternate=".footer textarea.message" />
-				<textarea name="message" class="message" data-alternate=".footer input.message"></textarea>
-				<span class="command icon expand-text" title="Toggle expanded text input">
-					<command type="checkbox">
-				</span>
-				<?php
-					echo $this->html->link(
-						'this is anologue.',
-						array('controller' => 'anologue', 'action' => 'index'),
-						array('class' => 'about')
-					);
-				?>
-			</menu>
-		</footer>
-	</div>
+		</aside>
+	</footer>
 </article>
-</div>
 
 <div class="sound">
 	<audio id="anologue-speaker"></audio>
@@ -143,11 +104,15 @@
 
 <?php echo $this->html->script(array(
 	'http://code.jquery.com/jquery-1.8.2.min.js',
-	'md5.jquery', 'showdown', 'pretty', 'jquery.oembed', 'anologue-2',
+	'/lib/md5.jquery',
+	'/lib/showdown',
+	'/lib/pretty',
+	'/lib/jquery.oembed',
+	'anologue',
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		anologue.start({
+		Anologue.start({
 			db: <?php echo json_encode($data->to('array')); ?>,
 			id: '<?php echo $data->id; ?>',
 			base: '<?php echo $this->_request->env('base') ?>',

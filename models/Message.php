@@ -18,24 +18,28 @@ class Message extends \lithium\data\Model {
 	);
 
 	protected $_meta = array(
-		'source' => false,
+		'source' =>     false,
 		'connection' => false,
-		'locked' => false
+		'locked' =>     false
 	);
 
 	protected $_schema = array(
-		'name' => 		array('default' => 'anonymous'),
-		'ip' => 				array('default' => null),
-		'email' => 			array('default' => null),
-		'timestamp' => 	array('default' => null),
-		'text' => 			array('default' => null),
-		'url' => 			array('default' => null)
+		'name' =>      array('default' => 'anonymous'),
+		'ip' =>        array('default' => null),
+		'email' =>     array('default' => null),
+		'timestamp' => array('default' => null),
+		'text' =>      array('default' => null),
+		'url' =>       array('default' => null)
 	);
 
 	public static function __init(array $options = array()) {
 		parent::__init($options);
 
 		static::applyFilter('save', function ($self, $params, $chain) {
+
+			if (empty($params['entity']->name) || $params['entity']->name == '') {
+				$params['entity']->name = 'anonymous';
+			}
 
 			if (empty($params['entity']->url) || !Validator::rule('url', $params['entity']->url)) {
 				unset($params['entity']->url);

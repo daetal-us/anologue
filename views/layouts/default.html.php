@@ -9,9 +9,9 @@
 <html>
 <head>
 	<?php echo $this->html->charset(); ?>
-
 	<title>anologue</title>
-	<?php echo $this->html->style(array('reset','anologue')); ?>
+	<meta name="viewport" content="user-scalable = yes">
+	<?php echo $this->html->style(array('anologue')); ?>
 	<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
 </head>
 <body>

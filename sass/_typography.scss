@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'Blackout';
+	src: url('../lib/blackout/blackout-midnight-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+$font-family-alpha: "Helvetica", "Arial", sans-serif;
+$font-family-beta:  "Blackout", "Helvetica", "Arial", sans-serif;
+$font-family-mono:  "Monaco", "Courier", "Courier New", monospace;

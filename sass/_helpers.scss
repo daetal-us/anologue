@@ -1,0 +1,41 @@
+/**
+ * Anologue: anonymous, linear dialogue
+ *
+ * @copyright     Copyright 2010, Union of RAD (http: //union-of-rad.org)
+ * @license       http: //opensource.org/licenses/bsd-license.php The BSD License
+ */
+ 
+ // Color Variables
+$color-alpha:         #2B1933;
+$color-alpha-dark:    #1B0923;
+$color-alpha-darker:  red;
+$color-alpha-light:   red;
+$color-alpha-lighter: red;
+
+$color-beta:          #00557F;
+$color-beta-dark:     #003d5d;
+$color-beta-darker:   blue;
+$color-beta-light:    #00658F;
+$color-beta-lighter:  blue;
+
+// Gradients
+@mixin gradient-alpha {
+	background: $color-alpha;
+	@include background-image(linear-gradient($color-alpha, $color-alpha-dark));
+}
+
+@mixin gradient-beta {
+	background: $color-beta;
+	@include background-image(linear-gradient($color-beta, $color-beta-dark));
+}
+
+// Combo of Alpha/Beta
+@mixin gradient-gamma {
+	background: $color-alpha;
+	@include background-image(linear-gradient($color-alpha, $color-beta));
+}
+
+// Shadows
+@mixin shadow-alpha {
+	@include box-shadow(0 0 .5em rgba(0,0,0,.5));
+}

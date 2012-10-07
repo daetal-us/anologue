@@ -194,21 +194,21 @@ class AnologueController extends \lithium\action\Controller {
 
 		$user = array();
 
+		$allowed = array_fill_keys($keys, null);
+
+		$user = array_filter(array_intersect_key($data, $allowed));
+
+		if (isset($user['name']) && $user['name'] == 'anonymous') {
+			unset($user['name']);
+		}
+
+		$serialized = serialize($user);
+		Session::write($id, $serialized, array('name' => 'php'));
+
 		if (isset($data['cookies']) && $data['cookies'] == 'false') {
 			Session::write($id, null);
 		} else {
-			$allowed = array_fill_keys($keys, null);
-
-			$user = array_filter(array_intersect_key($data, $allowed));
-
-			if (isset($user['name']) && $user['name'] == 'anonymous') {
-				unset($user['name']);
-			}
-
-			$serialized = serialize($user);
-
 			Session::write($id, $serialized);
-			Session::write($id, $serialized, array('name' => 'php'));
 		}
 
 		return $user;

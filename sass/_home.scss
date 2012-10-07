@@ -6,22 +6,15 @@
  */
  
 .home {
-	#anologue-logo {
-		margin: -2em -2.2em 0 1em;
-		display: block;
-		float: left;
-		padding: .7em 0 0;
-	}
 
 	.width-constraint {
 		display: block;
 		width: 1002px;
-		padding: 0 1em;
 		margin: 4em auto;
 	}
 
-	a {
-		border-bottom: 1px dashed #00557F;
+	a:hover {
+		border-bottom: 1px dashed $color-alpha;
 	}
 
 	p {
@@ -29,37 +22,45 @@
 		padding: .5em 0;
 	}
 
-	h1 {
-		font-size: 10em;
-		text-shadow: 0 0 18px #000;
-		color: #FFF;
-		text-transform: uppercase;
-		font-family: $alt-font-family;
-		margin: .5em 0;
-	}
-
 	h2 {
-		font-family: $alt-font-family;
+		font-family: $font-family-beta;
 		font-size: 3.8em;
 		font-weight: 400!important;
-		color: #2B1933;
+		color: $color-alpha;
 		margin: 1em 0 .25em;
 
 		&:nth-child(odd) {
-			color: #00557F;
+			color: $color-beta;
 			padding-top: 1em;
 		}
 	}
 
 	header {
 		@include user-select(none);
-		@include background-image(linear-gradient(#2B1933, #00557F));
+		@include gradient-gamma;
 		cursor: default;
 		color: #fff;
 		margin: 0;
-		padding-top: 1em;
+		padding-top: 5em;
 		min-width: 1002px;
 		position: relative;
+
+		#anologue-logo {
+			margin: -2em -2.2em 0 1em;
+			display: block;
+			float: left;
+			padding: .7em 0 0;
+		}
+
+		h1 {
+			font-size: 10em;
+			text-shadow: 0 0 .1em #000;
+			color: #FFF;
+			text-transform: uppercase;
+			font-family: $font-family-beta;
+			margin: .5em 0;
+			vertical-align: middle;
+		}
 
 		h2 {
 			margin: 0;
@@ -69,7 +70,7 @@
 			top: -3em;
 			left: .75em;
 			font-size: 2em;
-			font-family: $default-font-family;
+			font-family: $font-family-alpha;
 
 			&:after {
 				content: " ";
@@ -84,39 +85,155 @@
 		}
 	}
 
-	#anologue-new {
-		@include box-shadow(0 0 .5em rgba(0,0,0,.5));
-
-		margin-top: 1em;
+	#new {
+		@include shadow-alpha;
+		@include gradient-alpha;
+		border: none;
 		display: block;
-		font-size: 2em;
-		color: white;
-		background: #2B1933;
-		text-align: right;
+		margin-top: 1em;
 		padding: .65em 1em;
+		color: white;
+		font-size: 2em;
+		text-shadow: 0 0 .25em rgba(0,0,0,.35);
+		text-align: right;
 	}
 
 	.excellence {
 		@include user-select(none);
-		@include box-shadow(.1em .1em .5em rgba(0,0,0,.35));
-		@include rotate(4deg);
-
+		position: relative;
 		float: right;
-		margin: 2em 0 2em 4em;
+		margin: 0em 4em 2em 6em;
 		padding: .75em;
-		border: 1px solid #ccc;
+		text-align: center;
 
 		img {
-			margin: 0 0 .25em;
+			@include shadow-alpha;
+			@include rotate(2deg);
+			margin: .5em 0;
 		}
 
 		span {
+			font-family: $font-family-alpha;
 			display: block;
-			font-style: italic;
 			text-align: center;
 			color: #999;
 			line-height: 1.5em;
-			padding: .25em;
+			font-size: 1.5em;
+			white-space: nowrap;
+			width: 100%;
+
+			&:nth-child(2n) {
+				color: #666;
+			}
+
+			&:nth-child(3n) {
+				color: #333;
+			}
+
+			&:nth-child(5n) {
+				font-size: 2em;
+				color: #000;
+			}
+		}
+	}
+
+	footer {
+		color: #999;
+		font-size: .6em;
+		text-align: center;
+		padding: 2em;
+
+		a {
+			color: #666;
+			border-bottom: none;
+		}
+	}
+}
+
+#new-anologue {
+	@include gradient-gamma;
+	@include user-select(none);
+
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 1em;
+	text-align: center;
+
+	@include display-box;
+	@include box-orient(vertical);
+	@include box-align(center);
+	@include box-pack(center);
+
+	h1 {
+		font-size: 2em;
+		margin-bottom: .25em;
+	}
+
+	p {
+		color: rgba(255,255,255,.15);
+		font-size: 1em;
+	}
+
+	button {
+		text-align: center;
+		padding: 0 1em;
+		background: none;
+		border: none;
+		color: rgba(255,255,255,.45);
+		font-size: 2.5em;
+		font-family: $font-family-beta;
+		cursor: pointer;
+
+		&:hover {
+			color: white;
+		}
+	}
+
+	form {
+		@include shadow-alpha;
+		border-radius: .25em;
+		background: white;
+		color: #000;
+		position: relative;
+
+		input,
+		textarea {
+			background: transparent;
+			font-family: $font-family-alpha;
+			display: block;
+			padding: .5em .5em;
+			border: none;
+			height: 1.2em;
+			font-size: 1em;
+			width: 40em;
+			margin: 0 auto;
+
+			&:focus {
+				outline: none;
+			}
+
+			&.webhook {
+				@include border-radius(0 0 .25em .25em);
+				background: #ddd;
+			}
+		}
+
+		textarea {
+			border-top: 1px solid #ddd;
+			height: 2em;
+		}
+
+		button {
+			font-family: $font-family-alpha;
+			position: absolute;
+			top: -1.5em;
+			right: -1em;
+			font-size: 1.2em;
+
+			&:before {
+				content: ' ...';
+			}
 		}
 	}
 }

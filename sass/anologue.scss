@@ -5,14 +5,6 @@
  * @license       http: //opensource.org/licenses/bsd-license.php The BSD License
  */
 
- @font-face {
-	font-family: 'Anologue Titling';
-	src: url('../media/font/Blackout/blackout-midnight-webfont.ttf');
-/*	src: local('☺'), url('../media/font/Blackout/blackout-midnight-webfont.svg#webfontr2bsaV0s') format('svg');
-*/	font-weight: normal;
-	font-style: normal;
-}
-
 @import 'compass/reset';
 @import 'compass';
 @import "compass/css3/user-interface";
@@ -20,13 +12,8 @@
 $default-box-shadow-color: rgba(0,0,0,.35);
 $default-box-shadow-blur: .25em;
 
-$default-font-family: Helvetica, Arial, sans-serif;
-$alt-font-family: "Anologue Titling", Helvetica, Arial, sans-serif;
-
-/** Anologue Specific Styling */
+@import 'typography';
+@import 'helpers';
 @import 'general';
-
 @import 'home';
-@import 'new';
-
 @import 'view';

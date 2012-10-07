@@ -175,7 +175,7 @@ class Anologue extends \lithium\data\Model {
 		$viewers = array();
 		if (!empty($anologue['viewers'])) {
 			foreach ($anologue['viewers'] as $viewer => $value) {
-				if ($value->timestamp >= $cutoff) {
+				if ($value['timestamp'] >= $cutoff) {
 					$viewers[$viewer] = $anologue['viewers'][$viewer];
 				}
 			}

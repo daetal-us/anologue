@@ -11,8 +11,9 @@ html, body {
 }
 
 body {
-	font-family: $default-font-family;
-/*	-webkit-font-smoothing: subpixel-antialiased;*/
+	min-width: 1170px;
+	font-family: $font-family-alpha;
+	-webkit-font-smoothing: subpixel-antialiased;
 }
 
 body.constrained {
@@ -20,12 +21,12 @@ body.constrained {
 }
 
 a {
-	color: #00557F;
+	color: $color-beta;
 	text-decoration: none;
 }
 
 a:hover {
-	color: #00658F;
+	color: $color-beta-light;
 }
 
 html, body, input, password, textarea {
@@ -34,12 +35,48 @@ html, body, input, password, textarea {
 }
 
 p {
-	line-height: 140%;
+	line-height: 1.4em;
 	padding: .5em 0;
 }
 
 em {
 	font-style: italic;
+}
+
+code, pre {
+	background: #ededed;
+	border: 1px solid #ddd;
+	border-radius: .5em;
+	font-family: $font-family-mono;
+	padding: .1em .5em;
+}
+
+pre {
+	background: rgba(0,0,0,.1);
+	padding: 1em;
+	font-size: .8em;
+	line-height: 1.5em;
+
+	code {
+		background: transparent;
+		border: none;
+	}
+}
+
+ul, ol {
+	padding: 1em 1em 1em 2em;
+
+	 li {
+	 	list-style: disc;
+	 	line-height: 1.5em;
+	 }
+}
+
+ol {
+
+	li {
+		list-style: decimal;
+	}
 }
 
 .overlay {
