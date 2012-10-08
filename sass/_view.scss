@@ -82,37 +82,6 @@ article.anologue {
 				ul {
 					padding: 0;
 
-					li.test {
-						list-style: none;
-						position: relative;
-						padding: .5em .25em .5em 2.5em;
-						border-top: 1px solid rgba(0,0,0,.15);
-						color: white;
-						line-height: 1.25em;
-
-						a {
-							color: white;
-						}
-
-						&.away {
-							font-style: italic;
-							color: rgba(255,255,255,.25);
-
-							a {
-								color: rgba(255,255,255,.5);
-							}
-						}
-						
-
-						img {
-							position: absolute;
-							left: .25em;
-							top: .25em;
-							width: 1.75em;
-							border-radius: .25em;
-						}
-					}
-
 					li {
 						list-style: none;
 						float: left;
