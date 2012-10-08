@@ -24,22 +24,29 @@
 		<section id="viewers">
 			<ul>
 				<li class="viewer">
-					<a href="http://example.com">
-						<img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">
-						Sample User
-					</a>
+					<a href="http://example.com"><img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64"></a>
 				</li>
-				<li class="viewer"><span>Bob Dole aSd faSD faS f sdF asDFas dfASDF fds </span></li>
-				<li class="viewer anonymous"><span>anonymous</span></li>
-				<li class="viewer away"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
-				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
-				<li class="viewer"><span>Bob Dole</span></li>
-				<li class="viewer anonymous"><span>anonymous</span></li>
-				<li class="viewer away"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
-				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
-				<li class="viewer"><span>Bob Dole</span></li>
-				<li class="viewer anonymous"><span>anonymous</span></li>
-				<li class="viewer"><a href="http://example.com"><img class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32">Sample User</a></li>
+				<li class="viewer anonymous">
+					<a href="http://example.com"><img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64"></a>
+				</li>
+				<li class="viewer away">
+					<a href="http://example.com"><img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64"></a>
+				</li>
+				<li class="viewer anonymous away">
+					<a href="http://example.com"><img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64"></a>
+				</li>
+				<li class="viewer">
+					<img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64">
+				</li>
+				<li class="viewer anonymous">
+					<img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64">
+				</li>
+				<li class="viewer away">
+					<img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64">
+				</li>
+				<li class="viewer anonymous away">
+					<img title="Sample User" class="gravatar" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=64">
+				</li>
 			</ul>
 		</section>
 
@@ -475,35 +482,20 @@
 	<footer>
 		<menu type="toolbar">
 			<command class="viewers on" title="Toggle viewer list" type="checkbox">
-			<command class="user-settings" title="Toggle my user settings" type="checkbox" data-overlay="#user-settings">
+			<command class="user-settings on" title="Toggle my user settings" type="checkbox" data-overlay="#user-settings">
 			<textarea name="message" class="message"></textarea>
-			<?php
-				echo $this->html->link(
-					'this is anologue.',
-					'/',
-					array('class' => 'about')
-				);
-			?>
+			<?php echo $this->html->link('this is anologue.', '/'); ?>
 		</menu>
 		<aside class="overlay" id="user-settings">
 			<fieldset>
-				<label for="user[name]">Name</label>
-				<input type="text" name="user[name]" class="text user name" placeholder="your name" title="Your name" value="" />
-				<label for="user[email]">Email</label>
-				<input type="email" name="user[email]" class="text user email" placeholder="your email" title="Your e-mail" value="" />
-				<label for="user[url]">Website</label>
-				<input type="url" name="user[url]" class="text user url" placeholder="your website" title="Your website" value="" />
+				<input type="text" name="user[name]" class="text user name" placeholder="name..." title="Your name" value="" />
+				<input type="email" name="user[email]" class="text user email" placeholder="e-mail..." title="Your e-mail" value="" />
+				<input type="url" name="user[url]" class="text user url" placeholder="http://" title="Your website" value="" />
 			</fieldset>
 			<menu type="toolbar">
-				<span class="command icon sound" title="Toggle sound effects">
-					<command type="checkbox">
-				</span>
-				<span class="command icon scroll" title="Toggle auto-scrolling window when a new message is posted">
-					<command type="checkbox">
-				</span>
-				<span class="command icon cookie disabled" title="Toggle saving your user data">
-					<command type="checkbox">
-				</span>
+				<command type="checkbox" class="command icon sound" title="Toggle sound effects">
+				<command type="checkbox" class="command icon scroll" title="Toggle auto-scrolling window when a new message is posted">
+				<command type="checkbox" class="command icon cookie" title="Toggle saving your user data">
 			</menu>
 		</aside>
 	</footer>
@@ -522,7 +514,7 @@
 )); ?>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		anologue.start({
+		Anologue.start({
 			db: {},
 			id: '0',
 			base: '<?php echo $this->_request->env('base') ?>',

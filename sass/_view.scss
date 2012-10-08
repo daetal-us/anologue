@@ -69,20 +69,20 @@ article.anologue {
 		@include background-image(linear-gradient(#16041E, #003f5f));
 
 		section {
-			font-size: .8em; 
+			font-size: 1em; 
 			overflow: scroll;
 
 			&#viewers {
-				background: rgba(255,255,255,.05);
+				background: rgba(0,0,0,.25);
 				color: rgba(255,255,255,.15);
-				width: 14em;
-				padding: .25em;
+				border-right: 1px solid rgba(0,0,0,.25);
+				width: 13.5em;
+				padding: .25em 0 0 .25em;
 
 				ul {
 					padding: 0;
-					font-size: .85em;
 
-					li {
+					li.test {
 						list-style: none;
 						position: relative;
 						padding: .5em .25em .5em 2.5em;
@@ -112,10 +112,41 @@ article.anologue {
 							border-radius: .25em;
 						}
 					}
+
+					li {
+						list-style: none;
+						float: left;
+						width: 2em;
+						height: 2em;
+						margin: 0 .25em .25em 0;
+
+						&.away {
+							opacity: .25;
+						}
+
+						img {
+							width: 2em;
+							height: 2em;
+							border-radius: .25em;
+							background: rgba(255,255,255,.05);
+							@include shadow-alpha;
+						}
+
+						a {
+							display: block;
+							margin: 0;
+							padding: 0;
+						}
+
+						span {
+							display: none;
+						}
+					}
 				}
 			}
 
 			&.messages {
+				font-size: .85em;
 				@include box-flex(1);
 
 				#anologue {
@@ -167,7 +198,7 @@ article.anologue {
 								color: rgba(255,255,255,.15);
 								font-size: .8em;
 								position: absolute;
-								top: 2.5em;
+								top: 2.2em;
 								left: 1em;
 								width: 12em;
 								text-align: right;
@@ -188,7 +219,9 @@ article.anologue {
 							border-radius: 1em;
 							padding: .5em 1.5em;
 							position: relative;
-							border-top: 1px solid whiteSmoke;
+							border-top: 1px solid rgba(0,0,0,.25);
+							border-bottom: 1px solid rgba(0,0,0,.75);
+							color: #454545;
 
 							&:before {
 								@include rotate(-5deg);
@@ -197,7 +230,7 @@ article.anologue {
 								border-top: 1em solid transparent;
 								border-right: 1em solid white;
 								position: absolute;
-								left: -.85em;
+								left: -.7em;
 								top: .75em;
 							}
 
@@ -238,6 +271,7 @@ article.anologue {
 			@include display-box;
 			@include box-orient(horizontal);
 			padding: 2px;
+			vertical-align: top;
 
 			command {
 				display: block;
@@ -260,7 +294,7 @@ article.anologue {
 				}
 
 				&.on {
-					opacity: 1;
+					opacity: .5;
 				}
 
 				&:hover {
@@ -281,6 +315,7 @@ article.anologue {
 				box-sizing: border-box;
 				font-family: $font-family-alpha;
 				font-size: 1em;
+				line-height: 1em;
 				height: 2em;
 				padding: .5em;
 
@@ -301,21 +336,24 @@ article.anologue {
 
 		aside {
 			background: rgba(0,0,0,.9);
+			border-radius: 0 .25em 0 0;
 			position: absolute;
 			bottom: 2em;
 			margin-bottom: .25em;
 			z-index: 50;
-			padding: 2px;
+			padding: .25em;
 
 			fieldset {
 				@include display-box;
 				@include box-orient(vertical);
+				font-size: .9em;
 
 				input {
 					display: block;
 					font-family: $font-family-alpha;
+					font-size: 1em;
 					width: 16em;
-					margin: 0 0 2px;
+					margin: 0 0 .25em;
 					border: none;
 					@include box-shadow(inset 0 0 .25em rgba(0,0,0,.35));
 					padding: .25em;
@@ -326,19 +364,24 @@ article.anologue {
 				}
 			}
 
-			command.sound {
-				background-image: url(../media/speaker.svg);
-				background-size: 1.25em 1.25em;
-			}
+			menu {
+				@include box-pack(center);
 
-			command.scroll {
-				background-image: url(../media/down.svg);
-				background-size: 1em 1em;
-			}
+				command.sound {
+					background-image: url(../media/speaker.svg);
+					background-size: 1.25em 1.25em;
+				}
 
-			command.cookie {
-				background-image: url(../media/elephant.svg);
-				background-size: 1.5em 1.5em;
+				command.scroll {
+					background-image: url(../media/down.svg);
+					background-size: 1em 1em;
+				}
+
+				command.cookie {
+					background-image: url(../media/elephant.svg);
+					background-size: 1.5em 1.5em;
+					background-position: center .2em;
+				}
 			}
 		}
 	}

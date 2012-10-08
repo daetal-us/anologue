@@ -26,8 +26,8 @@ $base = $this->_request->env('base');
 		<h2>a <em>slightly</em> different approach</h2>
 
 		<aside class="excellence">
-			<span>no accounts.</span>
-			<span>no installations.</span>
+			<span>no accounts</span>
+			<span>no installations</span>
 			<span>no way?!</span>
 			<?php echo $this->html->image('/media/excellent.jpg', array(
 				'alt' => 'sixty-nine, dudes!', 'id' => 'anologue-excellent', 'width' => 250

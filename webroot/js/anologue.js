@@ -199,6 +199,7 @@ var Anologue = {
 
 	viewer: function(viewer) {
 		var content = $('<div/>'),
+			name = $('<div/>').text(viewer.name).html(),
 		    now = new Date(),
 		    cutoff = now.getTime() - 60000,
 		    date = new Date(viewer.timestamp * 1000),
@@ -215,21 +216,15 @@ var Anologue = {
 			source = 'http://gravatar.com/avatar/'+ $('<div/>').text(viewer.email).html() +'?s=64&d='+this._config.icon;
 		}
 
-		img.attr('src', source)
+		img.attr({src: source, title: name})
 			.addClass('gravatar')
 			.appendTo(content);
 
-		if (viewer.name == 'anonymous') {
+		if (name == 'anonymous') {
 			classes.push('anonymous');
 		}
 
-		content.append($('<div/>').text(viewer.name).html());
-
-		if (viewer.url) {
-			content = $('<a>')
-				.attr('href', $('<div/>').text(viewer.url).html())
-				.html(content.html());
-		}
+		content.append('<span>' + name + '</span>');
 
 		return '<li class="' + classes.join(' ') + '" data-name="' + $('<div/>').text(viewer.name).html() + '">' 
 		       + content.html() 

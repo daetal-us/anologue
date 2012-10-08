@@ -20,6 +20,7 @@
 	p {
 		font-size: 1.4em;
 		padding: .5em 0;
+		text-align: justify;
 	}
 
 	h2 {
@@ -110,29 +111,45 @@
 			@include shadow-alpha;
 			@include rotate(2deg);
 			margin: .5em 0;
+			z-index: 40;
+			position: relative;
 		}
 
 		span {
-			font-family: $font-family-alpha;
+			position: relative;
+			font-family: $font-family-gamma;
 			display: block;
 			text-align: center;
-			color: #999;
-			line-height: 1.5em;
-			font-size: 1.5em;
+			color: #888;
+			line-height: 1em;
+			font-size: 1.75em;
 			white-space: nowrap;
 			width: 100%;
 
+			&:nth-child(1n) {
+				@include rotate(-1deg);
+				font-size: 1.25em;
+			}
+
 			&:nth-child(2n) {
+				font-size: 1.5em;
+				z-index: 50;
 				color: #666;
+				@include rotate(1deg);
 			}
 
 			&:nth-child(3n) {
-				color: #333;
+				font-size: 2em;
+				color: #444;
 			}
 
 			&:nth-child(5n) {
-				font-size: 2em;
-				color: #000;
+				margin-top: -.5em;
+				font-family: $font-family-beta;
+				color: #fff;
+				z-index: 50;
+				font-size: 3em;
+				text-shadow: 0 0 .5em #000;
 			}
 		}
 	}

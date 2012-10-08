@@ -79,7 +79,7 @@
 	<footer>
 		<menu type="toolbar">
 			<command class="viewers on" title="Toggle viewer list" type="checkbox">
-			<command class="user-settings" title="Toggle my user settings" type="checkbox" data-overlay="#user-settings">
+			<command class="user-settings on" title="Toggle my user settings" type="checkbox" data-overlay="#user-settings">
 			<textarea name="message" class="message"></textarea>
 			<?php echo $this->html->link('this is anologue.', '/'); ?>
 		</menu>
