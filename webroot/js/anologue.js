@@ -365,9 +365,11 @@ var Anologue = {
 	markdown: function() {
 		$('.markdown').each(function() {
 			if (!$(this).hasClass('marked')) {
-				var showdown = new Showdown.converter();
-				var text = showdown.makeHtml($(this).children('pre').html());
-				$(this).html(text).addClass('marked');
+				var showdown = new Showdown.converter(),
+				    unmarked = $(this).children('pre').html(),
+				    marked = showdown.makeHtml(unmarked);
+
+				$(this).html(marked).addClass('marked');
 				$(this).find("a").oembed(null, {
 					embedMethod: 'auto',
 					maxHeight: 425

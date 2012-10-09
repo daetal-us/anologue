@@ -633,7 +633,7 @@ var writeImageTag = function(wholeMatch,m1,m2,m3,m4,m5,m6,m7) {
 	}
 
 	alt_text = alt_text.replace(/"/g,"&quot;");
-	url = escapeCharacters(url,"*_");
+	url = escapeCharacters(url,"*_").replace(/["']/g, "");
 	var result = "<img src=\"" + url + "\" alt=\"" + alt_text + "\"";
 
 	// attacklab: Markdown.pl adds empty title attributes to images.
