@@ -57,7 +57,7 @@
 								<?php
 									$image = $avatar;
 									if (!empty($message['email'])) {
-										$image = 'http://gravatar.com/avatar/' . $message['email'] . '?s=64&d=<' . urlencode($avatar);
+										$image = 'http://gravatar.com/avatar/' . $message['email'] . '?s=64&d=404';
 									}
 								?>
 								<img class="gravatar" src="<?php echo $image; ?>">

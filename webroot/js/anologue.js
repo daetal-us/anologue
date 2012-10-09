@@ -58,6 +58,12 @@ var Anologue = {
 			}
 			this._config = $.extend(this._config, config);
 		}
+
+		var self = this;
+		$('img.gravatar').error(function () {
+			$(this).unbind("error").attr("src", self._config.icon);
+		});
+
 		return this;
 	},
 
@@ -213,7 +219,7 @@ var Anologue = {
 		    source = this._config.icon;
 
 		if (viewer.email) {
-			source = 'http://gravatar.com/avatar/'+ $('<div/>').text(viewer.email).html() +'?s=64&d='+this._config.icon;
+			source = 'http://gravatar.com/avatar/'+ $('<div/>').text(viewer.email).html() +'?s=64&d=404';
 		}
 
 		img.attr({src: source, title: name})
