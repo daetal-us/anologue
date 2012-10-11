@@ -369,11 +369,11 @@ var Anologue = {
 	},
 
 	markdown: function() {
+		var markdown = new Markdown.getSanitizingConverter().makeHtml;
 		$('.markdown').each(function() {
 			if (!$(this).hasClass('marked')) {
-				var showdown = new Showdown.converter(),
-				    unmarked = $(this).children('pre').html(),
-				    marked = showdown.makeHtml(unmarked);
+				var unmarked = $(this).children('pre').html(),
+				    marked = markdown(unmarked);
 
 				$(this).html(marked).addClass('marked');
 				$(this).find("a").oembed(null, {
