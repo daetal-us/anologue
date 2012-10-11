@@ -72,7 +72,7 @@ var Anologue = {
 		this.poll();
 
 		var self = this;
-		$('img.gravatar').error(function() {
+		$('img.gravatar').one('error', function() {
 			self.defaultGravatar(this);
 		});
 
@@ -80,7 +80,7 @@ var Anologue = {
 	},
 
 	defaultGravatar: function(img) {
-		$(img).unbind("error").attr("src", this._config.icon);
+		$(img).attr("src", this._config.icon);
 	},
 
 	toolbar: {
@@ -206,7 +206,7 @@ var Anologue = {
 			$('#viewers ul')
 				.html(sorted)
 				.find('img.gravatar')
-					.error(function() {
+					.one('error', function() {
 						$(this).attr({src: self._config.icon});
 					});
 
@@ -263,7 +263,7 @@ var Anologue = {
 			.text('');
 		template.find('.gravatar')
 			.attr('src', 'http://gravatar.com/avatar/'+$('<div/>').text(message.email).html()+'?s=64&d=404')
-			.error(function() {
+			.one('error', function() {
 				self.defaultGravatar(this);
 			});
 		template.find('.author')
