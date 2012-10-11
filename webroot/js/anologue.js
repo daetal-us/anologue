@@ -58,12 +58,6 @@ var Anologue = {
 			}
 			this._config = $.extend(this._config, config);
 		}
-
-		var self = this;
-		$('img.gravatar').error(function () {
-			$(this).unbind("error").attr("src", self._config.icon);
-		});
-
 		return this;
 	},
 
@@ -76,7 +70,17 @@ var Anologue = {
 		this.markdown();
 		this.ping.init();
 		this.poll();
+
+		var self = this;
+		$('img.gravatar').error(function() {
+			self.defaultGravatar(this);
+		});
+
 		return this;
+	},
+
+	defaultGravatar: function(img) {
+		$(img).unbind("error").attr("src", this._config.icon);
 	},
 
 	toolbar: {
@@ -174,7 +178,9 @@ var Anologue = {
 	},
 
 	update: function() {
-		var url = this._config.base + '/' + this._config.id + '.json?_=' + (new Date().getTime());
+		var self = this,
+		    url = this._config.base + '/' + this._config.id + '.json?_=' + (new Date().getTime());
+
 		$.getJSON(url, function(response) {
 			if (response.status != "success") {
 				return Anologue.log(response.status);
@@ -197,14 +203,20 @@ var Anologue = {
 				var b = $(b).attr('data-name');
 				return (a < b) ? -1 : (a > b) ? 1 : 0;
 			});
-			$('#viewers ul').html(sorted);
+			$('#viewers ul')
+				.html(sorted)
+				.find('img.gravatar')
+					.error(function() {
+						$(this).attr({src: self._config.icon});
+					});
 
 			Anologue.markdown();
 		});
 	},
 
 	viewer: function(viewer) {
-		var content = $('<div/>'),
+		var self = this,
+		    content = $('<div/>'),
 			name = $('<div/>').text(viewer.name).html(),
 		    now = new Date(),
 		    cutoff = now.getTime() - 60000,
@@ -215,30 +227,29 @@ var Anologue = {
 			classes.push('away');
 		}
 
-		var img = $('<img/>'),
+		var avatar = $('<img/>'),
 		    source = this._config.icon;
 
 		if (viewer.email) {
 			source = 'http://gravatar.com/avatar/'+ $('<div/>').text(viewer.email).html() +'?s=64&d=404';
 		}
 
-		img.attr({src: source, title: name})
-			.addClass('gravatar')
-			.appendTo(content);
+		avatar
+			.attr({src: source, title: name})
+			.addClass('gravatar');
 
 		if (name == 'anonymous') {
 			classes.push('anonymous');
 		}
 
-		content.append('<span>' + name + '</span>');
-
-		return '<li class="' + classes.join(' ') + '" data-name="' + $('<div/>').text(viewer.name).html() + '">' 
-		       + content.html() 
-		       + '</li>';
+		return $('<li class="' + classes.join(' ') + '" data-name="' + $('<div/>').text(viewer.name).html() + '">')
+		       .append(avatar)
+		       .append('<span>' + name + '</span>');
 	},
 
 	render: function(message) {
-		var id = 'message-' + $.md5(message.timestamp + message.name),
+		var self = this,
+		    id = 'message-' + $.md5(message.timestamp + message.name),
 		    date = new Date(message.timestamp * 1000),
 		    template = $('.message.template').clone();
 
@@ -248,9 +259,13 @@ var Anologue = {
 		template.find('time')
 			.attr('datetime', this.time.iso(date));
 		template.find('time span')
-			.attr("data-timestamp", message.timestamp);
+			.attr("data-timestamp", message.timestamp)
+			.text('');
 		template.find('.gravatar')
-			.attr('src', 'http://gravatar.com/avatar/'+$('<div/>').text(message.email).html()+'?s=64&d='+this._config.icon);
+			.attr('src', 'http://gravatar.com/avatar/'+$('<div/>').text(message.email).html()+'?s=64&d=404')
+			.error(function() {
+				self.defaultGravatar(this);
+			});
 		template.find('.author')
 			.html($('<div/>').text(message.name).html());
 		template.find('.text')
@@ -262,6 +277,8 @@ var Anologue = {
 			.hide()
 			.appendTo('#anologue')
 			.fadeIn();
+
+		this.time.timer();
 
 		var docTitle = message.name + ' posted a new message';
 

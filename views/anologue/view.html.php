@@ -105,7 +105,8 @@
 <?php echo $this->html->script(array(
 	'http://code.jquery.com/jquery-1.8.2.min.js',
 	'/lib/md5.jquery',
-	'/lib/showdown',
+	'/lib/pagedown/Markdown.Converter',
+	'/lib/pagedown/Markdown.Sanitizer',
 	'/lib/pretty',
 	'/lib/jquery.oembed',
 	'anologue',
