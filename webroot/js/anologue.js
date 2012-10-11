@@ -300,14 +300,11 @@ var Anologue = {
 		var data = $.extend(this.user(), {text: message}),
 		    url = this._config.base + "/say/" + this._config.id;
 
-		$('footer .message').attr('disabled', 'disabled');
+		$('footer .message').val('');
 		$.post(url, data, function(response) {
-			$('footer .message').attr('disabled', false);
 			if (response.status != 'success') {
 				// this might occur if someone sends an update at the same time...
 				return Anologue.log(response);
-			} else {
-				$('footer .message').val('');
 			}
 		}, "json");
 	},
