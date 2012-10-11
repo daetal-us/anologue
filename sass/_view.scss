@@ -192,6 +192,10 @@ article.anologue {
 							border-bottom: 1px solid rgba(0,0,0,.75);
 							color: #454545;
 
+							.oembedall-container {
+								overflow: auto;
+							}
+
 							&:before {
 								@include rotate(-5deg);
 								content: ' ';

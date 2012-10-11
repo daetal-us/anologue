@@ -99,7 +99,6 @@ html, body {
 }
 
 body {
-  min-width: 1170px;
   font-family: "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -689,6 +688,9 @@ article.anologue section.body section.messages #anologue .message .text {
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid rgba(0, 0, 0, 0.75);
   color: #454545;
+}
+article.anologue section.body section.messages #anologue .message .text .oembedall-container {
+  overflow: auto;
 }
 article.anologue section.body section.messages #anologue .message .text:before {
   -webkit-transform: rotate(-5deg);
